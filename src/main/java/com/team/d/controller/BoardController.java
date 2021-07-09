@@ -14,16 +14,21 @@ public class BoardController {
 	public BoardController(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
-	@GetMapping(value="/")
-	public String index() {
-		return "index";
-	}
-	
+
 	@GetMapping(value="boardPage.do")
 	public String BoardPage() {
 		return "board/viewBoard";
 	}
 	
+	@GetMapping(value="insertBoardPage.do")
+	public String insertBoardPage() {
+		return "board/insertBoard";
+	}
+	
+	@GetMapping(value="insertBoard.do")
+	public String insertBoard() {
+		
+		return "";
+	}
 	
 }

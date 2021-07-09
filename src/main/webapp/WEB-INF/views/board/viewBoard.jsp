@@ -12,11 +12,23 @@
 	
 	<script>
 		$(function(){
-			fn_insert_board();	// 새 글 작성 버튼 클릭시 로그인창 켜지거나 페이지 이동하는 함수
 			fn_showLogin();	// 로그인 버튼 클릭시 로그인창이 펴지는 함수
-			getDate();	// 로그인창에서 x 클릭시 로그인창 닫힘
-			fn_closeLogin();
+			getDate();		// 시간 보여주는 함수
+			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
+			fn_insertBoard();	// 새 글 작성 버튼 클릭시 로그인창 켜지거나 페이지 이동하는 함수
 		})	// onload 함수의 끝
+		
+		function fn_insertBoard(){
+			$('#insert_board_btn').click(function(){
+				if( ${loginUser == null} ){	// 로그인된 상태가 아니라면
+					alert('로그인이 필요합니다.');
+					$('.form').toggleClass('hide');
+				} else{	// 로그인된 상태라면
+					location.href= "insertBoardPage.do";
+				}				
+				
+			});	// onclick
+		}	// fn_insertBoard
 		
 		function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
 			$('#closeLogin').click(function(){
@@ -30,13 +42,6 @@
 			});	// onclick
 		}	// fn_login_btn
 		
-		function fn_insert_board(){
-			$('#insert_board_btn').on('click', function(){
-				if(${loginUser == null}){
-					
-				}	// loginUser eq null
-			});	// onclick
-		}	// fn_insert_board 
 
 	    function getDate() { 
 	        date = setInterval(function () { 
@@ -61,18 +66,24 @@
 		<div class="btn_box">
 			<span>Seoul</span>
 			<span id="date"></span>
-	 		<input type="button" class="showLogin" value="로그인">
+			<c:if test="${loginUser eq null}">
+	 			<input type="button" class="showLogin" value="로그인">
+	 		</c:if>
+	 		<c:if test="${loginUser ne null}">
+	 			<input type="button" class="showLogin" value="로그아웃">
+			</c:if>
 		</div>
 		<div class="myMenu">
-			<form action="insertBoard.do" method="post">
+			<form action="login.do" method="post">
   	   	 	<div class="form hide">
+  	   	 		<input type="hidden" name="page" value="board/viewBoard">
   	   	 		<h2 style="text-align:center">로그인</h2>
 				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
    				 <div class="form2">
      				<div class="form3">
-     					<label for="user">아이디</label><input type="text" id="user">
+     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
       					<div class="clear"></div>
-      					<label for="user">비밀번호</label><input type="password" id="user">
+      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
      				</div>	<!-- form3 -->
      				<input type="submit" id="login_btn" value="로그인">
      				<div class="clear"></div>
@@ -101,6 +112,6 @@
 			
 		</tbody>
 	</table>
-	<input type="button" id="inset_board_btn" value="새 글 작성">
+	<input type="button" id="insert_board_btn" value="새 글 작성">
 </body>
 </html>

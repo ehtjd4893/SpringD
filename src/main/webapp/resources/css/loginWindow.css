@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-.body{
-	width:100%;
-}
 .myMenu{
 	box-sizing: border-box;
 	display: flex;
@@ -17,12 +14,12 @@
 
 .btn_box{
 	width:100%;
+	text-align: right;
 	border: 1px solid black;
-	height: 60px;
 	z-index: 1;
-	position: absolute;
-	top: 5%;
-	right: 20%;
+ 	position: absolute;
+	top: 0%;
+	right: 0%; 
 }
 
 .showLogin:hover{

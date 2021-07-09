@@ -15,6 +15,9 @@ public class TestController {
 		this.sqlSession = sqlSession;
 	}
 	
-	
+	@GetMapping(value= "/")
+	public String index() {
+		return "index";
+	}
 	
 }

@@ -15,12 +15,7 @@ public class RoomController {
 		this.sqlSession = sqlSession;
 	}
 	
-	/*
-	@GetMapping(value="/")
-	public String index() {
-		return "index";
-	}
-	*/
+
 	
 	@GetMapping(value="roomPage.do")
 	public String RoomPage() {

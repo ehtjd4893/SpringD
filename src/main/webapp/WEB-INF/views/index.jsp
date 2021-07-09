@@ -11,14 +11,18 @@
 <body>
 	<h1> TEST </h1>
  
+	<c:if test="${loginUser eq null}">
+		<a href="loginPage.do">로그인</a>
+	</c:if>
+
+
+	<a href="boardPage.do">게시판</a>		
 	
-	<a href="boardPage.do">게시판</a>
-	
-	
+
 	
 	<a href="roomPage.do">방 페이지 이동</a>
 	
-	
+	<a href="joinPage.do">회원가입</a>
 	
 </body>
 </html>

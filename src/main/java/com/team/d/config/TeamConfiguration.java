@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.team.d.command.member.LoginCommand;
+import com.team.d.command.member.IdCheckCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -41,6 +43,30 @@ public class TeamConfiguration {
 	public SqlSessionTemplate sqlSession() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
 	}    
+	
+	@Bean
+	public LoginCommand loginCommand() {
+		return new LoginCommand();
+	}
+	@Bean
+	public IdCheckCommand idCheckCommand() {
+		return new IdCheckCommand();
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

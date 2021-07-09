@@ -14,5 +14,8 @@
 	
 	<a href="boardPage.do">게시판</a>
 	
+	<a href="loginPage.do">로그인</a>
+	<a href="joinPage.do">회원가입</a>
+	
 </body>
 </html>

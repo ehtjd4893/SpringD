@@ -15,7 +15,7 @@ public class BoardController {
 		this.sqlSession = sqlSession;
 	}
 	
-	@GetMapping(value="/")
+	@GetMapping(value= {"/", "index.do"})
 	public String index() {
 		return "index";
 	}

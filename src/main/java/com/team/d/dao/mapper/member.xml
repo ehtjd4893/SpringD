@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.team.d.dao.MemberDAO">
+	
+<!-- 	<resultMap type="member" id="member">
+		<result property="mName" column="MNAME"/>
+		<result property="mId" column="MID"/>
+		<result property="mPw" column="MPW"/>
+		<result property="mEmail" column="MEMAIL"/>
+		<result property="mPhone" column="MPHONE"/>
+		<result property="mGrade" column="MGRADE"/>
+		<result property="mRegDate" column="MREGDATE"/>
+	</resultMap> -->
+	
+	<!-- 로그인(login) -->
+	<select id="login" resultType="com.team.d.dto.MemberDTO">
+		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
+		  FROM MEMBER
+		 WHERE MID = #{mId}
+		   AND MPW = #{mPw}
+	</select>
+	
+	<!-- 아이디 체크(idCheck) -->
+	<select id="idCheck" resultType="int">
+		SELECT COUNT(MNO)
+		  FROM MEMBER
+		 WHERE MID = #{mId}
+	</select>
+	
+	<!-- 회원가입(join) -->
+	<insert id="join">
+		INSERT INTO MEMBER
+		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, #{mGrade}, SYSDATE)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+</mapper>
+

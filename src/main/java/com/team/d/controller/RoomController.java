@@ -32,5 +32,10 @@ public class RoomController {
 		return "room/infoRoom";
 	}
 	
+	@GetMapping(value="priceRoom.do")
+	public String priceRoom() {
+		return "room/priceRoom";
+	}
+	
 	
 }

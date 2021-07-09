@@ -50,6 +50,14 @@
             transform: translateY(-200px);  /* 위로 200px 올라간다. */
         }
 	</style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#img1').click(function(){
+				location.href = 'priceRoom.do';
+			});
+		});
+	</script>
 </head>
 <body>
 
@@ -58,7 +66,7 @@
     <div class="container">
         <div class="product-list">
             <div class="product">
-                <img alt="과일1 이미지" src="images/fruit1.jpg">
+                <img id="img1" alt="과일1 이미지" src="resources/fruit1.jpg">
                 <div class="product-description">
                     <h1>과일1</h1>
                     <p>맛있는 과일</p>
@@ -66,7 +74,7 @@
                 </div>
             </div>
             <div class="product">
-                <img alt="과일2 이미지" src="images/fruit2.jpg">
+                <img alt="과일2 이미지" src="resources/fruit2.jpg">
                 <div class="product-description">
                     <h1>과일2</h1>
                     <p>달콤한 과일</p>
@@ -74,7 +82,7 @@
                 </div>
             </div>
             <div class="product">
-                <img alt="과일3 이미지" src="images/fruit3.jpg">
+                <img alt="과일3 이미지" src="resources/fruit3.jpg">
                 <div class="product-description">
                     <h1>과일3</h1>
                     <p>상큼한 과일</p>

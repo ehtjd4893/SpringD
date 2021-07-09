@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+.body{
+	width:100%;
+}
+.myMenu{
+	box-sizing: border-box;
+	display: flex;
+	justify-content: flex-end;
+	position: absolute;
+	top: 20%;
+	right: 40%;
+	width: 200px;
+	height: 30px;
+	z-index: 1;
+}
+
+.btn_box{
+	width:100%;
+	border: 1px solid black;
+	height: 60px;
+	z-index: 1;
+	position: absolute;
+	top: 5%;
+	right: 20%;
+}
+
+.showLogin:hover{
+	cursor: pointer;	
+}
+	
+.hide{
+	display:none;
+}
+	
+.form {
+	background-color: #4e3637;
+	width: 498px;
+	height: 300px;
+	border-radius: 25px;
+	border: 5px double #999;
+	margin: 30px auto;
+	color: white;
+}
+#closeLogin{
+	position: absolute;
+	top: 60px;
+	right: 15%;
+	color: white;
+	cursor: pointer;
+	font-size: 
+}
+	
+.form2 {
+	width: 380px;
+	min-width: 320px;
+	height: 200px;
+	margin: 60px auto;
+	margin-left:20px;
+}
+	
+.form3 {
+	float: left;
+	/*   background:#f00;  */
+}
+	
+.form3 label {
+	width: 100px;
+	height: 20px;
+	/*  display: block; */
+	float: left;
+}
+	
+.form4 {
+	padding: 0px 0px 0px 70px;
+}
+	
+#wrap {
+	width: 600px;
+	height: 500px;
+	margin: 0 auto;
+}
+	
+.clear {
+	clear: both;
+}
+	
+input[type="submit"] {
+	float: left;
+	/*  display:block; */
+	height: 50px;
+	background: #c69b80;
+	border-radius: 5px;
+	border: none;
+	font-family: "맑은 고딕";
+}
+input[type="button"] {
+	height: 30px;
+	background: white;
+	border-radius: 5px;
+	/*  width: 140px; */
+	font-family:"맑은 고딕";
+	margin-top:10px;
+	margin-right:20px;
+}
+

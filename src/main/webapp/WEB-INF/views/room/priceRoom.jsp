@@ -17,7 +17,11 @@
 
 	<h1>룸 가격 페이지</h1>
 	
+	인원<br>
+	<input type="number" id="people" name="people">명<br><br>
 	
+	
+	 
 	
 	
 </body>

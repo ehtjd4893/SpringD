@@ -21,19 +21,16 @@ public class MemberController {
 	// field
 	private SqlSession sqlSession;
 	private LoginCommand loginCommand;
-	//private JoinCommand joinCommand;
 	private IdCheckCommand idCheckCommand;
 
 	// constructor
 	@Autowired
 	public MemberController(SqlSession sqlSession,
 							LoginCommand loginCommand,
-							//JoinCommand joinCommand,
 							IdCheckCommand idCheckCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.loginCommand = loginCommand;
-		//this.joinCommand = joinCommand;
 		this.idCheckCommand = idCheckCommand;
 		
 	}
@@ -61,13 +58,8 @@ public class MemberController {
 		model.addAttribute("request", request);
 		return idCheckCommand.execute(sqlSession, model);
 	}
-/*	// 회원가입(join)
-	@PostMapping(value="join.do")
-	public void join(HttpServletRequest request, HttpServletResponse response, Model model) {
-		model.addAttribute("request", request);
-		model.addAttribute("response", response);
-		joinCommand.execute(sqlSession, model);
-	}*/
+
+	
 	
 	
 	

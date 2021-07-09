@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <title>예약 페이지</title>
 <style type="text/css">
     a { color:#000000;text-decoration:none; }
@@ -67,7 +68,7 @@
         // @param 첫번째 개행
         let row = tbCalendar.insertRow();
 
-
+  
 
         // @param 날짜가 표기될 열의 증가값
         let dom = 1;
@@ -196,10 +197,10 @@
         column.style.backgroundColor = "#FF9999";
 
 
-
         // @param 선택일 클래스명 변경
-
         column.classList.add("choiceDay");
+        $('#start_btn').text($('.choiceDay')); //여기서 값 바꾸기 $('.choiceDay')
+        
     }
 
     /**
@@ -219,10 +220,10 @@
     
     
     
-    //사용자가 체크인 날짜를 눌렀을때
+    //사용자가 체크인 날짜를 눌렀을때 , id=start_btn 에 텍스트 추가 (ㅐㅐ월 ㅐㅐ일)
     function fn_checkIn(){
     	$('.choiceDay').click(function(){
-    		$('#start_btn').text('월 일');
+    		
     	});      		
     	
     }

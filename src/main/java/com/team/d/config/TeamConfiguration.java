@@ -11,7 +11,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-public class TeamConfiguration {
+public class TeamConfiguration { 
 
 	/* 이 아래부터는 커넥션풀과 관련된 bean 생성*/
 	@Bean

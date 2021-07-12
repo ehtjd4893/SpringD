@@ -5,16 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.team.d.dao.MemberDAO">
 	
-<!-- 	<resultMap type="member" id="member">
-		<result property="mName" column="MNAME"/>
-		<result property="mId" column="MID"/>
-		<result property="mPw" column="MPW"/>
-		<result property="mEmail" column="MEMAIL"/>
-		<result property="mPhone" column="MPHONE"/>
-		<result property="mGrade" column="MGRADE"/>
-		<result property="mRegDate" column="MREGDATE"/>
-	</resultMap> -->
-	
 	<!-- 로그인(login) -->
 	<select id="login" resultType="com.team.d.dto.MemberDTO">
 		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
@@ -30,13 +20,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MID = #{mId}
 	</select>
 	
+	<!-- 이메일 체크(emailCheck) -->
+	<select id="emailCheck" resultType="int">
+		SELECT COUNT(MEMAIL)
+		  FROM MEMBER
+		 WHERE MEMAIL = #{mEmail}
+	</select>
+	
 	<!-- 회원가입(join) -->
-	<insert id="join">
+	<insert id="join" parameterType="Map">
 		INSERT INTO MEMBER
-		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, #{mGrade}, SYSDATE)
+		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, 'bronze', SYSDATE)
 	</insert>
 	
-	
+
 	
 	
 	

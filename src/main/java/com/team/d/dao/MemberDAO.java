@@ -4,8 +4,9 @@ import com.team.d.dto.MemberDTO;
 
 public interface MemberDAO {
 
-	public MemberDTO login(MemberDTO memberDTO);
+	public MemberDTO login(MemberDTO memberDTO); // 로그인
 	public int idCheck(String mId); // 아이디 체크
+	public int emailCheck(String mEmail); // 이메일 체크
 	public int join(MemberDTO memberDTO); // 회원가입
 	public MemberDTO findId(MemberDTO dto); // 아이디 찾기
 	public MemberDTO findPw(MemberDTO dto); // 비밀번호 찾기

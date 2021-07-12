@@ -10,20 +10,20 @@ import org.springframework.ui.Model;
 
 import com.team.d.dao.MemberDAO;
 
-public class IdCheckCommand{
+public class EmailCheckCommand {
 
-	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
+	public Map<String, Integer> execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
-		String mId = request.getParameter("mId");
+		String mEmail = request.getParameter("mEmail");
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		
-		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("count", memberDAO.idCheck(mId));
+		Map<String, Integer> resultMap = new HashMap<>();
+		resultMap.put("count", memberDAO.emailCheck(mEmail));
 		return resultMap;
-
+		
 	}
-
+	
 }

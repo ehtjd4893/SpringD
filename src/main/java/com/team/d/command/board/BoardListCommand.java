@@ -51,6 +51,6 @@ public class BoardListCommand{
 		resultMap.put("list", list);
 		resultMap.put("paging", paging);
 		return resultMap;
-	}
+	} 
 
 }

@@ -50,7 +50,7 @@ public class BoardListCommand{
 		Map<String, Object> resultMap =  new HashMap<String, Object>();
 		resultMap.put("list", list);
 		resultMap.put("paging", paging);
-		return resultMap;
+		return resultMap; 
 	} 
 
 }

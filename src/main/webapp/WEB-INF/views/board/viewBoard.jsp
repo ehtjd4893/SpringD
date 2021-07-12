@@ -16,6 +16,7 @@
 			getDate();		// 시간 보여주는 함수
 			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
 			fn_insertBoard();	// 새 글 작성 버튼 클릭시 로그인창 켜지거나 페이지 이동하는 함수
+			fn_showList();	// 게시글 리스트 보여주는 함수
 		})	// onload 함수의 끝
 		
 		function fn_insertBoard(){
@@ -55,7 +56,51 @@
 	            $("#date").text(dateString); 
 	        }, 1000);	// 1초 단위로  
 	    } 
+		
+		function fn_showList(){
+			$.ajax({
+				url: 'showList.do',
+				type: 'get',
+				data: 'page=${page}',
+				dataType: 'json',
+				success: function(resultMap){
+					$('#list').empty();
+					fn_makeTable(resultMap.list)
+					$('#paging').empty();
+					$('#paging').html(resultMap.paging);
+				},	// end of success
+				error: function(){
+					alert('목록 불러오기 오류');
+				}
+			})
+		}	// fn_showList
 
+		
+		function fn_makeTable(list){
+			$.each(list, function(i, board){
+				if(board.image == 'null'){
+					$('<tr>')
+					.append( $('<td>').text(board.bidx) )
+					.append( $('<td>').text(board.mid) )
+					.append( $('<td>').html('<a href="showBoard.do?no=' + board.bidx + '">' + board.btitle + '</a>') )
+					.append( $('<td>').text(board.bpostDate) )
+					.append( $('<td>').text(board.bhit) )
+					.append( $('<td>').text('') )
+					.appendTo('#list');
+				}
+				else{
+					$('<tr>')
+					.append( $('<td>').text(board.bidx) )
+					.append( $('<td>').text(board.mid) )
+					.append( $('<td>').html('<a href="showBoard.do?no=' + board.bidx + '">' + board.btitle + '</a>') )
+					.append( $('<td>').text(board.bpostDate) )
+					.append( $('<td>').text(board.bhit) )
+					.append( $('<td>').html('<i class="far fa-image"></i>') )
+					.appendTo( $('#list') ); 
+				} 
+			});	// each
+			
+		}
 	</script>
 	
 <body>
@@ -97,7 +142,11 @@
 			</form>
 		</div>	<!-- myMenu -->
 
-	<table>
+	<input type="text" id="query" value="${query}">
+	<input type="button" id="search_btn" value="검색">
+	<input type="button" id="init_btn" value="전체 목록 보기">
+	
+	<table border="1">
 		<thead>
 			<tr>
 				<td> 글번호 </td>
@@ -111,6 +160,10 @@
 		<tbody id="list">
 			
 		</tbody>
+		
+		<tfoot id="paging">
+		
+		</tfoot>
 	</table>
 	<input type="button" id="insert_board_btn" value="새 글 작성">
 </body>

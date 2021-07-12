@@ -35,9 +35,11 @@ public class LoginCommand implements MemberCommand {
 		
 		String result = null;
 		if(loginUser != null) { // 로그인 성공의 경우, Session에 등록
+			System.out.println("로그인 성공");
 			session.setAttribute("loginUser", loginUser);
 			result = page;
 		} else{	// 로그인 실패의 경우
+			System.out.println("로그인 실패");
 			session.setAttribute("loginUser", null);
 			result = page;
 		}

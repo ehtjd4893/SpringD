@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap> -->
 	
 	<!-- 로그인(login) -->
-	<select id="login" resultType="com.team.d.dto.MemberDTO">
+	<select id="login" parameterType="com.team.d.dto.MemberDTO" resultType="com.team.d.dto.MemberDTO">
 		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
 		  FROM MEMBER
 		 WHERE MID = #{mId}

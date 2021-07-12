@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.team.d.command.board.BoardListCommand;
+import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.member.IdCheckCommand;
 import com.team.d.command.member.LoginCommand;
 import com.zaxxer.hikari.HikariConfig;
@@ -43,6 +45,15 @@ public class TeamConfiguration {
 	public SqlSessionTemplate sqlSession() throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory());
 	}    
+	/* Board 관련 */
+	@Bean
+	public InsertBoardCommand InsertBoardCommand() {
+		return new InsertBoardCommand();
+	}
+	@Bean
+	public BoardListCommand boardListCommand() {
+		return new BoardListCommand();
+	}
 	
 	/* Member 관련*/
 	@Bean

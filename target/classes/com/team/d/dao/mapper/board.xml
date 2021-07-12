@@ -4,6 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.d.dao.BoardDAO">
 
+	<!-- 인덱스, 아이디, 제목, 조회수, 내용, 파일1,2,3, 등록일 -->
+	<insert id="insertBoard" parameterType="map">
+		INSERT INTO BOARD
+		VALUES(BOARD_SEQ.NEXTVAL, 
+			   #{mId}, 
+			   #{bTitle}, 
+			   #{bContent}, 
+			   0, 
+			   #{BFILENAME1}, 
+			   #{BFILENAME2}, 
+			   #{BFILENAME3}, 
+			   SYSDATE )	
+	</insert>
 	
+	<select id="boardList" parameterType="com.team.d.dto.PageDTO" resultType="com.team.d.dto.BoardDTO">
+		SELECT B.RN, B.BIDX, B.MID, B.BTITLE, B.BCONTENT, B.BPOSTDATE, B.BHIT, B.BFILENAME1, B.BFILENAME2, B.BFILENAME3
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT BIDX, MID, BTITLE, BCONTENT, BPOSTDATE, BHIT, BFILENAME1, BFILENAME2, BFILENAME3
+		  		  		  FROM BOARD
+		 		 		 ORDER BY BHIT DESC) A) B
+	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
+	<select id="getTotalRecord" resultType="int">
+		SELECT COUNT(BIDX)
+		  FROM BOARD
+	</select>
 	
 </mapper>

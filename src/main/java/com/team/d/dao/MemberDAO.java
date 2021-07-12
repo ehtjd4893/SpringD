@@ -1,10 +1,14 @@
 package com.team.d.dao;
 
+import java.util.List;
+
 import com.team.d.dto.MemberDTO;
 
 public interface MemberDAO {
 
 	public MemberDTO login(MemberDTO memberDTO);
+	//public List<MemberDTO> login(MemberDTO memberDTO);
+	
 	public int idCheck(String mId); // 아이디 체크
 	public int join(MemberDTO memberDTO); // 회원가입
 	public MemberDTO findId(MemberDTO dto); // 아이디 찾기

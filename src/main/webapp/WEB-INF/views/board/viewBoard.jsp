@@ -98,7 +98,7 @@
 					.append( $('<td>').html('<i class="far fa-image"></i>') )
 					.appendTo( $('#list') ); 
 				} 
-			});	// each
+			});	// each 
 			
 		}
 	</script>

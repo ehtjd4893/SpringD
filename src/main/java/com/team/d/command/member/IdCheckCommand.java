@@ -21,7 +21,7 @@ public class IdCheckCommand{
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("count", memberDAO.idCheck(mId));
+		resultMap.put("result", memberDAO.idCheck(mId));
 		return resultMap;
 
 	}

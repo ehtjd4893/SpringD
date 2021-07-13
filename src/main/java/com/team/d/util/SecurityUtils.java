@@ -43,7 +43,6 @@ public class SecurityUtils {
 			// Base64 사용하기
 			// Base64.encodeBase64(pw.getBytes() 암호화된 byte배열
 			return new String(Base64.encodeBase64(str.getBytes()));
-			
 		}
 		
 		// 복호화

@@ -9,11 +9,10 @@
 	<title>Homepage</title>
 
 <body>
-	<h1> TEST </h1>
+	<h1> Homepage </h1>
  
 	
 	<a href="boardPage.do">게시판</a>
-	
 	<a href="loginPage.do">로그인</a>
 	<a href="joinPage.do">회원가입</a>
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,22 +27,32 @@
 </head>
 <body>
 
-	<!-- 로그인 화면 -->
-	<div class="login_form">
-		<form id="f" action="login.do" method="post">
-			<input type="text" name="mId" id="mId" placeholder="ID"><br>
-			<input type="password" name="mPw" id="mPw" placeholder="Password"><br><br>
-			<button>로그인</button>
-		</form>
-	</div>
+	<!-- 비로그인 화면 -->
+	<c:if test="${loginUser == null}">
+		<div class="login_form">
+			<form id="f" action="login.do" method="post">
+				<input type="text" name="mId" id="mId" placeholder="ID"><br>
+				<input type="password" name="mPw" id="mPw" placeholder="Password"><br><br>
+				<button>로그인</button>
+			</form>
+		</div>
+		
+		<!-- 회원가입, 아이디&비번 찾기 -->
+		<div class="joinAndFind">
+			<a href="joinPage.do">회원가입</a>
+			<a href="findIdPage.do">아이디 찾기</a>
+			<a href="findPwPage.do">비밀번호 찾기</a>
+			<input type="button" value="돌아가기" onclick="location.href='index.do'">
+		</div>
+	</c:if>
 	
-	<!-- 회원가입, 아이디&비번 찾기 -->
-	<div class="joinAndFind">
-		<a href="joinPage.do">회원가입</a>
-		<a href="findIdPage.do">아이디 찾기</a>
-		<a href="findPwPage.do">비밀번호 찾기</a>
-		<input type="button" value="돌아가기" onclick="location.href='index.do'">
-	</div>
+	<!-- 로그인 화면 -->
+	<c:if test="${loginUser != null}">
+		<h3>${loginUser.MId} 님 환영합니다!</h3>
+		<a href="boardPage.do">게시판</a>
+		<a href="myPage.do">마이페이지</a>
+		<a href="logout.do">로그아웃</a>
+	</c:if>
 
 </body>
 </html>

@@ -22,7 +22,7 @@
 		function fn_idCheck(){
 			$('#mId').keyup(function(){
 				var regmId = /^[a-z]{3,6}$/; // ^[a-z][a-z0-9_-]{4,19}$
-				if(!regmId.test($('#mId').val())){
+				if(!regmId.test($('#mId').val())){ // ID정규식 조건을 통과하지 못 했을 경우
 					$('.id_result').text('아이디는 영어 소문자 3~6자리만 입력 가능합니다.');
 					// 아이디는 영어 소문자(a~z)로 시작하고, 소문자/숫자(0~9)/특수기호(_, -) 포함 5~20자 입니다.
 					return false;
@@ -33,7 +33,7 @@
 					data: 'mId=' + $('#mId').val(),
 					dataType: 'json',
 					success: function(res){
-						if(res.count == 0){
+						if(res.result == 0){
 							$('.id_result').text('사용 가능한 아이디입니다.');
 							idPass = true;
 						} else{
@@ -44,7 +44,7 @@
 					error: function(xhr, textStatus, errorThrown) {
 						
 					}
-				}); // end ajax
+				});
 			});
 		}
 		// 비밀번호 검증(pwCheck)
@@ -100,7 +100,7 @@
 			})
 			
 		}
-		// 이메일 인증코드 받기 : email_code
+		// 이메일 인증코드 받기(emailCode)
 		// 이메일 인증코드 받기(root-context에서 이메일 bean 생성)
 		function fn_email_code(){
 			$('#email_code_btn').click(function(){
@@ -124,7 +124,7 @@
 				});
 			});
 		}
-		// 이메일 인증 : email_auth
+		// 이메일 인증(emailAuth)
 		var authPass = false;
 		function fn_email_auth(authCode){
 			$('#email_auth_btn').click(function(){
@@ -199,9 +199,6 @@
 			
 			<span class="naming">전화번호</span><br>
 			<input type="text" name="mPhone" id="mPhone"><br><br>
-			
-			<!-- <span class="naming">회원등급</span><br>
-			<input type="text" name="mGrade" id="mGrade" placeholder="bronze" readonly><br><br> -->
 			
 			<input type="button" value="가입하기" id="join_btn">
 			<input type="button" value="돌아가기" onclick="location.href='index.do'">

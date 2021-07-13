@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
 import com.team.d.command.member.IdCheckCommand;
 import com.team.d.command.member.JoinCommand;
+import com.team.d.command.member.LeaveCommand;
 import com.team.d.command.member.LoginCommand;
+import com.team.d.command.member.LogoutCommand;
+import com.team.d.command.member.PresentPwCheckCommand;
+import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.dto.MemberDTO;
 
 @Controller
 public class MemberController {
@@ -25,66 +32,83 @@ public class MemberController {
 	// field
 	private SqlSession sqlSession;
 	private LoginCommand loginCommand;
+	private LogoutCommand logoutCommand;
 	private IdCheckCommand idCheckCommand;
 	private EmailCheckCommand emailCheckCommand;
 	private EmailAuthCommand emailAuthCommand;
 	private JoinCommand joinCommand;
+	private PresentPwCheckCommand presentPwCheckCommand;
+	private UpdatePwCommand updatePwCommand;
+	private LeaveCommand leaveCommand;
 
 	// constructor
 	@Autowired
 	public MemberController(SqlSession sqlSession,
 							LoginCommand loginCommand,
+							LogoutCommand logoutCommand,
 							IdCheckCommand idCheckCommand,
 							EmailCheckCommand emailCheckCommand,
 							EmailAuthCommand emailAuthCommand,
-							JoinCommand joinCommand) {
+							JoinCommand joinCommand,
+							PresentPwCheckCommand presentPwCheckCommand,
+							UpdatePwCommand updatePwCommand,
+							LeaveCommand leaveCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.loginCommand = loginCommand;
+		this.logoutCommand = logoutCommand;
 		this.idCheckCommand = idCheckCommand;
 		this.emailCheckCommand = emailCheckCommand;
 		this.emailAuthCommand = emailAuthCommand;
 		this.joinCommand = joinCommand;
+		this.presentPwCheckCommand = presentPwCheckCommand;
+		this.updatePwCommand = updatePwCommand;
+		this.leaveCommand = leaveCommand;
 	}
 	
 	@GetMapping(value= {"/", "index.do"})
 	public String index() {
 		return "index";
 	}
-	// login.jsp 단순이동
+	// 로그인 페이지 login.jsp 단순이동
 	@GetMapping(value="loginPage.do")
 	public String loginPage() {
 		return "member/login";
+	}
+	// 마이페이지 myPage.jsp 단순이동
+	@GetMapping(value="myPage.do")
+	public String myPage() {
+		return "member/myPage";
+	}
+	// 회원가입 페이지 join.jsp 단순이동
+	@GetMapping(value="joinPage.do")
+	public String joinPage() {
+		return "member/join";
 	}
 	// 로그인(login)
 	@PostMapping(value="login.do")
 	public String login(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		loginCommand.execute(sqlSession, model);
-		return "member/myPage";
+		return "member/login";
 	}
-	/*// 로그아웃(logout)
+	// 로그아웃(logout)
 	@GetMapping(value="logout.do")
 	public String logout(HttpSession session, Model model) {
 		model.addAttribute("session", session);
 		logoutCommand.execute(sqlSession, model);
 		return "redirect:/";
-	}*/
-	// join.jsp 단순이동
-	@GetMapping(value="joinPage.do")
-	public String joinPage() {
-		return "member/join";
 	}
 	// 아이디 중복체크(idCheck) 
 	@ResponseBody
-	@GetMapping(value="idCheck.do", produces="application/json; charset=utf-8")
+	@GetMapping(value="idCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 json형태로 반환, ajax매핑
 	public Map<String, Object> idCheck(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		return idCheckCommand.execute(sqlSession, model);
 	}
 	// 이메일 중복체크(emailCheck) 
 	@ResponseBody
-	@GetMapping(value="emailCheck.do", produces="application/json; charset=utf-8")
+	@GetMapping(value="emailCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 json형태로 반환, ajax매핑
 	public Map<String, Integer> emailCheck(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		return emailCheckCommand.execute(sqlSession, model);
@@ -103,6 +127,23 @@ public class MemberController {
 		model.addAttribute("response", response);
 		joinCommand.execute(sqlSession, model);
 	}
+	// 현재 비밀번호 확인(presentPwCheck)
+	@ResponseBody
+	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
+	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, // 파라미터 없이 json 객체 전달 받을 때 @RequestBody 사용
+											   HttpSession session, Model model){
+		model.addAttribute("session", session);
+		model.addAttribute("memberDTO", memberDTO);
+		return presentPwCheckCommand.execute(sqlSession, model);
+	}
+	// 비밀번호 변경(updatePw)
+	@PostMapping(value="updatePw.do")
+	public String updatePw(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("request", request);
+		model.addAttribute("response", response);
+		updatePwCommand.execute(sqlSession, model);
+		return index();
+	}
 	
 	
 	
@@ -110,13 +151,13 @@ public class MemberController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 회원탈퇴(leave)
+	@GetMapping(value="leave.do")
+	public String leave(HttpSession session, HttpServletResponse response, Model model) {
+		model.addAttribute("session", session);
+		model.addAttribute("response", response);
+		leaveCommand.execute(sqlSession, model);
+		return "redirect:/";
+	}
 	
 }

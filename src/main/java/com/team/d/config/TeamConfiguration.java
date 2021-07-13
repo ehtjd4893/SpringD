@@ -7,11 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import com.team.d.command.member.LoginCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
 import com.team.d.command.member.IdCheckCommand;
 import com.team.d.command.member.JoinCommand;
+import com.team.d.command.member.LeaveCommand;
+import com.team.d.command.member.LoginCommand;
+import com.team.d.command.member.LogoutCommand;
+import com.team.d.command.member.PresentPwCheckCommand;
+import com.team.d.command.member.UpdatePwCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -53,6 +57,10 @@ public class TeamConfiguration {
 		return new LoginCommand();
 	}
 	@Bean
+	public LogoutCommand logoutCommand(){ // 로그아웃
+		return new LogoutCommand();
+	}
+	@Bean
 	public IdCheckCommand idCheckCommand() { // 아이디 체크
 		return new IdCheckCommand();
 	}
@@ -68,6 +76,14 @@ public class TeamConfiguration {
 	public JoinCommand joinCommand() { // 회원가입
 		return new JoinCommand();
 	}
+	@Bean
+	public PresentPwCheckCommand presentPwCheckCommand(){ // 현재 비밀번호 확인
+		return new PresentPwCheckCommand();
+	}
+	@Bean
+	public UpdatePwCommand updatePwCommand(){ // 비밀번호 변경
+		return new UpdatePwCommand();
+	}
 	
 	
 	
@@ -77,10 +93,9 @@ public class TeamConfiguration {
 	
 	
 	
-	
-	
-	
-	
-	
+	@Bean
+	public LeaveCommand leaveCommand(){ // 회원탈퇴
+		return new LeaveCommand();
+	}
 
 }

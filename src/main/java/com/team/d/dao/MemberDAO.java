@@ -8,11 +8,11 @@ public interface MemberDAO {
 	public int idCheck(String mId); // 아이디 체크
 	public int emailCheck(String mEmail); // 이메일 체크
 	public int join(MemberDTO memberDTO); // 회원가입
-	public MemberDTO findId(MemberDTO dto); // 아이디 찾기
-	public MemberDTO findPw(MemberDTO dto); // 비밀번호 찾기
-	public void updatePw(MemberDTO dto); // 비밀번호 변경
-	public void updateMember(MemberDTO dto); // 회원정보 변경
-	// public int leave(long no); // 회원탈퇴
+	public int updatePw(MemberDTO memberDTO); // 비밀번호 변경
+	public int update(MemberDTO memberDTO); // 회원정보 변경
+	// public MemberDTO findId(String mEmail); // 아이디 찾기
+	// public MemberDTO findPw(String mEmail); // 비밀번호 찾기
+	public int leave(long mNo); // 회원탈퇴
 
 	
 }

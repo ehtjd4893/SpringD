@@ -22,19 +22,16 @@ public class LoginCommand implements MemberCommand {
 		String mId = request.getParameter("mId");
 		String mPw = request.getParameter("mPw");
 		
-		// 암호화 된 pw
-		String encodePw = SecurityUtils.encodeBase64(mPw);
-		
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMId(mId);
-		memberDTO.setMPw(encodePw);
+		memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 암호화 된 비밀번호
 		
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		MemberDTO loginUser = memberDAO.login(memberDTO);
-		
-		if(loginUser != null) { // 로그인 성공의 경우, Session에 등록
-			request.getSession().setAttribute("loginUser", loginUser);
-		} 
 
+		if(loginUser != null) {
+			request.getSession().setAttribute("loginUser", loginUser);
+		}
+		
 	}
 }

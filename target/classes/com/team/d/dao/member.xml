@@ -33,7 +33,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, 'bronze', SYSDATE)
 	</insert>
 	
+	<!-- 비밀번호 변경(updatePw) -->
+	<update id="updatePw">
+		UPDATE MEMBER
+		   SET MPW = #{mPw}
+		 WHERE MNO = #{mNo}
+	</update>
 
+	<!-- 회원정보 변경(update) -->
+	<update id="update">
+		UPDATE MEMBER
+		   SET MNAME = #{mName}
+		     , MEMAIL = #{mEmail}
+		 WHERE MNO = #{mNo}
+	</update>
 	
 	
 	
@@ -42,8 +55,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	
-	
-
+	<!-- 회원탈퇴(leave) -->
+	<delete id="leave">
+		DELETE
+		  FROM MEMBER
+		 WHERE MNO = #{mNo}
+	</delete>
 
 </mapper>
 

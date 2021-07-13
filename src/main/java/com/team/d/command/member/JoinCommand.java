@@ -21,12 +21,10 @@ public class JoinCommand {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
-		SecurityUtils sUtil = new SecurityUtils();
-		
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMName(request.getParameter("mName"));
+		memberDTO.setMName(SecurityUtils.xxs(request.getParameter("mName")));
 		memberDTO.setMId(request.getParameter("mId"));
-		memberDTO.setMPw(sUtil.encodeBase64(request.getParameter("mPw")));
+		memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw")));
 		memberDTO.setMEmail(request.getParameter("mEmail"));
 		memberDTO.setMPhone(request.getParameter("mPhone"));
 		

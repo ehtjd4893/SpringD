@@ -44,10 +44,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update">
 		UPDATE MEMBER
 		   SET MNAME = #{mName}
+		     , MPHONE = #{mPhone}
 		     , MEMAIL = #{mEmail}
 		 WHERE MNO = #{mNo}
 	</update>
 	
+	<!-- 아이디 찾기(findId) -->
+	<select id="findId" resultType="com.team.d.dto.MemberDTO">
+		SELECT MID, MREGDATE
+		  FROM MEMBER
+		 WHERE MEMAIL = #{mEmail}
+	</select>
+	
+	<!-- 비밀번호 찾기 & 새 비밀번호 변경(changePw) -->
+	<update id="changePw">
+		UPDATE MEMBER
+		   SET MPW = #{mPw}
+		 WHERE MEMAIL = #{mEmail}
+	</update>
 	
 	
 	

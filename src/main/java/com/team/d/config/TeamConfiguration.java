@@ -9,12 +9,15 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
+import com.team.d.command.member.FindIdCommand;
+import com.team.d.command.member.FindPwCommand;
 import com.team.d.command.member.IdCheckCommand;
 import com.team.d.command.member.JoinCommand;
 import com.team.d.command.member.LeaveCommand;
 import com.team.d.command.member.LoginCommand;
 import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
+import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -84,8 +87,18 @@ public class TeamConfiguration {
 	public UpdatePwCommand updatePwCommand(){ // 비밀번호 변경
 		return new UpdatePwCommand();
 	}
-	
-	
+	@Bean
+	public UpdateCommand updateCommand(){ // 회원정보 변경
+		return new UpdateCommand();
+	}
+	@Bean
+	public FindIdCommand findIdCommand(){ // 아이디 찾기
+		return new FindIdCommand();
+	}
+	@Bean
+	public FindPwCommand findPwCommand(){ // 비밀번호 찾기
+		return new FindPwCommand();
+	}
 	
 	
 	

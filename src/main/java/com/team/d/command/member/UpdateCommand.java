@@ -12,8 +12,9 @@ import org.springframework.ui.Model;
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 
-public class JoinCommand {
+public class UpdateCommand implements MemberCommand {
 
+	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
@@ -21,40 +22,37 @@ public class JoinCommand {
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
 		String mName = request.getParameter("mName");
-		String mId = request.getParameter("mId");
-		String mPw = request.getParameter("mPw");
 		String mEmail = request.getParameter("mEmail");
 		String mPhone = request.getParameter("mPhone");
+		long mNo = Long.parseLong(request.getParameter("mNo"));
 		
 		MemberDTO memberDTO = new MemberDTO();
-		// memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
+		// memberDTO.setMName(SecurityUtils.xxs(mName));
 		memberDTO.setMName(mName);
-		memberDTO.setMId(mId);
-		// memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
-		memberDTO.setMPw(mPw);
 		memberDTO.setMEmail(mEmail);
 		memberDTO.setMPhone(mPhone);
+		memberDTO.setMNo(mNo);
 		
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		int result = memberDAO.join(memberDTO);
-		
+		int result = memberDAO.update(memberDTO);
+
 		try {
 			response.setContentType("text/html; charset=utf-8");
 			if (result > 0) {
 				response.getWriter().append("<script>");
-				response.getWriter().append("alert('회원가입이 완료되었습니다. 로그인하세요.');");
-				response.getWriter().append("location.href='index.do';");
+				response.getWriter().append("alert('회원 정보가 변경되었습니다.');");
+				response.getWriter().append("location.href='myPage.do?=mNo" + request.getParameter("mNo") + "'");
 				response.getWriter().append("</script>");
 			} else {
 				response.getWriter().append("<script>");
-				response.getWriter().append("alert('회원가입에 실패했습니다. 다시 시도해주세요.');");
+				response.getWriter().append("alert('회원 정보 변경에 실패했습니다.');");
 				response.getWriter().append("history.back();");
 				response.getWriter().append("</script>");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

@@ -10,9 +10,9 @@
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
+			fn_update();
 			fn_presentPwCheck();
 			fn_updatePw();
-			fn_update();
 			fn_leave();
 		});
 		// 현재 비밀번호 확인(presentPwCheck)

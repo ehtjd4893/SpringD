@@ -36,17 +36,15 @@ public class SecurityUtils {
 			
 		}
 		
-		// 암호화
-		// "1111" -> "MTExMQ=="
+		// 암호화 : "1111" -> "MTExMQ=="
 		public static String encodeBase64(String str) {
 			// commons-codec
 			// Base64 사용하기
-			// Base64.encodeBase64(pw.getBytes() 암호화된 byte배열
+			// Base64.encodeBase64(pw.getBytes()) : 암호화된 byte배열
 			return new String(Base64.encodeBase64(str.getBytes()));
 		}
 		
-		// 복호화
-		// "MTExMQ==" -> "1111"
+		// 복호화 : "MTExMQ==" -> "1111"
 		public static String decodeBase64(String str) {
 			return new String(Base64.decodeBase64(str.getBytes()));
 		}

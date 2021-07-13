@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.team.d.command.reservation.SelectRemainingRoom;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -42,5 +43,9 @@ public class TeamConfiguration {
 		return new SqlSessionTemplate(sqlSessionFactory());
 	}    
 	
+	@Bean
+	public SelectRemainingRoom selectRemainingRoom() {
+		return new SelectRemainingRoom();
+	}
 
 }

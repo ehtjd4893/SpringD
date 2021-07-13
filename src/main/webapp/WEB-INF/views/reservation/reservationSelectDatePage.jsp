@@ -54,14 +54,10 @@
 			</tr>
 			<tr>
 				<td id="start_btn"> 
-						<input type="text" id="start_year">년 &nbsp; 
-						<input type="text" id="start_month">월 &nbsp; 
-						<input type="text" id="start_day">일 &nbsp; 
+						<input type="text" id="start"> 
 				</td>
 				<td id="end_btn">
-			 			<input type="text" id="end_year">년 &nbsp; 
-						<input type="text" id="end_month">월 &nbsp; 
-						<input type="text" id="end_day">일 &nbsp; 
+			 			<input type="text" id="end">
 			 	</td>
 				<td><input type="text" value="2" size="1"> </td>
 			</tr>

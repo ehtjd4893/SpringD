@@ -18,5 +18,9 @@ public interface BoardDAO {
 	public int getTotalRecord();
 
 	public List<BoardDTO> boardList(PageDTO pageDTO);
+
+	public List<BoardDTO> searchList(Map<String, String> container);
+
+	public int getSearchedlRecord(Map<String, String> container);
 	
 }

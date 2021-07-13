@@ -1,6 +1,6 @@
 package com.team.d.dto;
 
-public class RoomDto {
+public class RoomDTO {
 
 	
 	

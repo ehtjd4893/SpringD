@@ -32,4 +32,20 @@
 		  FROM BOARD
 	</select>
 	
+	<select id="getSearchedlRecord" resultType="int">
+		SELECT COUNT(BIDX)
+		  FROM BOARD
+		 WHERE ${column} LIKE '%' || #{query} || '%'
+	</select>
+	
+	<select id="searchList" parameterType="map" resultType="com.team.d.dto.BoardDTO">
+		SELECT B.RN, B.BIDX, B.MID, B.BTITLE, B.BCONTENT, B.BPOSTDATE, B.BHIT, B.BFILENAME1, B.BFILENAME2, B.BFILENAME3
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT BIDX, MID, BTITLE, BCONTENT, BPOSTDATE, BHIT, BFILENAME1, BFILENAME2, BFILENAME3
+		  		  		  FROM BOARD
+		  		  		 WHERE ${column} LIKE '%' || #{query} || '%'
+		 		 		 ORDER BY BHIT DESC) A) B
+	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	
 </mapper>

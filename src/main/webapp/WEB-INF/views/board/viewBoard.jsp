@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="javax.swing.text.SimpleAttributeSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,6 +11,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 	<title>게시글</title>
+	<style>
+		table{
+			text-align: center;
+		}
+	</style>
 	
 	<script>
 		$(function(){
@@ -17,7 +24,36 @@
 			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
 			fn_insertBoard();	// 새 글 작성 버튼 클릭시 로그인창 켜지거나 페이지 이동하는 함수
 			fn_showList();	// 게시글 리스트 보여주는 함수
+			fn_init();	// 전체 목록 불러오기 버튼
+			fn_search();	// 검색버튼 클릭시 리스트 불러오는 함수
 		})	// onload 함수의 끝
+		
+		// 검색 목록 불러오는 ajax
+		 function fn_search(){
+			$('#search_btn').click(function(){
+				$.ajax({
+					url: 'searchBoard.do',
+					type: 'get',
+					data: 'column=' + $('#column').val() + '&query=' + $('#query').val() + '&page=${page}',
+					dataType: 'json',
+					success: function(resultMap){
+						$('#list').empty();
+						fn_makeTable(resultMap.list);
+						$('#paging').empty();
+						$('#paging').html(resultMap.paging);
+					},	// success
+					error: function(){
+						alert('search_btn 오류');
+					}
+				});	// ajax	
+			});	// onclick
+		}	// fn_search 
+		
+		function fn_init(){
+			$('#init_btn').click(function(){
+				fn_showList();
+			});	// onclick
+		}	// fn_init
 		
 		function fn_insertBoard(){
 			$('#insert_board_btn').click(function(){
@@ -65,7 +101,7 @@
 				dataType: 'json',
 				success: function(resultMap){
 					$('#list').empty();
-					fn_makeTable(resultMap.list)
+					fn_makeTable(resultMap.list);
 					$('#paging').empty();
 					$('#paging').html(resultMap.paging);
 				},	// end of success
@@ -74,8 +110,7 @@
 				}
 			})
 		}	// fn_showList
-
-		
+			
 		function fn_makeTable(list){
 			$.each(list, function(i, board){
 				if(board.image == 'null'){
@@ -141,8 +176,33 @@
 			</div>	<!-- form -->
 			</form>
 		</div>	<!-- myMenu -->
+		
+	<!-- 검색한 결과를 띄워줄 때는, 그 전에 사용했던 column이 선택되어있도록 해준다. -->
+	<select id="column">
+		<c:if test="${column eq 'BTITLE'}">
+			<option value="BTITLE" selected>제목</option>
+		</c:if>
+		<c:if test="${column ne 'BTITLE'}">
+			<option value="BTITLE">제목</option>
+		</c:if>
+		<c:if test="${column eq 'MID'}">
+			<option value="MID" selected>작성자</option>
+		</c:if>
+		<c:if test="${column ne 'MID'}">
+			<option value="MID">작성자</option>
+		</c:if>
+		<c:if test="${column eq 'BCONTENT'}">
+			<option value="BCONTENT" selected>내용</option>
+		</c:if>
+		<c:if test="${column ne 'BCONTENT'}">
+			<option value="BCONTENT">내용</option>
+		</c:if>
 
+	</select>
+	
+	<!-- 검색했을 때 입력한 값 그대로 query를 유지해준다. -->
 	<input type="text" id="query" value="${query}">
+	
 	<input type="button" id="search_btn" value="검색">
 	<input type="button" id="init_btn" value="전체 목록 보기">
 	
@@ -152,8 +212,9 @@
 				<td> 글번호 </td>
 				<td> 작성자 </td>
 				<td> 제목 </td>
-				<td> 조회수 </td>
 				<td> 작성일 </td>
+				<td> 조회수 </td>
+				<td> 첨부파일</td>
 			</tr>
 		</thead>
 	

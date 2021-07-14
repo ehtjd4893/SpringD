@@ -18,13 +18,13 @@ public class FindIdCommand implements MemberCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
-		String email = request.getParameter("email");
+		String mEmail = request.getParameter("mEmail");
 		
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		MemberDTO findUser = memberDAO.findId(email);
+		MemberDTO findUser = memberDAO.findId(mEmail);
 		
 		if(findUser != null) {
-			model.addAttribute("findUser", findUser); // 검색 결과를 표시할 jsp로 전달	
+			model.addAttribute("findUser", findUser);
 		}
 
 	}

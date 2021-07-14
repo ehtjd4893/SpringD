@@ -41,7 +41,7 @@ public class UpdateCommand implements MemberCommand {
 			if (result > 0) {
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('회원 정보가 변경되었습니다.');");
-				response.getWriter().append("location.href='myPage.do?=mNo" + request.getParameter("mNo") + "'");
+				response.getWriter().append("location.href='myPage.do?=mNo" + mNo + "'");
 				response.getWriter().append("</script>");
 			} else {
 				response.getWriter().append("<script>");

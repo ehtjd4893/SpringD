@@ -20,21 +20,22 @@ public class JoinCommand {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
+		// request에 입력된 mName, mId, mPw, mEmail, mPhone 확인
 		String mName = request.getParameter("mName");
 		String mId = request.getParameter("mId");
 		String mPw = request.getParameter("mPw");
 		String mEmail = request.getParameter("mEmail");
 		String mPhone = request.getParameter("mPhone");
 		
+		// memberDTO에 위 값이 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
-		// memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
-		memberDTO.setMName(mName);
+		memberDTO.setMName(mName); // memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
 		memberDTO.setMId(mId);
-		// memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
-		memberDTO.setMPw(mPw);
+		memberDTO.setMPw(mPw); // memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
 		memberDTO.setMEmail(mEmail);
 		memberDTO.setMPhone(mPhone);
 		
+		// memberDAO의 join() 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		int result = memberDAO.join(memberDTO);
 		

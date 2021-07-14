@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>myPage</title>
+	<title>마이페이지</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		// 페이지 로드
@@ -15,12 +15,21 @@
 			fn_updatePw();
 			fn_leave();
 		});
+		// 회원 정보 변경(update)
+		function fn_update(){
+			$('#update_btn').click(function(){
+				if(confirm('수정하시겠습니까?')){
+					$('#f').attr('action', 'update.do');
+					$('#f').submit();
+				}
+			});
+		}
 		// 현재 비밀번호 확인(presentPwCheck)
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
 				var obj = { // 현재 비밀번호 객체 생성
-					mPw: $('#mPw0').val()
+						mPw: $('#mPw0').val()
 				};
 				$.ajax({
 					url: 'presentPwCheck.do',
@@ -46,23 +55,14 @@
 					$('#mPw0').focus();
 					return false;
 				} else if($('#mPw').val() == ''){ // 새로운 비밀번호를 입력하지 않을 경우
-					alert('비밀번호를  입력하세요.');
+					alert('새 비밀번호를  입력하세요.');
 					$('#mPw').focus();
 					return false;
-				} else if($('#mPw').val() != $('#mPw1').val()){ // 새로 입력한 비밀번호와 확인 검증이 일치하지 않을 경우
+				} else if($('#mPw').val() != $('#mPw1').val()){ // 새로 입력한 비밀번호와 확인 검증이 이뤄지지 않을 경우
 					alert('새로 입력한 비밀번호가 일치하지 않습니다. 확인해주세요.');
 					return false;
 				} else{
 					$('#f').attr('action', 'updatePw.do');
-					$('#f').submit();
-				}
-			});
-		}
-		// 회원 정보 변경(update)
-		function fn_update(){
-			$('#update_btn').click(function(){
-				if(confirm('수정하시겠습니까?')){
-					$('#f').attr('action', 'update.do');
 					$('#f').submit();
 				}
 			});

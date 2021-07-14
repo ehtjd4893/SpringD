@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>회원가입</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		// 페이지 로드
@@ -37,7 +37,7 @@
 							$('.id_result').text('사용 가능한 아이디입니다.');
 							idPass = true;
 						} else{
-							$('.id_result').text('이미 사용 중인 아이디입니다..');
+							$('.id_result').text('이미 사용 중인 아이디입니다.');
 							idPass = false;
 						}
 					},
@@ -85,8 +85,8 @@
 					data: 'mEmail=' + $('#mEmail').val(),
 					dataType: 'json',
 					success: function(res){
-						if(res.count == 0){
-							$('.email_result').text('사용 가능한 이메일입니다. 인증번호를 받으세요. ');
+						if(res.result == 0){
+							$('.email_result').text('사용 가능한 이메일입니다. 인증코드를 받으세요.');
 							emailPass = true;
 						} else{
 							$('.email_result').text('이미 사용 중인 이메일입니다. 확인하세요.');

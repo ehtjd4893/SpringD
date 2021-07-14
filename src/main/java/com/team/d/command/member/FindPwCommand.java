@@ -24,8 +24,7 @@ public class FindPwCommand implements MemberCommand {
 		String mEmail = request.getParameter("mEmail");
 		
 		MemberDTO memberDTO = new MemberDTO();
-		// memberDTO.setMPw(SecurityUtils.encodeBase64(mPw));
-		memberDTO.setMPw(mPw);
+		memberDTO.setMPw(mPw); // memberDTO.setMPw(SecurityUtils.encodeBase64(mPw));
 		memberDTO.setMEmail(mEmail);
 		
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);

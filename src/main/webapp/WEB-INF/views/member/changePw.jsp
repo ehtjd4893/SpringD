@@ -4,17 +4,17 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>비밀번호 변경</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
 			fn_changePw();
 		})
-		// 비밀번호 변경
+		// 비밀번호 변경(changePw)
 		function fn_changePw(){
 			$('#change_pw_btn').click(function(){
-				var regPW = /^[0-9]{4}$/;
+				var regPW = /^[0-9]{4}$/; // 임시 비번
 				if(!regPW.test($('#mPw').val())){
 					alert('비밀번호는 숫자(0~9) 4자리만 입력 가능합니다.');
 					$('#mPw').focus();

@@ -5,14 +5,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>아이디 찾기</title>
 </head>
 <body>
 
 	<h3>아이디 찾기 결과</h3>
 	
 	<c:if test="${findUser == null}">
-		일치하는 회원 정보가 없습니다. 다시 진행해주세요.<br><br>
+		일치하는 회원 정보가 없습니다. 이메일을 확인하세요.<br><br>
 		<a href="findIdPage.do">아이디 찾기</a>
 		<a href="join.do">회원가입</a>
 	</c:if>

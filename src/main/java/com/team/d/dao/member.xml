@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MNO = #{mNo}
 	</update>
 
-	<!-- 회원정보 변경(update) -->
+	<!-- 회원정보 변경(update):이름, 전화번호, 이메일 -->
 	<update id="update">
 		UPDATE MEMBER
 		   SET MNAME = #{mName}
@@ -56,18 +56,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MEMAIL = #{mEmail}
 	</select>
 	
-	<!-- 비밀번호 찾기 & 새 비밀번호 변경(changePw) -->
+	<!-- 아이디&이메일 체크(idAndEmail) : 보류 -->
+	<select id="idAndEmailCheck" resultType="int">
+		SELECT COUNT(MNO)
+		  FROM MEMBER
+		 WHERE MID = #{mId}
+		   AND MEMAIL = #{mEmail} 
+	</select>
+	
+	<!-- 비밀번호 찾기&새 비밀번호 변경(changePw) -->
 	<update id="changePw">
 		UPDATE MEMBER
 		   SET MPW = #{mPw}
 		 WHERE MEMAIL = #{mEmail}
 	</update>
-	
-	
-	
-	
-	
-	
 	
 	<!-- 회원탈퇴(leave) -->
 	<delete id="leave">

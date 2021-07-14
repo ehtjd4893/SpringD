@@ -11,6 +11,7 @@ import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
 import com.team.d.command.member.FindIdCommand;
 import com.team.d.command.member.FindPwCommand;
+import com.team.d.command.member.IdAndEmailCheckCommand;
 import com.team.d.command.member.IdCheckCommand;
 import com.team.d.command.member.JoinCommand;
 import com.team.d.command.member.LeaveCommand;
@@ -94,6 +95,10 @@ public class TeamConfiguration {
 	@Bean
 	public FindIdCommand findIdCommand(){ // 아이디 찾기
 		return new FindIdCommand();
+	}
+	@Bean
+	public IdAndEmailCheckCommand idAndEmailCheckCommand(){ // 아이디&이메일 일치 확인(비밀번호 찾을 때 필요) : 보류 중..
+		return new IdAndEmailCheckCommand();
 	}
 	@Bean
 	public FindPwCommand findPwCommand(){ // 비밀번호 찾기

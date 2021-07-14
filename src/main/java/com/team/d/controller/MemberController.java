@@ -45,6 +45,7 @@ public class MemberController {
 	private UpdatePwCommand updatePwCommand;
 	private UpdateCommand updateCommand;
 	private FindIdCommand findIdCommand;
+	// private IdAndEmailCheckCommand idAndEmailCheckCommand;
 	private FindPwCommand findPwCommand;
 	private LeaveCommand leaveCommand;
 
@@ -61,6 +62,7 @@ public class MemberController {
 							UpdatePwCommand updatePwCommand,
 							UpdateCommand updateCommand,
 							FindIdCommand findIdCommand,
+							// IdAndEmailCheckCommand idAndEmailCheckCommand,
 							FindPwCommand findPwCommand,
 							LeaveCommand leaveCommand) {
 		super();
@@ -75,6 +77,7 @@ public class MemberController {
 		this.updatePwCommand = updatePwCommand;
 		this.updateCommand = updateCommand;
 		this.findIdCommand = findIdCommand;
+		// this.idAndEmailCheckCommand = idAndEmailCheckCommand;
 		this.findPwCommand = findPwCommand;
 		this.leaveCommand = leaveCommand;
 	}
@@ -117,7 +120,7 @@ public class MemberController {
 	// 이메일 중복체크(emailCheck) 
 	@ResponseBody
 	@GetMapping(value="emailCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 json형태로 반환, ajax매핑
-	public Map<String, Integer> emailCheck(HttpServletRequest request, Model model){
+	public Map<String, Object> emailCheck(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		return emailCheckCommand.execute(sqlSession, model);
 	}
@@ -151,19 +154,17 @@ public class MemberController {
 	}
 	// 비밀번호 변경(updatePw)
 	@PostMapping(value="updatePw.do")
-	public String updatePw(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public void updatePw(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
 		updatePwCommand.execute(sqlSession, model);
-		return index();
 	}
 	// 회원정보 변경(update)
 	@PostMapping(value="update.do")
-	public String update(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public void update(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
 		updateCommand.execute(sqlSession, model);
-		return index();
 	}
 	// 아이디 찾기 페이지 findId.jsp 단순이동
 	@GetMapping(value="findIdPage.do")
@@ -177,13 +178,21 @@ public class MemberController {
 		findIdCommand.execute(sqlSession, model);
 		return "member/findIdResult";
 	}
+	// 아이디&이메일 일치 확인(비밀번호 찾을 때 필요)(idAndEmailCheck) : 보류..
+	/*
+	@GetMapping(value="idAndEmailCheck.do", produces="application/json; charset=utf-8")
+	public Map<String, Object> idAndEmailCheck(HttpServletRequest request, Model model){
+		model.addAttribute("request", request);
+		return idAndEmailCheckCommand.execute(sqlSession, model);
+	}
+	*/
 	// 비밀번호 찾기 페이지 findPw.jsp 단순이동
 	@GetMapping(value="findPwPage.do")
 	public String findPwPage() {
 		return "member/findPw";
 	}
 	// 새 비밀번호 변경 페이지 changePw.jsp 단순이동
-	@GetMapping(value="changePwPage.do") // 파라미터를 가지고 이동
+	@PostMapping(value="changePwPage.do") // 파라미터를 가지고 이동
 	public String changePwPage(@ModelAttribute("mEmail") String mEmail) {
 		return "member/changePw";
 	}
@@ -196,11 +205,10 @@ public class MemberController {
 	}
 	// 회원탈퇴(leave)
 	@GetMapping(value="leave.do")
-	public String leave(HttpSession session, HttpServletResponse response, Model model) {
+	public void leave(HttpSession session, HttpServletResponse response, Model model) {
 		model.addAttribute("session", session);
 		model.addAttribute("response", response);
 		leaveCommand.execute(sqlSession, model);
-		return "redirect:/";
 	}
 	
 }

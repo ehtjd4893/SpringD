@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>login</title>
+	<title>로그인</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		// 페이지 로드
@@ -42,7 +42,7 @@
 			<a href="joinPage.do">회원가입</a>
 			<a href="findIdPage.do">아이디 찾기</a>
 			<a href="findPwPage.do">비밀번호 찾기</a>
-			<input type="button" value="돌아가기" onclick="location.href='index.do'">
+			<a href="index.do">돌아가기</a>
 		</div>
 	</c:if>
 	

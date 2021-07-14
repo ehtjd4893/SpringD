@@ -54,12 +54,13 @@
 			</tr>
 			<tr>
 				<td id="start_btn"> 
-						<input type="text" id="start"> 
+						<input type="text" id="start" name="start"> 
 				</td>
 				<td id="end_btn">
-			 			<input type="text" id="end">
+			 			<input type="text" id="end" name="end">
 			 	</td>
-				<td><input type="text" value="2" size="1"> </td>
+				<td><input type="text" value="2" size="1" name="people"> </td>
+				
 			</tr>
 		</table>
 	</form>

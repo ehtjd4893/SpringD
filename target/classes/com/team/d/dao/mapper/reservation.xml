@@ -4,15 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.d.dao.ReservationDAO">
 
-	<select id="remainingRoom" resultType="com.team.d.dto.RoomDto">
-		SELECT * 
-		FROM ROOM r INNER JOIN RESERVATION v
+	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
+		SELECT DISTINCT r.RNO, r.RNAME, r.RPRICE, r.RGRADE, r.RIMG, r.RACCEPT, r.RSIZE
+		FROM spring.ROOM r  FULL OUTER JOIN spring.RESERVATION v
 		ON r.RNO = v.RNO
-		<!-- (SELECT RNO
-		FORM RESERVATION
-		WHERE CHECK_IN NOT IN BETWEEN #{param1} AND #{param2}
-				AND CHECK_OUT NOT IN BETWEEN #{param1} AND #{param2} 
-				AND RACCEPT=#{param3}) -->
+		ORDER BY r.RNO ASC
+	</select>
+	
+	<select id="selectRoom" resultType="com.team.d.dto.RoomDTO">
+		SELECT RNO,RNAME, RPRICE, RGRADE, RIMG, RACCEPT, RSIZE
+		FROM spring.ROOM
+		WHERE RNO=#{param1}
 	</select>
 	
 </mapper>

@@ -7,5 +7,11 @@ import com.team.d.dto.RoomDTO;
 public interface RoomDAO {
 
 	public List<RoomDTO> selectRoomList();
+	public RoomDTO selectRoomByRNo(long rNo);
+	
+	
+	
+	
+	
 	
 }

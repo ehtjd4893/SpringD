@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.team.d.command.room.SelectRoomListCommand;
+import com.team.d.command.room.SelectRoomViewCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -47,5 +48,14 @@ public class TeamConfiguration {
 	public SelectRoomListCommand selectRoomListCommand() {
 		return new SelectRoomListCommand();
 	}
+	
+	@Bean
+	public SelectRoomViewCommand selectRoomViewCommand() {
+		return new SelectRoomViewCommand();
+	}
+	
+	
+	
+	
 
 }

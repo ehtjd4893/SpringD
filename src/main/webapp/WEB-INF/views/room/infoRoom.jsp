@@ -18,6 +18,7 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            flex-flow: row wrap;
         }
         .room {
             position: relative;
@@ -54,9 +55,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#img1').click(function(){
-				location.href = 'priceRoom.do';
-			});
+			
 		});
 	</script>
 </head>
@@ -68,11 +67,11 @@
         <div class="room-list">
         	<c:forEach var="room" items="${list}">
 	            <div class="room">
-	                <img id="img1" alt="룸1 이미지" src="${room.rimg}">
+	                <img onclick="location.href='priceRoom.do?rNo=${room.RNo}';" style="cursor:pointer;" alt="룸 이미지" src="${room.RImg}" >
 	                <div class="room-description">
-	                    <h1>${room.rname}</h1>
-	                    <p>수용인원 : ${room.raccept}</p>
-	                    <p>가격 : ${room.rprice}</p>
+	                    <h1>${room.RName}</h1>
+	                    <p>수용인원 : ${room.RAccept}</p>
+	                    <p>가격 : ${room.RPrice}</p>
 	                </div>
 	            </div>
             </c:forEach>

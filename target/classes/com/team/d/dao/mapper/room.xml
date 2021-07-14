@@ -10,4 +10,15 @@
 		 ORDER BY RNO DESC
 	</select>
 	
+	<select id="selectRoomByRNo" resultType="com.team.d.dto.RoomDTO">
+		SELECT RNO, RNAME, RPRICE, RGRADE, RIMG, RACCEPT, RSIZE
+		  FROM ROOM
+		 WHERE RNO = #{param1}
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>

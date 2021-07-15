@@ -3,7 +3,6 @@ package com.team.d.command.member;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,7 +18,6 @@ public class UpdatePwCommand implements MemberCommand {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
-		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
 		// request에 입력된 mPw, mNo 확인
 		String mPw = request.getParameter("mPw");

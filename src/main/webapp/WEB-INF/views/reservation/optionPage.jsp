@@ -8,13 +8,49 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	$(document).ready(function(){
+		fn_cal();
+		fn_de();
+		fn_next();
+	});
 	
+	//디폴트 값 함수
+	function fn_de(){
+		$('#dining_price').text(0);
+		$('#total_sum').text($('#room_price').text());
+		$('#people_count').text(0);
+	}
+	
+	
+	//총 계산함수
+	function fn_cal(){
+		$('#food').keyup(function(){
+			$('#dining_price').val('');
+			$('#people_count').val('');
+			
+			$('#people_count').text($('#food').val());
+			var food_sum=$('#food').val()*50000;
+			$('#dining_price').text(food_sum);
+			var total=($('#food').val()*50000)+Number($('#room_price').text());
+				$('#total_sum').text(total);
+		});
+	}
+	
+	function fn_next(){
+		$('#next_btn').click(function(){
+			$('#f').attr('action','revInfoPage.do');
+			$('#f').submit();
+		});	
+	}
 	
 	</script>
 	<style type="text/css">
 		#food{
 			width: 20px;
 			text-align: center;
+		}
+		table,td,tr{
+			border: 1px solid pink;
 		}
 	</style>
 <title>Insert title here</title>
@@ -29,13 +65,53 @@
  	
  	
  	<br><br>
- 	<h3>총 가격</h3>
  	
- 	${selectRoom.rName}    ${selectRoom.rPrice}￦ <br>
-	조식 						0명 * 50000원<br>
-
-------------------------------------<br>
-	<h1>총 0000원</h1> 	
+ 	
+ 	<form id="f">
+ 	
+ 	<table>
+ 		<thead>
+ 			<tr>
+ 				<td colspan="5"><h3>총 가격</h3></td>
+ 			</tr>
+ 		</thead>
+ 		<tbody>
+ 			<tr>
+ 				<td>선택</td>
+ 				<td></td>
+ 				<td> </td>
+ 				<td> </td>
+ 				<td>가격</td>
+ 			<tr>
+ 			<tr>
+ 				<td>${selectRoom.rName}</td>
+ 				<td></td>
+ 				<td></td>
+ 				<td> </td>
+ 				<td><span id="room_price">${selectRoom.rPrice}</span></td>
+ 			</tr>
+ 			<tr>
+ 				<td>조식 	</td>
+ 				<td><span id="people_count"> </span> 명 </td>
+ 				<td> *</td>
+ 				<td>50000원</td>
+ 				<td><span id="dining_price"> </span></td>
+ 			<tr>
+ 		</tbody>
+ 		<tfoot>
+ 			<tr>
+ 				<td colspan="5"><h1>총  	 <span id="total_sum"> </span> 원</h1> 	 </td>
+ 			</tr>
+ 		</tfoot>
+ 	</table>
+ 	
+ 			
+ 	<input type="button" value="다음" id="next_btn">
+ 	</form>
+ 	
+ 	
+ 	      
+						 		 
  	
 </body>
 </html>

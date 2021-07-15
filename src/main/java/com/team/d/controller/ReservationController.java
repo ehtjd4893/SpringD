@@ -50,4 +50,10 @@ public class ReservationController {
 		return "reservation/optionPage";
 	}
 	
+	@GetMapping(value="revInfoPage.do")
+	public String revInfo(HttpServletRequest request,Model model) {
+		model.addAttribute("request",request);
+		return "reservation/revInfoPage";
+	}
+	
 }

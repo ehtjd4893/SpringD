@@ -30,7 +30,7 @@ public class ReservationController {
 		this.selectRoomCommand=selectRoomCommand;
 	}
 	
-	
+	//처음 예약하기 페이지
 	@GetMapping(value="reservationSelectDatePage.do")
 	public String reservationSelectDatePage() {
 		return "reservation/reservationSelectDatePage";

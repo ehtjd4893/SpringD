@@ -17,14 +17,16 @@
 </script>
 </head>
 <body>
-다음페이지<br><br>
+	
+	<!-- 선택 기간내 방 예약이 찼을 경우 -->
  	<c:if test="${empty room}">
  		예약가능한 방이 없습니다.
  		<input type="button" value="이전으로" id="pre">
  	</c:if>
+ 	
+ 	<!-- 선택 기간내 예약가능 한 방이 남을 경우 -->
  	<c:if test="${not empty room}">
  		<c:forEach var="r" items="${room}">
- 			 
 	 			${r.rNo}
 	 			<h1>${r.rName}</h1>
 	 			<img alt="" src="">
@@ -32,8 +34,7 @@
 	 			등급  ${r.rGrade} /
 	 			최대 인원   [${r.rAccept} ]/
 	 			방 크기 ${r.rSize} <br>
-	 			<a href="optionPage.do?rNo=${r.rNo}">예약하기</a>
- 			 
+	 			<a href="optionPage.do?rNo=${r.rNo}&start=${start}&end=${end}">예약하기</a>
  			<hr>
  		</c:forEach>
  	</c:if>

@@ -18,6 +18,8 @@
     
 </style>
 <script type="text/javascript">
+
+	//로드
 	$(document).ready(function(){
 		fn_selectDate();
 	});
@@ -27,6 +29,7 @@
 	//조회하기 버튼 누름
 	function fn_selectDate(){
 		$('#selectDate_btn').click(function(){
+			
 			if($('#start_year').val()=='' || $('#start_month').val()=='' || $('#start_day').val()==''){
     			alert('체크인 날짜를 선택해주세요');
     			return false;
@@ -34,10 +37,13 @@
     			alert('체크아웃 날짜를 선택해주세요');
     			return false;
     		} 
+			
+			//체크인,체크아웃 값이 있을시 페이지 이동
 			$('#f').attr('action','reservationRoomPage.do');
 			$('#f').submit();
 		});
 	}
+	
 </script>
 </head>
 <body>
@@ -47,19 +53,24 @@
 	<form id="f">
 		<table>
 			<tr>
-				<td>체크인</td>
+				<td>체크인(ex 2021-07-05)</td>
 				<td>체크아웃</td>
 				<td>인원</td>
 				<td rowspan="2"><input type="button" value="조회하기" id="selectDate_btn"></td>
 			</tr>
 			<tr>
 				<td id="start_btn"> 
-						<input type="text" id="start" name="start"> 
+					<!-- 체크인 -->
+					<input type="text" id="start" name="start"> 
 				</td>
 				<td id="end_btn">
-			 			<input type="text" id="end" name="end">
+					<!-- 체크아웃 -->
+			 		<input type="text" id="end" name="end">
 			 	</td>
-				<td><input type="text" value="2" size="1" name="people"> </td>
+				<td>
+					<!-- 숙박인원수  -->
+					<input type="text" value="2" size="1" name="people"> 
+				</td>
 				
 			</tr>
 		</table>

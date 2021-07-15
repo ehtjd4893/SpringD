@@ -61,13 +61,13 @@
  	<form id="f">
 	 	조식<br> 
 	 	<input type="text" id="food" name="food" value="0"> 명
- 	</form>
+ 	
  	
  	
  	<br><br>
  	
  	
- 	<form id="f">
+ 	
  	
  	<table>
  		<thead>

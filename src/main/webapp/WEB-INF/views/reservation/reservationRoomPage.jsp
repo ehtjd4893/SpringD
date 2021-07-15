@@ -24,7 +24,7 @@
  		<input type="button" value="이전으로" id="pre">
  	</c:if>
  	
- 	<!-- 선택 기간내 예약가능 한 방이 남을 경우 -->
+ 	<!-- 선택 기간내 예약가능한 방이 남을 경우 -->
  	<c:if test="${not empty room}">
  		<c:forEach var="r" items="${room}">
 	 			${r.rNo}

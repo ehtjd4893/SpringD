@@ -30,10 +30,10 @@
 	function fn_selectDate(){
 		$('#selectDate_btn').click(function(){
 			
-			if($('#start_year').val()=='' || $('#start_month').val()=='' || $('#start_day').val()==''){
+			if($('#checkIn').val()==''){
     			alert('체크인 날짜를 선택해주세요');
     			return false;
-    		}else if($('end_year').val()=='' || $('end_month').val()=='' ||$('end_day').val()=='' ){
+    		}else if($('#checkOut').val()=='' ){
     			alert('체크아웃 날짜를 선택해주세요');
     			return false;
     		} 
@@ -61,11 +61,11 @@
 			<tr>
 				<td id="start_btn"> 
 					<!-- 체크인 -->
-					<input type="text" id="start" name="start"> 
+					<input type="text" id="checkIn" name="checkIn"> 
 				</td>
 				<td id="end_btn">
 					<!-- 체크아웃 -->
-			 		<input type="text" id="end" name="end">
+			 		<input type="text" id="checkOut" name="checkOut">
 			 	</td>
 				<td>
 					<!-- 숙박인원수  -->

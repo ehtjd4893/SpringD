@@ -72,7 +72,7 @@
                     <p>달콤한 과일</p>
                     <p>가격 : 20,000원</p>
                 </div>
-            </div>
+            </div> 
             <div class="product">
                 <img alt="과일3 이미지" src="images/fruit3.jpg">
                 <div class="product-description">

@@ -3,12 +3,15 @@ package com.team.d.command.member;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
+import com.team.d.util.SecurityUtils;
 
 public class LoginCommand implements MemberCommand {
 
@@ -17,24 +20,37 @@ public class LoginCommand implements MemberCommand {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
+		HttpServletResponse response = (HttpServletResponse)map.get("response");
+		HttpSession session = request.getSession(); // session에 있는 값과 비교하기 위해
 		
-		// request에 입력된 mId, mPw 확인
+		// 로그인 시 request에 입력된 mId, mPw 확인
 		String mId = request.getParameter("mId");
 		String mPw = request.getParameter("mPw");
 		
 		// memberDTO에 mId, mPw가 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMId(mId);
-		// memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 암호화 된 비밀번호
-		memberDTO.setMPw(mPw);
+		memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 입력된 비밀번호 암호화 처리
 		
-		// memberDAO의 login() 호출
+		// memberDAO의 로그인 login메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		MemberDTO loginUser = memberDAO.login(memberDTO);
 
-		if(loginUser != null) {
-			request.getSession().setAttribute("loginUser", loginUser); // 로그인 성공 시, session에 등록
-			
+		try{
+			response.setContentType("text/html; charset=utf-8");
+			if(loginUser != null){ // 로그인 성공 시 session에 등록
+				session.setAttribute("loginUser", loginUser);
+				response.getWriter().append("<script>");
+				response.getWriter().append("location.href='loginPage.do';");
+				response.getWriter().append("</script>");
+			} else{
+				response.getWriter().append("<script>");
+				response.getWriter().append("alert('가입된 정보가 없습니다. 아이디와 비밀번호를 확인하세요!');");
+				response.getWriter().append("location.href='index.do'");
+				response.getWriter().append("</script>");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

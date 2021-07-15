@@ -93,15 +93,10 @@ public class MemberController {
 	}
 	// 로그인(login)
 	@PostMapping(value="login.do")
-	public String login(HttpServletRequest request, Model model) {
+	public void login(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
+		model.addAttribute("response", response);
 		loginCommand.execute(sqlSession, model);
-		return "member/login";
-	}
-	// 마이페이지 myPage.jsp 단순이동
-	@GetMapping(value="myPage.do")
-	public String myPage() {
-		return "member/myPage";
 	}
 	// 로그아웃(logout)
 	@GetMapping(value="logout.do")
@@ -109,6 +104,11 @@ public class MemberController {
 		model.addAttribute("session", session);
 		logoutCommand.execute(sqlSession, model);
 		return "redirect:/";
+	}
+	// 마이페이지 myPage.jsp 단순이동
+	@GetMapping(value="myPage.do")
+	public String myPage() {
+		return "member/myPage";
 	}
 	// 아이디 중복체크(idCheck) 
 	@ResponseBody
@@ -159,7 +159,7 @@ public class MemberController {
 		model.addAttribute("response", response);
 		updatePwCommand.execute(sqlSession, model);
 	}
-	// 회원정보 변경(update)
+	// 회원정보 변경(updateMember)
 	@PostMapping(value="updateMember.do")
 	public void updateMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);

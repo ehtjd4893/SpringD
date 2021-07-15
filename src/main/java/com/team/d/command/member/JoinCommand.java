@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
+import com.team.d.util.SecurityUtils;
 
 public class JoinCommand {
 
@@ -20,7 +21,7 @@ public class JoinCommand {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
-		// request에 입력된 mName, mId, mPw, mEmail, mPhone 확인
+		// 회원가입 시 request에 입력된 정보 확인
 		String mName = request.getParameter("mName");
 		String mId = request.getParameter("mId");
 		String mPw = request.getParameter("mPw");
@@ -29,19 +30,19 @@ public class JoinCommand {
 		
 		// memberDTO에 위 값이 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMName(mName); // memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
+		memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
 		memberDTO.setMId(mId);
-		memberDTO.setMPw(mPw); // memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
+		memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
 		memberDTO.setMEmail(mEmail);
 		memberDTO.setMPhone(mPhone);
 		
-		// memberDAO의 join() 호출
+		// memberDAO의 회원가입 join메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		int result = memberDAO.join(memberDTO);
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");
-			if (result > 0) {
+			if (result > 0) { // 회원가입 성공
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('회원가입이 완료되었습니다. 로그인하세요.');");
 				response.getWriter().append("location.href='index.do';");

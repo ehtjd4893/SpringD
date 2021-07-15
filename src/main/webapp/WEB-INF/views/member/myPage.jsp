@@ -29,16 +29,16 @@
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
 				var obj = { // 현재 비밀번호 객체 생성
-						mPw: $('#mPw0').val()
+						pw: $('#mPw0').val()
 				};
 				$.ajax({
 					url: 'presentPwCheck.do',
 					type: 'post',
-					contentType: 'application/json',
-					data: JSON.stringify(obj),
-					dataType: 'json',
+					contentType: 'application/json',  // 보내는 데이터가 json일 때 필수 옵션
+					data: JSON.stringify(obj), // 보내는 data 문자열화
+					dataType: 'json', // 받는 data
 					success: function(resultMap){
-						if(resultMap.isCorrect){
+						if(resultMap.isCorrect){ // session에 저장된 암호화 된 비밀번호와 일치할 경우 통과
 							presentPwPass = true;
 						} else{
 							presentPwPass = false;
@@ -50,7 +50,7 @@
 		// 비밀번호 변경(updatePw)
 		function fn_updatePw(){
 			$('#pw_btn').click(function(){
-				if(!presentPwPass){ // 기존 비밀번호와 일치하지 않을 경우
+				if(!presentPwPass){ // 위 현재 비밀번호 통과를 못 했을 경우(기존 비밀번호와 일치하지 않을 경우)
 					alert('현재 비밀번호가 일치하지 않습니다. 확인해주세요.');
 					$('#mPw0').focus();
 					return false;

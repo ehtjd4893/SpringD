@@ -18,17 +18,19 @@ public class LeaveCommand implements MemberCommand {
 	public void execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
-		HttpSession session = (HttpSession)map.get("session");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
+		HttpSession session = (HttpSession)map.get("session");
 		
+		// session에 등록된 회원 mNo 확인
 		long mNo = ((MemberDTO)session.getAttribute("loginUser")).getMNo();
 		
+		// memberDAO의 회원탈퇴 leave메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		int result = memberDAO.leave(mNo);
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");
-			if (result > 0) {
+			if (result > 0) { // 탈퇴 성공 시 session 비우기
 				session.invalidate();
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('탈퇴되었습니다. 이용해주셔서 감사합니다.');");

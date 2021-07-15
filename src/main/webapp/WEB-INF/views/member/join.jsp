@@ -21,19 +21,21 @@
 		var idPass = false;
 		function fn_idCheck(){
 			$('#mId').keyup(function(){
-				var regmId = /^[a-z]{3,6}$/; // ^[a-z][a-z0-9_-]{4,19}$
-				if(!regmId.test($('#mId').val())){ // ID정규식 조건을 통과하지 못 했을 경우
+				var regmId = /^[a-z]{3,6}$/;
+				if(!regmId.test($('#mId').val())){ // ID 정규식 조건을 통과하지 못 했을 경우
 					$('.id_result').text('아이디는 영어 소문자 3~6자리만 입력 가능합니다.');
+					// 실제 사용할 ID 정규식
+					// ^[a-z][a-z0-9_-]{4,19}$
 					// 아이디는 영어 소문자(a~z)로 시작하고, 소문자/숫자(0~9)/특수기호(_, -) 포함 5~20자 입니다.
 					return false;
 				}
 				$.ajax({
 					url: 'idCheck.do',
-					type: 'get',
-					data: 'mId=' + $('#mId').val(),
-					dataType: 'json',
-					success: function(res){
-						if(res.result == 0){
+					type: 'get', // get방식 : 파라미터 값 그대로 전달
+					data: 'mId=' + $('#mId').val(), // 보내는 data
+					dataType: 'json', // 받는 data
+					success: function(resultMap){
+						if(resultMap.result == 0){ // DB에 일치하는 id가 없는 경우
 							$('.id_result').text('사용 가능한 아이디입니다.');
 							idPass = true;
 						} else{
@@ -51,12 +53,14 @@
 		var pwPass = false;
 		function fn_pwCheck(){
 			$('#mPw').keyup(function(){
-				var regPW = /^[0-9]{4}$/; // ^[A-Za-z0-9`~!@#$%^&*]{4,19}$
-				if(regPW.test($('#mPw').val())){
+				var regPW = /^[0-9]{4}$/; 
+				if(regPW.test($('#mPw').val())){ // PW 정규식 조건을 통과 했을 경우
 					$('.pw_result').text('사용 가능한 비밀번호입니다.');
 					pwPass = true;
 				} else{
 					$('.pw_result').text('비밀번호는 숫자(0~9) 4자리만 입력 가능합니다.');
+					// 실제 사용할 PW 정규식
+					// ^[A-Za-z0-9`~!@#$%^&*]{4,19}$
 					// 비밀번호는 영어 대,소문자/숫자/특수기호 포함 5~20자리 입니다.
 					pwPass = false;
 				}
@@ -66,7 +70,7 @@
 		var pwPass2 = false;
 		function fn_pwCheck2(){
 			$('#mPw2').keyup(function(){
-				if($('#mPw').val() == $('#mPw2').val()){
+				if($('#mPw').val() == $('#mPw2').val()){ // 입력한 비밀번호와 비밀번호 확인 값이 일치할 경우
 					$('.pw2_result').text('비밀번호가 일치합니다.');
 					pwPass2 = true;
 				} else{
@@ -84,12 +88,12 @@
 					type: 'get',
 					data: 'mEmail=' + $('#mEmail').val(),
 					dataType: 'json',
-					success: function(res){
-						if(res.result == 0){
+					success: function(resultMap){
+						if(resultMap.result == 0){ // DB에 일치하는 email이 없는 경우
 							$('.email_result').text('사용 가능한 이메일입니다. 인증코드를 받으세요.');
 							emailPass = true;
 						} else{
-							$('.email_result').text('이미 사용 중인 이메일입니다. 확인하세요.');
+							$('.email_result').text('이미 사용 중인 이메일입니다. 이메일 주소를 확인하세요.');
 							emailPass = false;
 						}
 					},
@@ -128,7 +132,7 @@
 		var authPass = false;
 		function fn_email_auth(authCode){
 			$('#email_auth_btn').click(function(){
-				if(authCode == $('#user_key').val()){
+				if(authCode == $('#user_key').val()){ // 받은 인증코드와 입력된 값이 같을 경우
 					$('.emailAuth_result').text('인증되었습니다.');
 					authPass = true;
 				} else{

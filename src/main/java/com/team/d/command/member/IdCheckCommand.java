@@ -17,9 +17,11 @@ public class IdCheckCommand{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
+		// 회원가입 시 request에 입력된 mId 확인
 		String mId = request.getParameter("mId");
-		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		
+		// memberDAO의 아이디 중복체크 idCheck메소드 호출
+		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("result", memberDAO.idCheck(mId));
 		return resultMap;

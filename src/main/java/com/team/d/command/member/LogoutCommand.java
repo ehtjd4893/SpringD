@@ -16,7 +16,7 @@ public class LogoutCommand implements MemberCommand {
 		HttpSession session = (HttpSession)map.get("session");
 		
 		if(session.getAttribute("loginUser") != null) {
-			session.invalidate(); // 세션 비우기
+			session.invalidate(); // session 비우기
 		}
 		
 	}

@@ -25,9 +25,11 @@ public class EmailAuthCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
+		// 회원가입시 request에 입력된 mEmail 확인
 		String mEmail = request.getParameter("mEmail");
 		String authCode = null;
 		MimeMessage mMsg = mailSender.createMimeMessage(); // 이메일 작성 클래스(MimeMessage)
+		
 		try {
 			mMsg.setHeader("Content-Type", "text/plain; charset=utf-8");
 			mMsg.setFrom(new InternetAddress("jeonsoonjo@gmail.com", "관리자")); // 보내는 사람

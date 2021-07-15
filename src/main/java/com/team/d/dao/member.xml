@@ -28,19 +28,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 회원가입(join) -->
-	<insert id="join" parameterType="Map">
+	<insert id="join">
 		INSERT INTO MEMBER
 		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, 'bronze', SYSDATE)
 	</insert>
 	
-	<!-- 비밀번호 변경(updatePw) -->
+	<!-- 비밀번호 변경(updatePw) : 보류-->
 	<update id="updatePw">
 		UPDATE MEMBER
 		   SET MPW = #{mPw}
 		 WHERE MNO = #{mNo}
 	</update>
 
-	<!-- 회원정보 변경(updateMember):이름, 전화번호, 이메일 -->
+	<!-- 회원정보 변경(updateMember):이름, 전화번호, 이메일 : 보류 -->
 	<update id="updateMember">
 		UPDATE MEMBER
 		   SET MNAME = #{mName}

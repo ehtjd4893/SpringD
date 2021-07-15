@@ -82,6 +82,7 @@ public class MemberController {
 		this.leaveCommand = leaveCommand;
 	}
 	
+	// 메인페이지 index.jsp 단순이동
 	@GetMapping(value= {"/", "index.do"})
 	public String index() {
 		return "index";
@@ -91,6 +92,27 @@ public class MemberController {
 	public String loginPage() {
 		return "member/login";
 	}
+	// 마이페이지 myPage.jsp 단순이동
+	@GetMapping(value="myPage.do")
+	public String myPage() {
+		return "member/myPage";
+	}
+	// 회원가입 페이지 join.jsp 단순이동
+	@GetMapping(value="joinPage.do")
+	public String joinPage() {
+		return "member/join";
+	}
+	// 아이디 찾기 페이지 findId.jsp 단순이동
+	@GetMapping(value="findIdPage.do")
+	public String findIdPage() {
+		return "member/findId";
+	}
+	// 비밀번호 찾기 페이지 findPw.jsp 단순이동
+	@GetMapping(value="findPwPage.do")
+	public String findPwPage() {
+		return "member/findPw";
+	}
+	
 	// 로그인(login)
 	@PostMapping(value="login.do")
 	public void login(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -105,36 +127,26 @@ public class MemberController {
 		logoutCommand.execute(sqlSession, model);
 		return "redirect:/";
 	}
-	// 마이페이지 myPage.jsp 단순이동
-	@GetMapping(value="myPage.do")
-	public String myPage() {
-		return "member/myPage";
-	}
 	// 아이디 중복체크(idCheck) 
-	@ResponseBody
-	@GetMapping(value="idCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 json형태로 반환, ajax매핑
+	@ResponseBody // AJAX매핑
+	@GetMapping(value="idCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 JSON형태로 반환
 	public Map<String, Object> idCheck(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		return idCheckCommand.execute(sqlSession, model);
 	}
 	// 이메일 중복체크(emailCheck) 
-	@ResponseBody
-	@GetMapping(value="emailCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 json형태로 반환, ajax매핑
+	@ResponseBody // AJAX매핑
+	@GetMapping(value="emailCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 JSON형태로 반환
 	public Map<String, Object> emailCheck(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		return emailCheckCommand.execute(sqlSession, model);
 	}
 	// 이메일 인증코드 받기(emailCode)
-	@ResponseBody
-	@GetMapping(value="emailCode.do", produces="application/json; charset=utf-8")
+	@ResponseBody // AJAX매핑
+	@GetMapping(value="emailCode.do", produces="application/json; charset=utf-8") // 인증코드 확인 후 JSON형태로 반환
 	public Map<String, String> emailCode(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
 		return emailAuthCommand.execute(sqlSession, model);
-	}
-	// 회원가입 페이지 join.jsp 단순이동
-	@GetMapping(value="joinPage.do")
-	public String joinPage() {
-		return "member/join";
 	}
 	// 회원가입(join)
 	@PostMapping(value="join.do")
@@ -143,33 +155,29 @@ public class MemberController {
 		model.addAttribute("response", response);
 		joinCommand.execute(sqlSession, model);
 	}
-	// 현재 비밀번호 확인(presentPwCheck)
-	@ResponseBody
-	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
-	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, // 파라미터 없이 json 객체 전달 받을 때 @RequestBody 사용
+	// 현재 비밀번호 확인(presentPwCheck) : 오류
+	@ResponseBody // AJAX매핑
+	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8") // 현재 비밀번호 확인 후 JSON형태로 반환
+	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용
 											   HttpSession session, Model model){
-		model.addAttribute("session", session);
 		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("session", session);
 		return presentPwCheckCommand.execute(sqlSession, model);
 	}
-	// 비밀번호 변경(updatePw)
+	// 비밀번호 변경(updatePw) : 오류
 	@PostMapping(value="updatePw.do")
 	public void updatePw(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
 		updatePwCommand.execute(sqlSession, model);
 	}
-	// 회원정보 변경(updateMember)
+	// 회원정보 변경(updateMember) : 오류
 	@PostMapping(value="updateMember.do")
-	public void updateMember(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public void updateMember(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
 		updateMemberCommand.execute(sqlSession, model);
-	}
-	// 아이디 찾기 페이지 findId.jsp 단순이동
-	@GetMapping(value="findIdPage.do")
-	public String findIdPage() {
-		return "member/findId";
 	}
 	// 아이디 찾기(findId)
 	@PostMapping(value="findId.do")
@@ -186,13 +194,8 @@ public class MemberController {
 		return idAndEmailCheckCommand.execute(sqlSession, model);
 	}
 	*/
-	// 비밀번호 찾기 페이지 findPw.jsp 단순이동
-	@GetMapping(value="findPwPage.do")
-	public String findPwPage() {
-		return "member/findPw";
-	}
-	// 새 비밀번호 변경 페이지 changePw.jsp 단순이동
-	@PostMapping(value="changePwPage.do") // 파라미터를 가지고 이동
+	// 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
+	@PostMapping(value="changePwPage.do")
 	public String changePwPage(@ModelAttribute("mEmail") String mEmail) {
 		return "member/changePw";
 	}

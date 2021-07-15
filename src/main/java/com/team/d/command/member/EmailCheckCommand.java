@@ -17,9 +17,11 @@ public class EmailCheckCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		
+		// 회원가입 시 request에 입력된 mEmail 확인
 		String mEmail = request.getParameter("mEmail");
+
+		// memberDAO의 이메일 중복체크 emailCheck메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("result", memberDAO.emailCheck(mEmail));
 		return resultMap;

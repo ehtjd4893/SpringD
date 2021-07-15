@@ -30,7 +30,7 @@ public class JoinCommand {
 		
 		// memberDTO에 위 값이 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
+		memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 XSS 처리
 		memberDTO.setMId(mId);
 		memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
 		memberDTO.setMEmail(mEmail);

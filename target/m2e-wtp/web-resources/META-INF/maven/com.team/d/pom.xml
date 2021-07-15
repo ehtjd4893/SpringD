@@ -101,6 +101,14 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.4</version>
 		</dependency>
+		
+		<!-- JSON in Java : json simple 보다 쉽다 -->
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20180813</version>
+		</dependency>
 	
 		<!-- BeanConfiguration.java -->
 		<!-- https://mvnrepository.com/artifact/cglib/cglib -->

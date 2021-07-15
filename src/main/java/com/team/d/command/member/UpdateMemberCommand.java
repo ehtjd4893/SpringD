@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 
-public class UpdateCommand implements MemberCommand {
+public class UpdateMemberCommand implements MemberCommand {
 
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
@@ -34,7 +34,7 @@ public class UpdateCommand implements MemberCommand {
 		memberDTO.setMNo(mNo);
 		
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		int result = memberDAO.update(memberDTO);
+		int result = memberDAO.updateMember(memberDTO);
 
 		try {
 			response.setContentType("text/html; charset=utf-8");

@@ -26,7 +26,7 @@ import com.team.d.command.member.LeaveCommand;
 import com.team.d.command.member.LoginCommand;
 import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
-import com.team.d.command.member.UpdateCommand;
+import com.team.d.command.member.UpdateMemberCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.team.d.dto.MemberDTO;
 
@@ -43,7 +43,7 @@ public class MemberController {
 	private JoinCommand joinCommand;
 	private PresentPwCheckCommand presentPwCheckCommand;
 	private UpdatePwCommand updatePwCommand;
-	private UpdateCommand updateCommand;
+	private UpdateMemberCommand updateMemberCommand;
 	private FindIdCommand findIdCommand;
 	// private IdAndEmailCheckCommand idAndEmailCheckCommand;
 	private FindPwCommand findPwCommand;
@@ -60,7 +60,7 @@ public class MemberController {
 							JoinCommand joinCommand,
 							PresentPwCheckCommand presentPwCheckCommand,
 							UpdatePwCommand updatePwCommand,
-							UpdateCommand updateCommand,
+							UpdateMemberCommand updateMemberCommand,
 							FindIdCommand findIdCommand,
 							// IdAndEmailCheckCommand idAndEmailCheckCommand,
 							FindPwCommand findPwCommand,
@@ -75,7 +75,7 @@ public class MemberController {
 		this.joinCommand = joinCommand;
 		this.presentPwCheckCommand = presentPwCheckCommand;
 		this.updatePwCommand = updatePwCommand;
-		this.updateCommand = updateCommand;
+		this.updateMemberCommand = updateMemberCommand;
 		this.findIdCommand = findIdCommand;
 		// this.idAndEmailCheckCommand = idAndEmailCheckCommand;
 		this.findPwCommand = findPwCommand;
@@ -160,11 +160,11 @@ public class MemberController {
 		updatePwCommand.execute(sqlSession, model);
 	}
 	// 회원정보 변경(update)
-	@PostMapping(value="update.do")
-	public void update(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@PostMapping(value="updateMember.do")
+	public void updateMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
-		updateCommand.execute(sqlSession, model);
+		updateMemberCommand.execute(sqlSession, model);
 	}
 	// 아이디 찾기 페이지 findId.jsp 단순이동
 	@GetMapping(value="findIdPage.do")

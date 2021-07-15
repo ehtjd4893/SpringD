@@ -40,8 +40,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MNO = #{mNo}
 	</update>
 
-	<!-- 회원정보 변경(update):이름, 전화번호, 이메일 -->
-	<update id="update">
+	<!-- 회원정보 변경(updateMember):이름, 전화번호, 이메일 -->
+	<update id="updateMember">
 		UPDATE MEMBER
 		   SET MNAME = #{mName}
 		     , MPHONE = #{mPhone}

@@ -19,7 +19,7 @@
 		function fn_update(){
 			$('#update_btn').click(function(){
 				if(confirm('수정하시겠습니까?')){
-					$('#f').attr('action', 'update.do');
+					$('#f').attr('action', 'updateMember.do');
 					$('#f').submit();
 				}
 			});

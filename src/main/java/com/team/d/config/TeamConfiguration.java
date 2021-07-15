@@ -18,7 +18,7 @@ import com.team.d.command.member.LeaveCommand;
 import com.team.d.command.member.LoginCommand;
 import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
-import com.team.d.command.member.UpdateCommand;
+import com.team.d.command.member.UpdateMemberCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -89,8 +89,8 @@ public class TeamConfiguration {
 		return new UpdatePwCommand();
 	}
 	@Bean
-	public UpdateCommand updateCommand(){ // 회원정보 변경
-		return new UpdateCommand();
+	public UpdateMemberCommand updateMemberCommand(){ // 회원정보 변경
+		return new UpdateMemberCommand();
 	}
 	@Bean
 	public FindIdCommand findIdCommand(){ // 아이디 찾기

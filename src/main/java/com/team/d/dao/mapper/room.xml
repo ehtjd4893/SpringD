@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="selectRoomByRNo" resultType="com.team.d.dto.RoomDTO">
-		SELECT RNO, RNAME, RPRICE, RGRADE, RIMG, RACCEPT, RSIZE
+		SELECT RNO, RNAME, RPRICE, RGRADE, RIMG, RIMG1, RIMG2, RIMG3, RIMG4, RIMG5, RACCEPT, RSIZE
 		  FROM ROOM
 		 WHERE RNO = #{param1}
 	</select>

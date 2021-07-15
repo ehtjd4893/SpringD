@@ -69,7 +69,7 @@
 	            <div class="room">
 	                <img onclick="location.href='priceRoom.do?rNo=${room.RNo}';" style="cursor:pointer;" alt="룸 이미지" src="${room.RImg}" >
 	                <div class="room-description">
-	                    <h1>${room.RName}</h1>
+	                    <h2>${room.RName}</h2>
 	                    <p>수용인원 : ${room.RAccept}</p>
 	                    <p>가격 : ${room.RPrice}</p>
 	                </div>

@@ -82,6 +82,7 @@
 	<!-- 마이페이지 화면 -->
 	<h3>${loginUser.MId} 님 환영합니다!</h3>
 	<form id="f" method="post">
+	
 		이름<br>
 		<input type="text" value="${loginUser.MName}"><br><br>
 		

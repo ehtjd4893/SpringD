@@ -34,18 +34,21 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    onload = function(){
-		var thumbnails = document.getElementsByClassName('thumbnail');
-		// var thumbnails = document.querySelectorAll('.thumbnail');
-		for (let i = 0; i < thumbnails.length; i++) {
-			thumbnails[i].addEventListener('click', function(){
-				// data-img 속성 값을 저장하고 있는 이벤트 객체 : this
-				// this.getAttribute('data-img')
-				// this.dataset.img
-				document.getElementById('large-image').setAttribute('src', this.dataset.img);
-			});
-		}			
-	}
+	    onload = function(){
+			var thumbnails = document.getElementsByClassName('thumbnail');
+			// var thumbnails = document.querySelectorAll('.thumbnail');
+			for (let i = 0; i < thumbnails.length; i++) {
+				thumbnails[i].addEventListener('click', function(){
+					// data-img 속성 값을 저장하고 있는 이벤트 객체 : this
+					// this.getAttribute('data-img')
+					// this.dataset.img
+					document.getElementById('large-image').setAttribute('src', this.dataset.img);
+				});
+			}
+		    document.getElementById('amenity').onclick = function(){
+		    	window.open('amenity.do', '', 'width=640, height=480, resizable=no');
+			}
+		}
     </script>
 </head>
 <body>
@@ -92,7 +95,7 @@
 		
 		<div class="leftArea">
 			<img alt="left" src="resources/priceRoom/leftArea.PNG"><br><br>
-			<!-- <a href="amenity.do" target="_blank"><img alt="객실어매니티" src="resources/priceRoom/객실어매니티.PNG"></a><br><br> -->
+			<img style="cursor: pointer;" id="amenity" alt="객실어매니티" src="resources/priceRoom/객실어매니티.PNG"><br><br>
 			
 		</div>
 		<div class="rightArea">

@@ -35,6 +35,11 @@ public class RoomController {
 	}
 	*/
 	
+	@GetMapping(value="amenity.do")
+	public String amenity() {
+		return "room/amenity";
+	}
+	
 	@GetMapping(value="roomPage.do")
 	public String roomPage() {
 		return "room/viewRoom";

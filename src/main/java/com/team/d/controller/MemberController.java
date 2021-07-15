@@ -99,8 +99,7 @@ public class MemberController {
 	@PostMapping(value="login.do")
 	public String login(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		loginCommand.execute(sqlSession, model);
-		return "member/login";
+		return loginCommand.execute(sqlSession, model);
 	}
 	// 마이페이지 myPage.jsp 단순이동
 	@GetMapping(value="myPage.do")

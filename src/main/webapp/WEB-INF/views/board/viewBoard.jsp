@@ -71,12 +71,27 @@
 		
 		function fn_insertBoard(){
 			$('#insert_board_btn').click(function(){
-				if( ${loginUser == null} || ${loginAdmin == null} ){	// 로그인된 상태가 아니라면
+				if(${mode == "member"}){
+					if( ${loginUser == null} ){	// 로그인된 상태가 아니라면
+						alert('로그인이 필요합니다.');
+						$('.form').toggleClass('hide');
+					} else{	// 로그인된 상태라면
+						location.href= "insertBoardPage.do";
+					}				
+				} // if member
+				else if(${mode == "admin"}){
+					if( ${loginAdmin == null} ){	// 로그인된 상태가 아니라면
+						alert('로그인이 필요합니다.');
+						$('.form').toggleClass('hide');
+					} else{	// 로그인된 상태라면
+						location.href= "insertBoardPage.do";
+					}			
+				}	// else if admin
+				else{
 					alert('로그인이 필요합니다.');
 					$('.form').toggleClass('hide');
-				} else{	// 로그인된 상태라면
-					location.href= "insertBoardPage.do";
-				}				
+				}	// else
+					
 				
 			});	// onclick
 		}	// fn_insertBoard
@@ -160,10 +175,10 @@
 		<div class="btn_box">
 			<span>Seoul</span>
 			<span id="date"></span>
-			<c:if test="${loginUser eq null || loginAdmin eq null}">
+			<c:if test="${loginUser eq null}">
 	 			<input type="button" class="showLogin" value="로그인">
 	 		</c:if>
-	 		<c:if test="${loginUser ne null || loginAdmin ne null}">
+	 		<c:if test="${loginUser ne null}">
 	 			<input type="button" class="showLogin" value="로그아웃">
 			</c:if>
 		</div>

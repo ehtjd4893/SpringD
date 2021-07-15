@@ -31,15 +31,18 @@ public class LoginCommand  {
 		String page = request.getParameter("page");
 		if(page == null)
 			page = "index";
+		System.out.println(page);
 		
 		String result = null;
 		if(loginUser != null) { // 로그인 성공의 경우, Session에 등록
 			System.out.println("로그인 성공");
 			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("mode", "member");
 			result = page;
 		} else{	// 로그인 실패의 경우
 			System.out.println("로그인 실패");
 			session.setAttribute("loginUser", null);
+			session.setAttribute("mode", null);
 			result = page;
 		}
 		return result;

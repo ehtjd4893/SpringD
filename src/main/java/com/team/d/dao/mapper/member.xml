@@ -78,7 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MNO = #{mNo}
 	</delete>
 	
-	<!-- 로그인(login) -->
+	<!-- 관리자 로그인(login) -->
 	<select id="adminLogin" parameterType="com.team.d.dto.MemberDTO" resultType="com.team.d.dto.MemberDTO">
 		SELECT MNAME, MID, MPW
 		  FROM ADMIN

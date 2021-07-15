@@ -24,24 +24,25 @@ public class AdminLoginCommand  {
 		memberDTO.setMId(mId);
 		memberDTO.setMPw(mPw);
 		
-
+		System.out.println(memberDTO);
 		MemberDTO loginAdmin = memberDAO.adminLogin(memberDTO);
-
+		
+		System.out.println(loginAdmin);
+		
 		HttpSession session = request.getSession();
 		
 		String page = request.getParameter("page");
 		if(page == null)
 			page = "index";
 		
-		String result = null;
 		if(loginAdmin != null) { // 로그인 성공의 경우, Session에 등록
 			System.out.println("로그인 성공");
 			session.setAttribute("loginAdmin", loginAdmin);
-			result = page;
+			session.setAttribute("mode", "admin");
 		} else{	// 로그인 실패의 경우
 			System.out.println("로그인 실패");
 			session.setAttribute("loginAdmin", loginAdmin);
-			result = page;
+			session.setAttribute("mode", null);
 		}
 		return page;
 	}

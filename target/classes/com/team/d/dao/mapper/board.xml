@@ -48,4 +48,12 @@
 	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
 	
+	<!-- 관리자 아이디로 작성한 글 -->
+	<select id="getTotalInformRecord" resultType="int">
+		SELECT COUNT(BIDX)
+		  FROM BOARD
+		 WHERE MID = admin
+	</select>
+
+	
 </mapper>

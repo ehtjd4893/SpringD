@@ -11,8 +11,24 @@ import com.team.d.command.board.BoardListCommand;
 import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
 import com.team.d.command.board.SelectInformCommand;
+import com.team.d.command.member.AdminLoginCommand;
+import com.team.d.command.member.EmailAuthCommand;
+import com.team.d.command.member.EmailCheckCommand;
+import com.team.d.command.member.FindIdCommand;
+import com.team.d.command.member.FindPwCommand;
+import com.team.d.command.member.IdAndEmailCheckCommand;
 import com.team.d.command.member.IdCheckCommand;
+import com.team.d.command.member.JoinCommand;
+import com.team.d.command.member.LeaveCommand;
 import com.team.d.command.member.LoginCommand;
+import com.team.d.command.member.LogoutCommand;
+import com.team.d.command.member.PresentPwCheckCommand;
+import com.team.d.command.member.UpdateCommand;
+import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.command.reservation.SelectRemainingRoom;
+import com.team.d.command.reservation.SelectRoomCommand;
+import com.team.d.command.room.SelectRoomListCommand;
+import com.team.d.command.room.SelectRoomViewCommand;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -68,13 +84,83 @@ public class TeamConfiguration {
 	
 	/* Member 관련*/
 	@Bean
-	public LoginCommand loginCommand() {
+	public LoginCommand loginCommand() { // 로그인
 		return new LoginCommand();
 	}
 	@Bean
-	public IdCheckCommand idCheckCommand() {
+	public LogoutCommand logoutCommand(){ // 로그아웃
+		return new LogoutCommand();
+	}
+	@Bean
+	public IdCheckCommand idCheckCommand() { // 아이디 체크
 		return new IdCheckCommand();
 	}
+	@Bean
+	public EmailCheckCommand emailCheckCommand() { // 이메일 체크
+		return new EmailCheckCommand();
+	}
+	@Bean
+	public EmailAuthCommand emailAuthCommand() { // 이메일 인증
+		return new EmailAuthCommand();
+	}
+	@Bean
+	public JoinCommand joinCommand() { // 회원가입
+		return new JoinCommand();
+	}
+	@Bean
+	public PresentPwCheckCommand presentPwCheckCommand(){ // 현재 비밀번호 확인
+		return new PresentPwCheckCommand();
+	}
+	@Bean
+	public UpdatePwCommand updatePwCommand(){ // 비밀번호 변경
+		return new UpdatePwCommand();
+	}
+	@Bean
+	public UpdateCommand updateCommand(){ // 회원정보 변경
+		return new UpdateCommand();
+	}
+	@Bean
+	public FindIdCommand findIdCommand(){ // 아이디 찾기
+		return new FindIdCommand();
+	}
+	@Bean
+	public IdAndEmailCheckCommand idAndEmailCheckCommand(){ // 아이디&이메일 일치 확인(비밀번호 찾을 때 필요) : 보류 중..
+		return new IdAndEmailCheckCommand();
+	}
+	@Bean
+	public FindPwCommand findPwCommand(){ // 비밀번호 찾기
+		return new FindPwCommand();
+	}
+	@Bean
+	public LeaveCommand leaveCommand(){ // 회원탈퇴
+		return new LeaveCommand();
+	}
+	
+	@Bean
+	public AdminLoginCommand adminLoginCommand() {
+		return new AdminLoginCommand();
+	}
 
+	
+	/* reservation 관련 */ 
+	@Bean
+	public SelectRemainingRoom selectRemainingRoom() {
+		return new SelectRemainingRoom();
+	}
 
+	@Bean
+	public SelectRoomCommand selectRoomCommand() {
+		return new SelectRoomCommand();
+	}
+
+	/* Room 관련*/
+	@Bean
+	public SelectRoomListCommand selectRoomListCommand() {
+		return new SelectRoomListCommand();
+	}
+	
+	@Bean
+	public SelectRoomViewCommand selectRoomViewCommand() {
+		return new SelectRoomViewCommand();
+	}
 }

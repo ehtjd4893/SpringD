@@ -5,6 +5,6 @@ import org.springframework.ui.Model;
 
 public interface MemberCommand {
 
-	public String execute(SqlSession sqlSession, Model model);
+	public void execute(SqlSession sqlSession, Model model);
 	
 }

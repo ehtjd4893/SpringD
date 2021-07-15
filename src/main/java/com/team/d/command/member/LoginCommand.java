@@ -11,9 +11,8 @@ import org.springframework.ui.Model;
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 
-public class LoginCommand implements MemberCommand {
+public class LoginCommand  {
 
-	@Override
 	public String execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();

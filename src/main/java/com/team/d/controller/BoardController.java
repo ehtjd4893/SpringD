@@ -96,4 +96,5 @@ public class BoardController {
 		return selectInformCommand.execute(sqlSession, model);
 	}
 	
+	
 }

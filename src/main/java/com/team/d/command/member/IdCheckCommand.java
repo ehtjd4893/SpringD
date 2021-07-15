@@ -19,10 +19,9 @@ public class IdCheckCommand{
 		
 		String mId = request.getParameter("mId");
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		int idPass = memberDAO.idCheck(mId);
 		
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("idPass", idPass);
+		resultMap.put("result", memberDAO.idCheck(mId));
 		return resultMap;
 
 	}

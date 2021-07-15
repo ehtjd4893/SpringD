@@ -39,7 +39,12 @@
 <body>
 	<h1> 글 입력</h1>
 	<form id="f" action="insertBoard.do" method="POST" enctype="multipart/form-data">
-		<input type="hidden" name="m_id" value="${loginUser.MId}"><br>
+		<c:if test="${loginUser eq null && loginAdmin ne null}">
+			<input type="hidden" name="m_id" value="${loginUser.MId}"><br>
+		</c:if>
+		<c:if test="${loginUser ne null && loginAdmin eq null}">
+			<input type="hidden" name="m_id" value="${loginAdmin.MId}"><br>
+		</c:if>
 		<h3>제목</h3>
 		<input type="text" name="bTitle" placeholder="제목을 입력하세요"><br>
 		<h3>내용</h3>

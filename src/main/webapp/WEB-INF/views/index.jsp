@@ -18,11 +18,11 @@
 
 	<a href="boardPage.do">게시판</a>		
 	
-
-	
 	<a href="roomPage.do">방 페이지 이동</a>
 	
 	<a href="joinPage.do">회원가입</a>
+	
+	<a href="reservationSelectDatePage.do">예약하기</a>	
 	
 </body>
 </html>

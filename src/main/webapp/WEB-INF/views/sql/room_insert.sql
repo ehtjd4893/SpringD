@@ -8,12 +8,12 @@ CREATE SEQUENCE ROOM_SEQ INCREMENT BY 1 START WITH 1 NOMAXVALUE NOCYCLE NOCACHE;
 -- 이미지파일은 준비가 되지 않았으니 NULL로 입력하였습니다. 
 -- 추후에 SPRING을 통해 파일을 등록하면서 동시에 입력하는 것이 좋겠습니다.
 
-
-INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 킹베드', 290000, 5, NULL, 8, 5);
-INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 트윈베드', 330000, 5, NULL, 8, 5);
-INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 럭셔리 킹베드', 350000, 5, NULL, 8, 5);
-INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 클럽룸', 300000, 5, NULL, 8, 5);
-INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 클럽 트윈', 320000, 5, NULL, 8, 5);
+-- 이미지파일은 추후 수정
+INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 킹베드', 290000, 5, 'resources/room5/room5_1.PNG', 'resources/room5/rooms5/rooms5_1.PNG', 'resources/room5/rooms5/rooms5_2.PNG', 'resources/room5/rooms5/rooms5_3.PNG', 'resources/room5/rooms5/rooms5_4.PNG', 'resources/room5/rooms5/rooms5_5.PNG', 8, 5);
+INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 트윈베드', 330000, 5, 'resources/room5/room5_2.PNG', 'resources/room5/rooms5/rooms5_1.PNG', 'resources/room5/rooms5/rooms5_2.PNG', 'resources/room5/rooms5/rooms5_3.PNG', 'resources/room5/rooms5/rooms5_4.PNG', 'resources/room5/rooms5/rooms5_5.PNG', 8, 5);
+INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 럭셔리 킹베드', 350000, 5, 'resources/room5/room5_3.PNG', 'resources/room5/rooms5/rooms5_1.PNG', 'resources/room5/rooms5/rooms5_2.PNG', 'resources/room5/rooms5/rooms5_3.PNG', 'resources/room5/rooms5/rooms5_4.PNG', 'resources/room5/rooms5/rooms5_5.PNG', 8, 5);
+INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 클럽룸', 300000, 5, 'resources/room5/room5_4.PNG', 'resources/room5/rooms5/rooms5_1.PNG', 'resources/room5/rooms5/rooms5_2.PNG', 'resources/room5/rooms5/rooms5_3.PNG', 'resources/room5/rooms5/rooms5_4.PNG', 'resources/room5/rooms5/rooms5_5.PNG', 8, 5);
+INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '스위트 클럽 트윈', 320000, 5, 'resources/room5/room5_5.PNG', 'resources/room5/rooms5/rooms5_1.PNG', 'resources/room5/rooms5/rooms5_2.PNG', 'resources/room5/rooms5/rooms5_3.PNG', 'resources/room5/rooms5/rooms5_4.PNG', 'resources/room5/rooms5/rooms5_5.PNG', 8, 5);
 
 INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '디럭스 킹베드', 220000, 4, NULL, 8, 4);
 INSERT INTO ROOM VALUES(ROOM_SEQ.NEXTVAL, '디럭스 트윈베드', 230000, 4, NULL, 8, 4);

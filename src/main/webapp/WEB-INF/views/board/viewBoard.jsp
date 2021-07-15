@@ -26,7 +26,21 @@
 			fn_showList();	// 게시글 리스트 보여주는 함수
 			fn_init();	// 전체 목록 불러오기 버튼
 			fn_search();	// 검색버튼 클릭시 리스트 불러오는 함수
+			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 		})	// onload 함수의 끝
+		
+		function fn_toggle_mode(){
+			$('#mem_to_admin').click(function(){
+				$('#mem_mode').toggleClass('disabled');
+				$('#admin_mode').toggleClass('disabled');
+			});
+			
+			$('#admin_to_mem ').click(function(){
+				$('#mem_mode').toggleClass('disabled');
+				$('#admin_mode').toggleClass('disabled');
+			});
+			
+		}
 		
 		// 검색 목록 불러오는 ajax
 		 function fn_search(){
@@ -57,7 +71,7 @@
 		
 		function fn_insertBoard(){
 			$('#insert_board_btn').click(function(){
-				if( ${loginUser == null} ){	// 로그인된 상태가 아니라면
+				if( ${loginUser == null} || ${loginAdmin == null} ){	// 로그인된 상태가 아니라면
 					alert('로그인이 필요합니다.');
 					$('.form').toggleClass('hide');
 				} else{	// 로그인된 상태라면
@@ -146,18 +160,18 @@
 		<div class="btn_box">
 			<span>Seoul</span>
 			<span id="date"></span>
-			<c:if test="${loginUser eq null}">
+			<c:if test="${loginUser eq null || loginAdmin eq null}">
 	 			<input type="button" class="showLogin" value="로그인">
 	 		</c:if>
-	 		<c:if test="${loginUser ne null}">
+	 		<c:if test="${loginUser ne null || loginAdmin ne null}">
 	 			<input type="button" class="showLogin" value="로그아웃">
 			</c:if>
 		</div>
-		<div class="myMenu">
+		<div id="mem_mode" class="myMenu">
 			<form action="login.do" method="post">
   	   	 	<div class="form hide">
   	   	 		<input type="hidden" name="page" value="board/viewBoard">
-  	   	 		<h2 style="text-align:center">로그인</h2>
+  	   	 		<h2 style="text-align:center">회원 로그인</h2>
 				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
    				 <div class="form2">
      				<div class="form3">
@@ -171,6 +185,30 @@
       					<div class="clear"></div>
      						<label><input type="button" value="회원가입"></label>
      						<label><input type="button" value="아이디/비밀번호 찾기"></label>
+     						<label><input type="button" id="mem_to_admin" value="관리자로 로그인하기"></label>
+					</div>	<!-- form4 -->
+				</div>	<!-- form2 -->
+			</div>	<!-- form -->
+			</form>
+		</div>	<!-- myMenu -->
+		
+		<div id="admin_mode" class="myMenu disabled">
+			<form action="loginAdmin.do" method="post">
+  	   	 	<div class="form hide">
+  	   	 		<input type="hidden" name="page" value="board/viewBoard">
+  	   	 		<h2 style="text-align:center">관리자 로그인</h2>
+				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
+   				 <div class="form2">
+     				<div class="form3">
+     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
+      					<div class="clear"></div>
+      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
+     				</div>	<!-- form3 -->
+     				<input type="submit" id="login_btn" value="로그인">
+     				<div class="clear"></div>
+     				<div class="form4">
+      					<div class="clear"></div>
+     						<label><input type="button" id="admin_to_mem" value="회원으로 로그인하기"></label>
 					</div>	<!-- form4 -->
 				</div>	<!-- form2 -->
 			</div>	<!-- form -->

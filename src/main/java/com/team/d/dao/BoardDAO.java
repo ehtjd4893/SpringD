@@ -22,5 +22,7 @@ public interface BoardDAO {
 	public List<BoardDTO> searchList(Map<String, String> container);
 
 	public int getSearchedlRecord(Map<String, String> container);
+
+	public int getTotalInformRecord();
 	
 }

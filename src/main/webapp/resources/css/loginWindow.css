@@ -12,6 +12,10 @@
 	z-index: 1;
 }
 
+.disabled{
+	display: none;
+}
+
 .btn_box{
 	width:100%;
 	text-align: right;
@@ -39,6 +43,7 @@
 	margin: 30px auto;
 	color: white;
 }
+
 #closeLogin{
 	position: absolute;
 	top: 60px;

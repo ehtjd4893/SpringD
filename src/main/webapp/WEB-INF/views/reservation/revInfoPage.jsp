@@ -31,7 +31,8 @@
 		<table>
 			<thead>
 				<tr>
-					<td colspan="2"> <label><input type="checkbox" id="sameUser"> 회원정보와 동일합니다 </label> </td>
+					<!-- 체크시 ${loginUser}의 이름/이메일/휴대폰  뿌려줌 -->
+					<td colspan="2"> <label><input type="checkbox" id="sameUser_box"> 회원정보와 동일합니다 </label> </td>
 				</tr>
 			</thead>
 			<tbody>

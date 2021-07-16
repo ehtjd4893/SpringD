@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 로그인(login) -->
 	<select id="login" resultType="com.team.d.dto.MemberDTO">
 		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
-		  FROM MEMBER
+		  FROM spring.MEMBER
 		 WHERE MID = #{mId}
 		   AND MPW = #{mPw}
 	</select>
@@ -16,33 +16,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 아이디 체크(idCheck) -->
 	<select id="idCheck" resultType="int">
 		SELECT COUNT(MNO)
-		  FROM MEMBER
+		  FROM spring.MEMBER
 		 WHERE MID = #{mId}
 	</select>
 	
 	<!-- 이메일 체크(emailCheck) -->
 	<select id="emailCheck" resultType="int">
 		SELECT COUNT(MEMAIL)
-		  FROM MEMBER
+		  FROM spring.MEMBER
 		 WHERE MEMAIL = #{mEmail}
 	</select>
 	
 	<!-- 회원가입(join) -->
 	<insert id="join" parameterType="Map">
-		INSERT INTO MEMBER
+		INSERT INTO spring.MEMBER
 		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, 'bronze', SYSDATE)
 	</insert>
 	
 	<!-- 비밀번호 변경(updatePw) -->
 	<update id="updatePw">
-		UPDATE MEMBER
+		UPDATE spring.MEMBER
 		   SET MPW = #{mPw}
 		 WHERE MNO = #{mNo}
 	</update>
 
 	<!-- 회원정보 변경(update):이름, 전화번호, 이메일 -->
 	<update id="update">
-		UPDATE MEMBER
+		UPDATE spring.MEMBER
 		   SET MNAME = #{mName}
 		     , MPHONE = #{mPhone}
 		     , MEMAIL = #{mEmail}
@@ -59,14 +59,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 아이디&이메일 체크(idAndEmail) : 보류 -->
 	<select id="idAndEmailCheck" resultType="int">
 		SELECT COUNT(MNO)
-		  FROM MEMBER
+		  FROM spring.MEMBER
 		 WHERE MID = #{mId}
 		   AND MEMAIL = #{mEmail} 
 	</select>
 	
 	<!-- 비밀번호 찾기&새 비밀번호 변경(changePw) -->
 	<update id="changePw">
-		UPDATE MEMBER
+		UPDATE spring.MEMBER
 		   SET MPW = #{mPw}
 		 WHERE MEMAIL = #{mEmail}
 	</update>
@@ -74,14 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원탈퇴(leave) -->
 	<delete id="leave">
 		DELETE
-		  FROM MEMBER
+		  FROM spring.MEMBER
 		 WHERE MNO = #{mNo}
 	</delete>
 	
 	<!-- 관리자 로그인(login) -->
 	<select id="adminLogin" parameterType="com.team.d.dto.MemberDTO" resultType="com.team.d.dto.MemberDTO">
 		SELECT MNAME, MID, MPW
-		  FROM ADMIN
+		  FROM spring.ADMIN
 		 WHERE MID = #{mId}
 		   AND MPW = #{mPw}
 	</select>

@@ -13,12 +13,13 @@
 			fn_presentPwCheck();
 			fn_updatePw();
 			fn_updateMember();
+			fn_emailCheck();
 			fn_leave();
 		});
 		// 현재 비밀번호 확인(presentPwCheck)
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
-			$('#mPw0').on('keyup', function(){
+			$('#mPw0').keyup(function(){
 				var obj = { // 현재 비밀번호 객체 생성
 						mPw: $('#mPw0').val()
 				};
@@ -40,7 +41,7 @@
 		}
 		// 비밀번호 변경(updatePw)
 		function fn_updatePw(){
-			$('#pw_btn').on('click', function(){
+			$('#pw_btn').click(function(){
 				if($('#mPw0').val() == ''){ // 현재 비밀번호를 입력하지 않을 경우
 					alert('현재 비밀번호를 입력하세요.');
 					$('#mPw0').focus();
@@ -62,28 +63,106 @@
 				}
 			});
 		}
+		// 이메일 중복 체크(emailCheck)
+		var emailPass = false;
+		function fn_emailCheck(){
+			$('#email_code_btn').click(function(){ }).prop("disabled", true); // 이메일 인증코드 버튼 비활성화
+			$('#mEmail').keyup(function(){
+				$.ajax({
+					url: 'emailCheck.do',
+					type: 'get',
+					data: 'mEmail=' + $('#mEmail').val(),
+					dataType: 'json',
+					success: function(resultMap){
+						if(resultMap.result == 0){ // DB에 일치하는 email이 없는 경우
+							$('#email_code_btn').click(function(){ }).prop("disabled", false); // 이메일 인증코드 버튼 활성화
+							$('.email_result').text('사용 가능한 이메일입니다. 인증코드를 받으세요.');
+							emailPass = true;
+						} else{
+							$('.email_result').text('이미 사용 중인 이메일입니다. 이메일 주소를 확인하세요.');
+							$('#email_code_btn').click(function(){ }).prop("disabled", true); // 이메일 인증코드 버튼 비활성화
+							emailPass = false;
+						}
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						
+					}
+				});
+			});
+		}
+		// 이메일 인증코드 받기(emailCode)
+		function fn_email_code(){
+			$('#email_code_btn').click(function(){
+				if($('#mEmail').val() == ''){
+					alert('수정할 이메일을 입력하세요.');
+					$('#mEmail').focus();
+					return false;
+				} else if($('#mEmail').val() == '${loginUser.MEmail}'){
+					alert('이미 인증된 이메일입니다.');
+					return false;
+				}
+				$.ajax({
+					url: 'emailCode.do',
+					type: 'get',
+					data: 'mEmail=' + $('#mEmail').val(),
+					dataType: 'json',
+					success: function(resultMap){
+						alert('인증코드가 발송되었습니다. 메일을 확인하세요.');
+						fn_email_auth(resultMap.authCode);
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						
+					}
+				});
+			});
+		}
+		// 이메일 인증(emailAuth)
+		var authPass = false;
+		function fn_email_auth(authCode){
+			$('#email_auth_btn').click(function(){
+				if(authCode == $('#user_key').val()){ // 받은 인증코드와 입력된 값이 같을 경우
+					$('.emailAuth_result').text('인증되었습니다.');
+					authPass = true;
+				} else{
+					$('.emailAuth_result').text('인증에 실패했습니다. 다시 시도해주세요.');
+					$('#mEmail').val() = '';
+					authPass = false;
+				}
+			});
+		}
 		// 회원 정보 변경(updateMember)
 		function fn_updateMember(){
-			$('#update_btn').on('click', function(){
+			$('#update_btn').click(function(){
 				if($('#mName').val() == '' 
 				   || $('#mPhone').val() == ''
 				   || $('#mEmail').val() == ''){ // 이름, 전화번호, 이메일 중 하나라도 공백일 경우
 					  alert('이름, 전화번호, 이메일은 필수정보 입니다. 내용을 입력하세요.');
 					  return false;
 				} else if($('#mName').val() == '${loginUser.MName}'
-						  && $('#mPhone').val() == '${loginUser.MPhone}'
-						  && $('#mEmail').val() == '${loginUser.MEmail}'){ // 기존에 값과 같을 경우
-							 alert('변경된 정보가 없습니다.');
-							 return false;
-				} else{ // 변경된 정보가 있을 경우
-					$('#f').attr('action', 'updateMember.do');
-					$('#f').submit();
+				   	 	  && $('#mPhone').val() == '${loginUser.MPhone}'
+					      && $('#mEmail').val() == '${loginUser.MEmail}'){ // 기존에 값과 동일할 경우(하나라도 변경 X)
+					      alert('변경된 정보가 없습니다.');
+					      return false;
+				} else if($('#mName').val() != '${loginUser.MName}'
+				   		  || $('#mPhone').val() != '${loginUser.MPhone}'
+				   		  || $('#mEmail').val() != '${loginUser.MEmail}'){ // 하나라도 변경된 정보가 있을 경우
+						 	  if($('#mEmail').val() != '${loginUser.MEmail}'){ // 그중 이메일이 변경되었다면 이메일 인증 진행
+						 		 fn_email_code();
+							  } else if(!authPass){ // 이메일 인증을 안 했을 경우
+								 alert('이메일 인증은 필수입니다.');
+							  } else{
+								  $('#f').attr('action', 'updateMember.do');
+								  $('#f').submit();
+							  }
+				} else{ 
+					 $('#f').attr('action', 'updateMember.do');
+					 $('#f').submit();
 				}
 			});
 		}
 		// 회원 탈퇴(leave)
 		function fn_leave(){
-			$('#leave_btn').on('click', function(){
+			$('#leave_btn').click(function(){
 				if (confirm('탈퇴하시겠습니까?')) {
 					location.href = 'leave.do?mNo=${loginUser.MNo}';					
 				}
@@ -115,8 +194,13 @@
 		<input type="text" name="mPhone" id="mPhone" value="${loginUser.MPhone}"><br><br>
 		
 		이메일<br>
-		<input type="text" name="mEmail" id="mEmail" value="${loginUser.MEmail}"><br><br>
-		
+		<input type="text" name="mEmail" id="mEmail" value="${loginUser.MEmail}"><br>
+		<span class="email_result"></span><br>
+		<input type="button" id="email_code_btn" value="인증코드 받기"><br>
+		<input type="text" name="user_key" id="user_key">
+		<input type="button" id="email_auth_btn" value="인증하기"><br>
+		<span class="emailAuth_result"></span><br><br>
+			
 		가입일 : ${loginUser.MRegdate}<br><br>
 		
 		<input type="hidden" name="mNo" value="${loginUser.MNo}">

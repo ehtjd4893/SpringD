@@ -10,8 +10,8 @@
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
-			fn_email_code();
 			fn_emailCheck();
+			fn_email_code();
 		})
 		// 이메일 확인(emailCheck) : 가입할 때 사용했던 이메일 중복 체크 재사용
 		var emailPass = false;

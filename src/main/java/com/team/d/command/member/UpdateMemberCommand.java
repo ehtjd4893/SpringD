@@ -24,7 +24,7 @@ public class UpdateMemberCommand implements MemberCommand {
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		HttpSession session = request.getSession();
 
-		// memberDTO에 회원정보 확인
+		// request를 통해 입력된 회원정보가 memberDTO에 회원정보와 일치하는지 확인
 		MemberDTO memberDTO = (MemberDTO)map.get("memberDTO");
 		memberDTO.setMName(SecurityUtils.xxs(request.getParameter("mName"))); // 이름 XXS 처리
 		memberDTO.setMEmail(SecurityUtils.xxs(request.getParameter("mEmail"))); // 이메일 XXS 처리

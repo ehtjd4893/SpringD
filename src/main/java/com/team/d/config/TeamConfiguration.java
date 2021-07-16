@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import com.team.d.command.room.DownloadRoomServiceMenuCommand;
 import com.team.d.command.room.SelectRoomListCommand;
 import com.team.d.command.room.SelectRoomViewCommand;
 import com.zaxxer.hikari.HikariConfig;
@@ -54,7 +55,10 @@ public class TeamConfiguration {
 		return new SelectRoomViewCommand();
 	}
 	
-	
+	@Bean
+	public DownloadRoomServiceMenuCommand downloadRoomServiceMenuCommand() {
+		return new DownloadRoomServiceMenuCommand();
+	}
 	
 	
 

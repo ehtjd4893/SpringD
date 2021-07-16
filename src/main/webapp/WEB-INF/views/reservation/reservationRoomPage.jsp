@@ -12,7 +12,7 @@
 		
 	});
 	
-
+	
  
 </script>
 </head>
@@ -32,7 +32,8 @@
 	 			등급  ${r.RGrade} /
 	 			최대 인원   [${r.RAccept} ]/
 	 			방 크기 ${r.RSize} <br>
-	 			<a href="optionPage.do?rNo=${r.RNo}">예약하기</a>
+ 			 	<a href="optionPage.do?rNo=${r.RNo}&checkIn=${checkIn}&checkOut=${checkOut}&people=${people}">예약하기</a>
+ 			 
  			 
  			<hr>
  		</c:forEach>

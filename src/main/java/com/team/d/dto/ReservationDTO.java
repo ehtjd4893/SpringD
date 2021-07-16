@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReservationDTO {
 
-	private int reno;
-	private int rno;
-	private int mno;
+	private int reNo;
+	private int rNo;
+	private int mNo;
 	private int people;
 	private Date checkIn;
 	private Date checkOut;

@@ -3,7 +3,6 @@ package com.team.d.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
 
+import lombok.AllArgsConstructor;
 
 
 
+@AllArgsConstructor
 @Controller
 public class ReservationController {
 
@@ -21,14 +22,7 @@ public class ReservationController {
 	private SelectRemainingRoom selectRemainingRoom;
 	private SelectRoomCommand selectRoomCommand;
 	 
-	@Autowired
-	public ReservationController(SqlSession sqlSession,
-									SelectRemainingRoom selectRemainingRoom,
-									SelectRoomCommand selectRoomCommand) {
-		this.sqlSession=sqlSession;
-		this.selectRemainingRoom=selectRemainingRoom;
-		this.selectRoomCommand=selectRoomCommand;
-	}
+	 
 	
 	// 조회 페이지로 이동
 	@GetMapping(value="reservationSelectDatePage.do")

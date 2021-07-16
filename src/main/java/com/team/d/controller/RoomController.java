@@ -28,12 +28,7 @@ public class RoomController {
 		this.selectRoomViewCommand = selectRoomViewCommand;
 	}
 	
-	/*
-	@GetMapping(value="/")
-	public String index() {
-		return "index";
-	}
-	*/
+	 
 	
 	@GetMapping(value="roomPage.do")
 	public String roomPage() {

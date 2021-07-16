@@ -5,16 +5,16 @@
 <mapper namespace="com.team.d.dao.ReservationDAO">
 
 	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
-		SELECT DISTINCT r.RNO, r.RNAME, r.RPRICE, r.RGRADE, r.RIMG, r.RACCEPT, r.RSIZE
-	 	  FROM ROOM r FULL OUTER JOIN RESERVATION v
+		 SELECT DISTINCT r.RNO, r.RNAME, r.RPRICE, r.RGRADE, r.RIMG, r.RACCEPT, r.RSIZE
+	 	  FROM spring.ROOM r FULL OUTER JOIN spring.RESERVATION v
 		    ON r.RNO = v.RNO
 		 ORDER BY r.RNO ASC
 	</select>
 	
 	<select id="selectRoom" resultType="com.team.d.dto.RoomDTO">
 		SELECT RNO, RNAME, RPRICE, RGRADE, RIMG, RACCEPT, RSIZE
-		FROM ROOM
-		WHERE RNO = #{param1}
+		FROM spring.ROOM
+		WHERE RNO = #{rNo}
 	</select>
 	
 </mapper>

@@ -1,7 +1,5 @@
 package com.team.d.dao;
 
-import java.util.List;
-
 import com.team.d.dto.MemberDTO;
 
 public interface MemberDAO {

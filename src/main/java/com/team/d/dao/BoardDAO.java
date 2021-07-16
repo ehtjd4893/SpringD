@@ -3,8 +3,6 @@ package com.team.d.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.team.d.dto.BoardDTO;
 import com.team.d.dto.PageDTO;
 
@@ -24,5 +22,11 @@ public interface BoardDAO {
 	public int getSearchedlRecord(Map<String, String> container);
 
 	public int getTotalInformRecord();
+
+	public List<BoardDTO> getNoticeList();
+
+	public void updateHitByIdx(long BIDX);
+
+	public BoardDTO selectBoardByIdx(long BIDX);
 	
 }

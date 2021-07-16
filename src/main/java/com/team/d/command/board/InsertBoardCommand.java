@@ -46,9 +46,9 @@ public class InsertBoardCommand implements BoardCommand {
 		fileUpload(file3, 3);
 		
 		Map<String, Object> container = new HashMap<>();
-		container.put("mId", mId);
-		container.put("bTitle", bTitle);
-		container.put("bContent", bContent);
+		container.put("MID", mId);
+		container.put("BTITLE", bTitle);
+		container.put("BCONTENT", bContent);
 		container.put("BFILENAME1", BFILENAME1);
 		container.put("BFILENAME2", BFILENAME2);
 		container.put("BFILENAME3", BFILENAME3);

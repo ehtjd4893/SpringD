@@ -17,6 +17,8 @@ public class LogoutCommand implements MemberCommand {
 		
 		if(session.getAttribute("loginUser") != null) {
 			session.invalidate(); // 세션 비우기
+		} else if(session.getAttribute("loginAdmin") != null) {
+			session.invalidate();
 		}
 		
 	}

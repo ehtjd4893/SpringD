@@ -15,7 +15,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
-import com.team.d.command.board.SelectInformCommand;
+import com.team.d.command.board.SelectNoticeCommand;
+import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.board.BoardListCommand;
 
 import lombok.AllArgsConstructor;
@@ -29,25 +30,28 @@ public class BoardController {
 	private InsertBoardCommand insertBoardCommand;
 	private BoardListCommand boardListCommand;
 	private SearchBoardCommand searchBoardCommand;
-	private SelectInformCommand selectInformCommand;
+	private SelectNoticeCommand selectNoticeCommand;
+	private ShowBoardCommand showBoardCommand;
 	
 	@Autowired
 	public BoardController(SqlSession sqlSession, 
 			InsertBoardCommand insertBoardCommand,
 			BoardListCommand boardListCommand,
 			SearchBoardCommand searchBoardCommand,
-			SelectInformCommand selectInformCommand) {
+			SelectNoticeCommand selectNoticeCommand,
+			ShowBoardCommand showBoardCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.insertBoardCommand = insertBoardCommand;
 		this.boardListCommand = boardListCommand;
 		this.searchBoardCommand = searchBoardCommand;
-		this.selectInformCommand = selectInformCommand;
+		this.selectNoticeCommand = selectNoticeCommand;
+		this.showBoardCommand = showBoardCommand;
 	}
 
 	@GetMapping(value="boardPage.do")
 	public String BoardPage() {
-		return "board/viewBoard";
+		return "board/viewBoardList";
 	}
 	
 	@GetMapping(value="insertBoardPage.do")
@@ -88,13 +92,19 @@ public class BoardController {
 		return "board/viewBoard";
 	}
 	
-	@GetMapping(value="selectInform.do", produces="application/json; charset=utf-8")
+	@GetMapping(value="selectNotice.do", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> selectInform(HttpServletRequest request, Model model){
-		model.addAttribute("request", request);
+	public Map<String, Object> selectInform(){
 		
-		return selectInformCommand.execute(sqlSession, model);
+		return selectNoticeCommand.execute(sqlSession);
 	}
 	
+	// 게시글 제목 클릭시 게시글의 내용을 보여주는 매핑
+	@GetMapping(value="selectBoard.do")
+	public String showBoard(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		showBoardCommand.execute(sqlSession, model);
+		return "board/selectBoard";
+	}
 	
 }

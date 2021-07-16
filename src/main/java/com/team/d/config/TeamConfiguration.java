@@ -10,7 +10,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import com.team.d.command.board.BoardListCommand;
 import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
-import com.team.d.command.board.SelectInformCommand;
+import com.team.d.command.board.SelectNoticeCommand;
+import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.member.AdminLoginCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
@@ -78,8 +79,12 @@ public class TeamConfiguration {
 		return new SearchBoardCommand();		
 	}
 	@Bean
-	public SelectInformCommand selectInformCommand() {
-		return new SelectInformCommand();
+	public SelectNoticeCommand selectInformCommand() {
+		return new SelectNoticeCommand();
+	}
+	@Bean
+	public ShowBoardCommand showBoardCommand() {
+		return new ShowBoardCommand();
 	}
 	
 	/* Member 관련*/

@@ -146,14 +146,12 @@
 				} else if($('#mName').val() != '${loginUser.MName}'
 				   		  || $('#mPhone').val() != '${loginUser.MPhone}'
 				   		  || $('#mEmail').val() != '${loginUser.MEmail}'){ // 하나라도 변경된 정보가 있을 경우
-						 	  if($('#mEmail').val() != '${loginUser.MEmail}'){ // 그중 이메일이 변경되었다면 이메일 인증 진행
-						 		 fn_email_code();
-							  } else if(!authPass){ // 이메일 인증을 안 했을 경우
-								 alert('이메일 인증은 필수입니다.');
-							  } else{
-								  $('#f').attr('action', 'updateMember.do');
-								  $('#f').submit();
-							  }
+							if($('#mEmail').val() != '${loginUser.MEmail}' && authPass){ // 이메일 인증에 성공했을 경우
+								$('#f').attr('action', 'updateMember.do');
+								$('#f').submit();
+						  	}else{
+					  			alert('이메일인증은 필수입니다.');
+						  	}
 				} else{ 
 					 $('#f').attr('action', 'updateMember.do');
 					 $('#f').submit();

@@ -45,7 +45,6 @@ public class MemberController {
 	private UpdatePwCommand updatePwCommand;
 	private UpdateMemberCommand updateMemberCommand;
 	private FindIdCommand findIdCommand;
-	// private IdAndEmailCheckCommand idAndEmailCheckCommand;
 	private FindPwCommand findPwCommand;
 	private LeaveCommand leaveCommand;
 
@@ -62,7 +61,6 @@ public class MemberController {
 							UpdatePwCommand updatePwCommand,
 							UpdateMemberCommand updateMemberCommand,
 							FindIdCommand findIdCommand,
-							// IdAndEmailCheckCommand idAndEmailCheckCommand,
 							FindPwCommand findPwCommand,
 							LeaveCommand leaveCommand) {
 		super();
@@ -77,7 +75,6 @@ public class MemberController {
 		this.updatePwCommand = updatePwCommand;
 		this.updateMemberCommand = updateMemberCommand;
 		this.findIdCommand = findIdCommand;
-		// this.idAndEmailCheckCommand = idAndEmailCheckCommand;
 		this.findPwCommand = findPwCommand;
 		this.leaveCommand = leaveCommand;
 	}
@@ -158,20 +155,20 @@ public class MemberController {
 	// 현재 비밀번호 확인(presentPwCheck) : 오류
 	@ResponseBody // AJAX매핑
 	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8") // 현재 비밀번호 확인 후 JSON형태로 반환
-	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용
-											   HttpSession session, Model model){
+	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, HttpSession session, Model model){ // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용								  
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("session", session);
 		return presentPwCheckCommand.execute(sqlSession, model);
 	}
-	// 비밀번호 변경(updatePw) : 오류
+	// 비밀번호 변경(updatePw) 
 	@PostMapping(value="updatePw.do")
-	public void updatePw(HttpServletRequest request, HttpServletResponse response, Model model) {
+	public void updatePw(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
 		updatePwCommand.execute(sqlSession, model);
 	}
-	// 회원정보 변경(updateMember) : 오류
+	// 회원정보 변경(updateMember)
 	@PostMapping(value="updateMember.do")
 	public void updateMember(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("memberDTO", memberDTO);
@@ -186,14 +183,6 @@ public class MemberController {
 		findIdCommand.execute(sqlSession, model);
 		return "member/findIdResult";
 	}
-	// 아이디&이메일 일치 확인(비밀번호 찾을 때 필요)(idAndEmailCheck) : 보류..
-	/*
-	@GetMapping(value="idAndEmailCheck.do", produces="application/json; charset=utf-8")
-	public Map<String, Object> idAndEmailCheck(HttpServletRequest request, Model model){
-		model.addAttribute("request", request);
-		return idAndEmailCheckCommand.execute(sqlSession, model);
-	}
-	*/
 	// 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
 	@PostMapping(value="changePwPage.do")
 	public String changePwPage(@ModelAttribute("mEmail") String mEmail) {

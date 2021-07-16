@@ -12,37 +12,7 @@
 		$(document).ready(function(){
 			fn_email_code();
 			fn_emailCheck();
-			// fn_idAndEmailCheck();
 		})
-		// 아이디&이메일 일치 확인(idAndEmailCheck) : 구현하기 어려워서 아직 보류 중...
-		/* var idAndEmailPass = false;
-		function fn_idAndEmailCheck(){
-			$('#mEmail').keyup(function(){
-				var obj = {
-						mId: $('#mId').val(),
-						mEmail: $('#mEmail').val()
-				};
-				$.ajax({
-					url: 'idAndEmailCheck.do',
-					type: 'post',
-					contentType: 'application/json',
-					data: JSON.stringify(obj),
-					dataType: 'json',
-					success: function(res){
-						if(res.result == 0){
-							$('.result').text('가입하신 아이디와 이메일이 일치하지 않습니다. 다시 확인하세요.');
-							idAndEmailPass = false;
-						} else{
-							$('.result').text('가입하신 이메일로 인증코드를 받으세요.');
-							idAndEmailPass = true;
-						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
-						
-					}
-				});
-			});
-		} */
 		// 이메일 확인(emailCheck) : 가입할 때 사용했던 이메일 중복 체크 재사용
 		var emailPass = false;
 		function fn_emailCheck(){

@@ -10,32 +10,23 @@
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
-			fn_update();
 			fn_presentPwCheck();
 			fn_updatePw();
+			fn_updateMember();
 			fn_leave();
 		});
-		// 회원 정보 변경(update)
-		function fn_update(){
-			$('#update_btn').click(function(){
-				if(confirm('수정하시겠습니까?')){
-					$('#f').attr('action', 'updateMember.do');
-					$('#f').submit();
-				}
-			});
-		}
 		// 현재 비밀번호 확인(presentPwCheck)
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
-			$('#mPw0').keyup(function(){
+			$('#mPw0').on('keyup', function(){
 				var obj = { // 현재 비밀번호 객체 생성
-						pw: $('#mPw0').val()
+						mPw: $('#mPw0').val()
 				};
 				$.ajax({
 					url: 'presentPwCheck.do',
 					type: 'post',
-					contentType: 'application/json',  // 보내는 데이터가 json일 때 필수 옵션
 					data: JSON.stringify(obj), // 보내는 data 문자열화
+					contentType: 'application/json',  // 보내는 데이터가 json일 때 필수 옵션
 					dataType: 'json', // 받는 data
 					success: function(resultMap){
 						if(resultMap.isCorrect){ // session에 저장된 암호화 된 비밀번호와 일치할 경우 통과
@@ -49,8 +40,12 @@
 		}
 		// 비밀번호 변경(updatePw)
 		function fn_updatePw(){
-			$('#pw_btn').click(function(){
-				if(!presentPwPass){ // 위 현재 비밀번호 통과를 못 했을 경우(기존 비밀번호와 일치하지 않을 경우)
+			$('#pw_btn').on('click', function(){
+				if($('#mPw0').val() == ''){ // 현재 비밀번호를 입력하지 않을 경우
+					alert('현재 비밀번호를 입력하세요.');
+					$('#mPw0').focus();
+					return false;
+				} else if(!presentPwPass){ // 위 현재 비밀번호 통과를 못 했을 경우(기존 비밀번호와 일치하지 않을 경우)
 					alert('현재 비밀번호가 일치하지 않습니다. 확인해주세요.');
 					$('#mPw0').focus();
 					return false;
@@ -67,9 +62,28 @@
 				}
 			});
 		}
+		// 회원 정보 변경(updateMember)
+		function fn_updateMember(){
+			$('#update_btn').on('click', function(){
+				if($('#mName').val() == '' 
+				   || $('#mPhone').val() == ''
+				   || $('#mEmail').val() == ''){ // 이름, 전화번호, 이메일 중 하나라도 공백일 경우
+					  alert('이름, 전화번호, 이메일은 필수정보 입니다. 내용을 입력하세요.');
+					  return false;
+				} else if($('#mName').val() == '${loginUser.MName}'
+						  && $('#mPhone').val() == '${loginUser.MPhone}'
+						  && $('#mEmail').val() == '${loginUser.MEmail}'){ // 기존에 값과 같을 경우
+							 alert('변경된 정보가 없습니다.');
+							 return false;
+				} else{ // 변경된 정보가 있을 경우
+					$('#f').attr('action', 'updateMember.do');
+					$('#f').submit();
+				}
+			});
+		}
 		// 회원 탈퇴(leave)
 		function fn_leave(){
-			$('#leave_btn').click(function(){
+			$('#leave_btn').on('click', function(){
 				if (confirm('탈퇴하시겠습니까?')) {
 					location.href = 'leave.do?mNo=${loginUser.MNo}';					
 				}
@@ -84,10 +98,10 @@
 	<form id="f" method="post">
 	
 		이름<br>
-		<input type="text" value="${loginUser.MName}"><br><br>
+		<input type="text" name="mName" id="mName" value="${loginUser.MName}"><br><br>
 		
 		아이디<span>(아이디는 수정 불가)</span><br>
-		<input type="text" value="${loginUser.MId}" readonly><br><br>
+		<input type="text" name="mId" id="mId" value="${loginUser.MId}" readonly><br><br>
 		
 		현재 비밀번호<br>
 		<input type="password" name="mPw0" id="mPw0"><br><br>
@@ -98,16 +112,16 @@
 		<input type="button" id="pw_btn" value="비밀번호 변경하기"><br><br>
 		
 		전화번호<br>
-		<input type="text" name="mPhone" value="${loginUser.MPhone}"><br><br>
+		<input type="text" name="mPhone" id="mPhone" value="${loginUser.MPhone}"><br><br>
 		
 		이메일<br>
-		<input type="text" name="mEmail" value="${loginUser.MEmail}"><br><br>
+		<input type="text" name="mEmail" id="mEmail" value="${loginUser.MEmail}"><br><br>
 		
 		가입일 : ${loginUser.MRegdate}<br><br>
 		
 		<input type="hidden" name="mNo" value="${loginUser.MNo}">
-		<input type="button" value="정보변경하기" id="update_btn">
-		<input type="button" value="회원탈퇴" id="leave_btn">
+		<input type="button" id="update_btn" value="정보변경하기">
+		<input type="button" id="leave_btn" value="회원탈퇴">
 		<input type="button" value="돌아가기" onclick="location.href='loginPage.do'">
 	</form>
 	

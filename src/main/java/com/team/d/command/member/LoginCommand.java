@@ -21,16 +21,12 @@ public class LoginCommand implements MemberCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
-		HttpSession session = request.getSession(); // session에 있는 값과 비교하기 위해
+		HttpSession session = request.getSession();
 		
-		// 로그인 시 request에 입력된 mId, mPw 확인
-		String mId = request.getParameter("mId");
-		String mPw = request.getParameter("mPw");
-		
-		// memberDTO에 mId, mPw가 일치하는지 확인
+		// request를 통해 입력된 mId, mPw가 memberDTO에 mId, mPw와 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMId(mId);
-		memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 입력된 비밀번호 암호화 처리
+		memberDTO.setMId(request.getParameter("mId"));
+		memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw"))); // 입력된 비밀번호 암호화 처리
 		
 		// memberDAO의 로그인 login메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);

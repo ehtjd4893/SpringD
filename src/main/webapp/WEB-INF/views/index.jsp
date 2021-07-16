@@ -10,7 +10,6 @@
 
 <body>
 	<h1> Homepage </h1>
- 
 	
 	<a href="boardPage.do">게시판</a>
 	<a href="loginPage.do">로그인</a>

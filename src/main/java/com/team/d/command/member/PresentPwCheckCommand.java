@@ -19,13 +19,15 @@ public Map<String, Boolean> execute(SqlSession sqlSession, Model model) {
 		MemberDTO memberDTO = (MemberDTO)map.get("memberDTO");
 		HttpSession session = (HttpSession)map.get("session");
 		
-		// 마이페이지 수정화면에서
+		// 마이페이지 화면에서 입력한 비밀번호 확인
+		String mPw = SecurityUtils.encodeBase64(memberDTO.getMPw()); // 입력한 비밀번호 암호화
+		
 		// session에 저장된 비밀번호(pw1)와 현재 입력한 비밀번호 확인하기(pw2)
-		String pw1 = ((MemberDTO)session.getAttribute("loginUser")).getMPw(); // session에 저장된 암호화 된 비밀번호
-		String pw2 = SecurityUtils.encodeBase64(memberDTO.getMPw()); // 현재 입력한 비밀번호 암호화
+		String pw = ((MemberDTO)session.getAttribute("loginUser")).getMPw(); // session에 저장된 암호화 된 비밀번호
+		// String pw2 = SecurityUtils.encodeBase64(memberDTO.getMPw()); // 현재 입력한 비밀번호 암호화
 		
 		Map<String, Boolean> resultMap = new HashMap<>();
-		resultMap.put("isCorrect", pw1.equals(pw2)); // pw1과 pw2 비교
+		resultMap.put("isCorrect", pw.equals(mPw)); // pw과 mPw 비교
 		return resultMap;
 
 	}

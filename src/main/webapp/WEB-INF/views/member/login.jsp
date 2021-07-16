@@ -46,7 +46,7 @@
 		</div>
 	</c:if>
 	
-	<!-- 로그인 화면 -->
+	<!-- 로그인 성공 화면 -->
 	<c:if test="${loginUser != null}">
 		<h3>${loginUser.MId} 님 환영합니다!</h3>
 		<a href="boardPage.do">게시판</a>

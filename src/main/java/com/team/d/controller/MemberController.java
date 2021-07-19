@@ -99,7 +99,7 @@ public class MemberController {
 	public String joinPage() {
 		return "member/join";
 	}
-	// 아이디 찾기 페이지 findId.jsp 단순이동
+	/*// 아이디 찾기 페이지 findId.jsp 단순이동
 	@GetMapping(value="findIdPage.do")
 	public String findIdPage() {
 		return "member/findId";
@@ -108,6 +108,11 @@ public class MemberController {
 	@GetMapping(value="findPwPage.do")
 	public String findPwPage() {
 		return "member/findPw";
+	}*/
+	// 아이디/비밀번호 찾기 findIdAndPw.jsp 단순이동
+	@GetMapping(value="findIdAndPwPage.do")
+	public String findIdAndPwPage() {
+		return "member/findIdAndPw";
 	}
 	
 	// 로그인(login)
@@ -160,7 +165,7 @@ public class MemberController {
 		model.addAttribute("session", session);
 		return presentPwCheckCommand.execute(sqlSession, model);
 	}
-	// 비밀번호 변경(updatePw) 
+	// 비밀번호 변경(updatePw) : 오류
 	@PostMapping(value="updatePw.do")
 	public void updatePw(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("memberDTO", memberDTO);

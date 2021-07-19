@@ -22,7 +22,7 @@
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
 				var obj = { // 현재 비밀번호 객체 생성
-						mPw: $('#mPw0').val()
+						mPw : $('#mPw0').val()
 				};
 				$.ajax({
 					url: 'presentPwCheck.do',
@@ -36,6 +36,9 @@
 						} else{
 							presentPwPass = false;
 						}
+					},
+					error: function(xhr, textStatus, errorThrown) {
+						
 					}
 				});
 			});
@@ -155,7 +158,7 @@
 		   		   || $('#mEmail').val() != '${loginUser.MEmail}'){ 
 						// 그중 이메일이 변경됐는데 이메일 인증을 안 했을 경우(회원정보 변경 불가)
 						if($('#mEmail').val() != '${loginUser.MEmail}' && !authPass){ 
-							alert('이메일인증은 필수입니다.');
+							alert('이메일 변경 시, 이메일인증은 필수입니다.');
 							return false;
 					  	}
 						$('#f').attr('action', 'updateMember.do');

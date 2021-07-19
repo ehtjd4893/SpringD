@@ -40,7 +40,7 @@
 		<!-- 회원가입, 아이디&비번 찾기 -->
 		<div class="joinAndFind">
 			<a href="joinPage.do">회원가입</a>
-			<a href="findPage.do">아이디/비밀번호 찾기</a>
+			<a href="findIdAndPwPage.do">아이디/비밀번호 찾기</a>
 			<!-- <a href="findPwPage.do">비밀번호 찾기</a> -->
 			<a href="index.do">돌아가기</a>
 		</div>

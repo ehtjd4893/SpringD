@@ -10,6 +10,7 @@
 		// 페이지 로드
 		$(document).ready(function(){
 			fn_findId();
+			fn_find_check();
 		})
 		// 아이디 찾기(findId)
 		function fn_findId(){
@@ -23,10 +24,12 @@
 					$('#mEmail').focus();
 					return false;
 				}
+				
 				var obj = { // 이름과 이메일 객체 생성
-						mName = $('#mName').val(),
-						mEmail = $('#mEmail').val()
+						mName : $('#mName').val(),
+						mEmail : $('#mEmail').val()
 				};
+				
 				$.ajax({
 					url: 'findId.do',
 					type: 'post',
@@ -48,6 +51,20 @@
 				});
 			});
 		}
+		// 아이디/비밀번호 찾기 radio 체크에 따른 화면 전환
+		function fn_find_check(){
+			$('input[type=radio][name=find]').on('click', function(){
+				var chkValue = $('input[type=radio][name=find]:checked').val();
+				if(chkValue == '1'){
+					$('#findId_form').css('display', 'block');
+					$('#findPw_form').css('display', 'none');
+				} else if(chkValue == '2'){
+					$('#findId_form').css('display', 'none');
+					$('#findPw_form').css('display', 'block');
+				}
+			});
+		}
+		
 	</script>
 </head>
 <body>
@@ -56,17 +73,54 @@
 	
 	<div class="find_form">
 		<!-- 아이디 찾기 -->
-		<div class="findId_form">
-			<input type="radio" name="search" id="searchId" onclick="search_click(1)" checked>
-			<label for="searchId">아이디 찾기</label>
-		</div>
-		
+		<input type="radio" name="find" id="findId" value="1" checked="checked">
+		<label for="findId">아이디 찾기</label>
 		<!-- 비밀번호 찾기 -->
-		<div class="findId_form">
-			<input type="radio" name="search" id="searchPw" onclick="search_click(2)">
-			<label for="searchPw">비밀번호 찾기</label>
-		</div>
+		<input type="radio" name="find" id="findPw" value="2">
+		<label for="findPw">비밀번호 찾기</label>
 	</div>
+	
+	<!-- 아이디 찾기 화면 -->
+	<div id="findId_form">
+		<form id="f" method="post">
+			<!-- 이름 -->
+			<div class="form_group">
+				<label for="mName">이름</label><br>
+				<input type="text" name="mName" id="mName" placeholder="ex) 홍길동">
+			</div>
+			<!-- 이메일 -->
+			<div class="form_group">
+				<label for="mEmail">이메일</label><br>
+				<input type="text" name="mEmail" id="mEmail" placeholder="ex) hong@naver.com">
+			</div>
+			<!-- 확인 버튼 -->
+			<div class="form_group">
+				<input type="button" id="findId_btn" value="확인">
+			</div>
+		</form>
+	</div>
+	<br><br>
+	
+	<!-- 비밀번호 찾기 화면 -->
+	<div id="findPw_form" style="display: none;"> <!-- 처음에는 보이지 않고 비번찾기 시에 화면 나타내기 -->
+		<form id="f2" method="post">
+			<!-- 아이디 -->
+			<div class="form_group">
+				<label for="mId">아이디</label><br>
+				<input type="text" name="mId" id="mId" placeholder="ex) hong">
+			</div>
+			<!-- 이메일 -->
+			<div class="form_group">
+				<label for="mEmail2">이메일</label><br>
+				<input type="text" name="mEmail2" id="mEmail2" placeholder="ex) hong@naver.com">
+			</div>
+			<!-- 확인 버튼 -->
+			<div class="form_group">
+				<input type="button" id="findPw_btn" value="확인">
+			</div>
+		</form>
+	</div>
+	<br><br>
 	
 	<input type="button" value="로그인" onclick="location.href='index.do'">
 	<input type="button" value="회원가입" onclick="location.href='joinPage.do'">

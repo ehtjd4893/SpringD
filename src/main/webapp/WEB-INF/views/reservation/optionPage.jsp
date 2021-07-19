@@ -18,7 +18,7 @@
 	function fn_de(){
 		$('#people_count').text(0);	//다이닝 인원 초기화 (0)
 		$('#dining_price').text(0);	//다이닝 총가격 초기화 (0)
-		$('#total_sum').text($('#totalRoom_price').text());	//총 금액 초기화 (총 숙박가격 + 조식인원)
+		$('#totalPay').text($('#totalRoom_price').text());	//총 금액 초기화 (총 숙박가격 + 조식인원)
 	}
 	
 	
@@ -35,7 +35,7 @@
 			$('#dining_price').text(food_sum);
 			
 			var total=($('#food').val()*50000)+Number($('#totalRoom_price').text());
-			$('#total_sum').text(total);
+			$('#totalPay').val(total);
 		});
 	}
 	
@@ -56,6 +56,10 @@
 		table,td,tr{
 			border: 1px solid pink;
 		}
+		#total_sum{
+			border:0 solid black;
+			outline:none;
+		}
 	</style>
 <title>Insert title here</title>
 </head>
@@ -65,7 +69,12 @@
  	<form id="f">
 	 	조식<br> 
 	 	<input type="text" id="food" name="food" value="0"> 명
- 	
+	 	
+	 	<!-- hidden으로 선택한 방번호,체크인/체크아웃,방예약인원 넘김 -->
+	 	<input type="hidden" name="rNo" value="${selectRoom.RNo}">
+	 	<input type="hidden" name="checkIn" value="${checkIn}">
+	 	<input type="hidden" name="checkOut" value="${checkOut}">
+	 	<input type="hidden" name="people" value="${people}">
  	<br><br>
  	
  	<table>
@@ -99,10 +108,13 @@
  		</tbody>
  		<tfoot>
  			<tr>
- 				<td colspan="5"><h1>총  	 <span id="total_sum"> </span> 원</h1> 	 </td>
+ 				<td colspan="5"><h1>총  	 <input type="text"  id="totalPay" name="totalPay" readonly >  원</h1> 	 </td>
  			</tr>
  		</tfoot>
  	</table>
+ 	
+ 	
+ 	
  	
  	<input type="button" value="다음" id="next_btn">
  	</form>

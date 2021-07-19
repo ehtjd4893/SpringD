@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.team.d.command.reservation.ReceiptCommand;
+import com.team.d.command.reservation.RevInfoCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
 
@@ -21,9 +23,10 @@ public class ReservationController {
 	private SqlSession sqlSession;
 	private SelectRemainingRoom selectRemainingRoom;
 	private SelectRoomCommand selectRoomCommand;
+	private ReceiptCommand receiptCommand;
+	private RevInfoCommand revInfoCommand;
 	 
 	 
-	
 	// 조회 페이지로 이동
 	@GetMapping(value="reservationSelectDatePage.do")
 	public String reservationSelectDatePage() {
@@ -46,11 +49,20 @@ public class ReservationController {
 		return "reservation/optionPage";
 	}
 	
-	// 예약 결과 보여주기
+	// 예약정보인 입력페이지 이동
 	@GetMapping(value="revInfoPage.do")
 	public String revInfo(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
+		revInfoCommand.execute(sqlSession, model);
 		return "reservation/revInfoPage";
+	}
+	
+	//최종 예약결과 보여주기 페이지로 이동
+	@GetMapping(value="receiptPage.do")
+	public String receiptPage(HttpServletRequest request,Model model) {
+		model.addAttribute("request",request);
+		receiptCommand.execute(sqlSession, model);
+		return "reservation/receiptPage";
 	}
 	
 }

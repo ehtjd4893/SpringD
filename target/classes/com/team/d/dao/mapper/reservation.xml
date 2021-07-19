@@ -4,17 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.d.dao.ReservationDAO">
 
+	
 	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
 		 SELECT DISTINCT r.RNO, r.RNAME, r.RPRICE, r.RGRADE, r.RIMG, r.RACCEPT, r.RSIZE
-	 	  FROM spring.ROOM r FULL OUTER JOIN spring.RESERVATION v
+	 	  FROM SPRING.ROOM r FULL OUTER JOIN SPRING.RESERVATION v
 		    ON r.RNO = v.RNO
 		 ORDER BY r.RNO ASC
 	</select>
 	
+	<!-- 예약한 방 정보 -->
 	<select id="selectRoom" resultType="com.team.d.dto.RoomDTO">
 		SELECT RNO, RNAME, RPRICE, RGRADE, RIMG, RACCEPT, RSIZE
-		FROM spring.ROOM
+		FROM SPRING.ROOM
 		WHERE RNO = #{rNo}
+	</select>
+	
+	<!-- 예약정보 삽입 -->
+	<insert id="insertReservation" >
+		INSERT INTO SPRING.RESERVATION
+		VALUES (SPRING.RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
+	</insert>
+	
+	<!-- 예약정보 뽑아오는 함수 -->
+	<select id="selectViewReservation" resultType="long">
+		SELECT RENO
+		FROM SPRING.RESERVATION 
+		WHERE RENO=(SELECT MAX(RENO) FROM SPRING.RESERVATION)
 	</select>
 	
 </mapper>

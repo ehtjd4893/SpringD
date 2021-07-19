@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReservationDTO {
 
-	private int reNo;
-	private int rNo;
-	private int mNo;
-	private int people;
+	private long reNo;
+	private long rNo;
+	private long mNo;
+	private long people;
 	private Date checkIn;
 	private Date checkOut;
-	private int food;
+	private long food;
+	private long totalPay;
+	private String booker;
 }

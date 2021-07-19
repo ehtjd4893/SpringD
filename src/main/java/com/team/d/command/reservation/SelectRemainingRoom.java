@@ -23,9 +23,9 @@ public class SelectRemainingRoom implements ReservationCommand {
 		// 체크아웃 날짜
 		String checkOut = request.getParameter("checkOut");
 		// 숙박 인원
-		int people = Integer.parseInt(request.getParameter("people"));
+		long people = Long.parseLong(request.getParameter("people"));
 		
-		System.out.println("조회하신 정보는 " + checkIn + ", " + checkOut + ", " + people + "명입니다");
+		//System.out.println("조회하신 정보는 " + checkIn + ", " + checkOut + ", " + people + "명입니다");
 		
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		

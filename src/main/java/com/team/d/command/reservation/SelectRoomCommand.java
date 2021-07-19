@@ -22,9 +22,9 @@ public class SelectRoomCommand implements ReservationCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		int rNo = Integer.parseInt(request.getParameter("rNo"));
+		long rNo = Long.parseLong(request.getParameter("rNo"));
 		//숙박인원 수
-		int people = Integer.parseInt(request.getParameter("people"));
+		long people = Long.parseLong(request.getParameter("people"));
 		// 체크인 날짜
 		String checkIn = request.getParameter("checkIn");
 		// 체크아웃 날짜
@@ -53,7 +53,7 @@ public class SelectRoomCommand implements ReservationCommand {
  
             //두날짜 사이의 시간 차이(ms)를 하루 동안의 ms(24시*60분*60초*1000밀리초) 로 나눈다.
             long diffDay = ( CheckOutYMD.getTime() - checkInYMD.getTime()) / (24*60*60*1000);
-            System.out.println(diffDay+"일");
+            //System.out.println(diffDay+"일");
             model.addAttribute("sleepDate",diffDay);
         }catch(ParseException e){
             e.printStackTrace();

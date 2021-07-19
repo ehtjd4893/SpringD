@@ -8,10 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import com.team.d.command.board.BoardListCommand;
+import com.team.d.command.board.DeleteBoardCommand;
 import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
 import com.team.d.command.board.SelectNoticeCommand;
 import com.team.d.command.board.ShowBoardCommand;
+import com.team.d.command.board.UpdateBoardCommand;
+import com.team.d.command.board.UpdateBoardPageCommand;
 import com.team.d.command.member.AdminLoginCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
@@ -85,6 +88,18 @@ public class TeamConfiguration {
 	@Bean
 	public ShowBoardCommand showBoardCommand() {
 		return new ShowBoardCommand();
+	}
+	@Bean
+	public UpdateBoardPageCommand UpdateBoardPageCommand() {
+		return new UpdateBoardPageCommand();
+	}
+	@Bean
+	public UpdateBoardCommand updateBoardCommand() {
+		return new UpdateBoardCommand();
+	}
+	@Bean
+	public DeleteBoardCommand deleteBoardCommand() {
+		return new DeleteBoardCommand();
 	}
 	
 	/* Member 관련*/

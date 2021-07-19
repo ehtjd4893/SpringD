@@ -9,7 +9,7 @@ public class PagingUtils {
 	private static int totalPage;
 
 	private static int RecordPerPage = 5;
-	private static int pagePerBlock = 10;
+	private static int pagePerBlock = 3;	
 	
 	private static int beginRecord;
 	private static int endRecord;
@@ -20,7 +20,7 @@ public class PagingUtils {
 		// 현재 페이지에서의 시작 record 번호(맨 처음 record 번호: 1)
 		beginRecord = (page - 1) * RecordPerPage  + 1;
 		// 현재 페이지에서의 마지막 record 번호
-		endRecord = beginRecord + pagePerBlock - 1 ;
+		endRecord = beginRecord + RecordPerPage - 1 ;
 		if(endRecord > totalRecord) {
 			// endRecord의 최대값은 totalRecord
 			endRecord = totalRecord;
@@ -28,12 +28,19 @@ public class PagingUtils {
 		
 		// 전체 페이지 수를 구한다.
 		totalPage = (totalRecord / RecordPerPage);
-		if(totalRecord % RecordPerPage != 0) {
-			totalPage++;
+		
+		if(totalRecord % RecordPerPage != 0) {	
+			totalPage++;	// 반올림과 같은 효과
 		}	// if
 		
 		// 현재 페이지가 포함된 블록의 시작 page번호
-		beginPage = ((page - 1) / pagePerBlock) * pagePerBlock + 1;
+		for(int i = page; page >= 1; i--) {
+			if(i % pagePerBlock == 1) {
+				beginPage = i;
+				break;
+			}
+		}
+		//beginPage = ((page - 1) / pagePerBlock) * pagePerBlock + 1;
 		
 		// 현재 페이지가 포함된 블록의 마지막 page번호
 		endPage = beginPage + pagePerBlock - 1;
@@ -44,7 +51,7 @@ public class PagingUtils {
 		
 		// PageDTO에 위에서 구한 데이터를 저장해서 반환
 		return new PageDTO(page, totalRecord, 
-								      RecordPerPage, beginRecord, 
+				RecordPerPage, beginRecord, 
 								      endRecord, totalPage, 
 								      pagePerBlock, beginPage, endPage); 
 		
@@ -56,14 +63,14 @@ public class PagingUtils {
 		
 		// 첫 블록이라면
 		if (beginPage <= pagePerBlock) {	
-			sb.append("<i class=\"fas fa-arrow-alt-circle-left\"></i>&nbsp;");
+			sb.append("◀&nbsp;");
 		} else {	// 첫 블록이 아니라면
 			if (path.indexOf("?") > 0) {	
 				// get방식으로 parameter가 붙어있다면 &를 이용해서 파라미터를 연장해줌
-				sb.append("<a href=\"" + path + "&page=" + (beginPage - 1) + "\"><i class=\"fas fa-arrow-alt-circle-left\"></i></a>&nbsp;");
+				sb.append("<a href=\"" + path + "&page=" + (beginPage - 1) + "\">◀</a>&nbsp;");
 			} else {	
 				// parameter가 붙어있지 않다면 "?를 이용해서 파라미터 붙여줌"
-				sb.append("<a href=\"" + path + "?page=" + (beginPage - 1) + "\"><i class=\"fas fa-arrow-alt-circle-left\"></i></a>&nbsp;");
+				sb.append("<a href=\"" + path + "?page=" + (beginPage - 1) + "\">◀</a>&nbsp;");
 			} 	// else of inner
 		}	// else of outer
 		
@@ -84,14 +91,14 @@ public class PagingUtils {
 		// 현 블록의 endPage가 마지막 페이지라면 
 		if (endPage == totalPage) {	
 			//다음으로 넘어갈 필요가 없으므로 단순 문자 처리
-			sb.append("<i class=\"fas fa-arrow-alt-circle-right\"></i>");
+			sb.append("▶");
 		} else {	// 아직 남은 page가 더 있다면
 			if (path.indexOf("?") > 0) {
 				// get방식으로 parameter가 붙어있다면 &를 이용해서 파라미터를 연장해줌
-				sb.append("<a href=\"" + path + "&page=" + (endPage + 1) + "\"><i class=\"fas fa-arrow-alt-circle-right\"></i></a>");
+				sb.append("<a href=\"" + path + "&page=" + (endPage + 1) + "\">▶</a>");
 			} else {
 				// parameter가 붙어있지 않다면 "?를 이용해서 파라미터 붙여줌"
-				sb.append("<a href=\"" + path + "?page=" + (endPage + 1) + "\"><i class=\"fas fa-arrow-alt-circle-right\"></i></a>");
+				sb.append("<a href=\"" + path + "?page=" + (endPage + 1) + "\">▶</a>");
 			}	// else of inner
 		}	// else of outer
 		

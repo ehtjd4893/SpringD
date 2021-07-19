@@ -10,13 +10,25 @@
 	<script>
 		$(function(){
 			fn_delete();
+			fn_update();
 		});	// onload
+		
+		function fn_update(){
+			$('#update_btn').click(function(){
+				if(confirm('게시물 수정 페이지로 이동하시겠습니까?')){
+					$('#f').attr('action', 'updateBoardPage.do');
+					$('#f').submit();
+				}
+			});	// onclick
+		}	// fn_update
 		
 		// 삭제 버튼 클릭시 작동 함수
 		function fn_delete(){
 			$('#delete_btn').click(function(){
-				if(confirm('정말 게시물을 삭제하시겠습니까?'))
+				if(confirm('정말 게시물을 삭제하시겠습니까?')){
+					$('#f').attr('action', 'deleteBoard.do');
 					$('#f').submit();
+				}
 			});	// onclick
 		}	// fn_delete
 		
@@ -40,46 +52,46 @@
 </head>
 <body>
 
-	<form id="f" action="deleteBoard.do" method="post" enctype="multipart/form-data">
-		글번호 <input type="text" value="${Board.BIdx}" disabled>
-		작성자 <input type="text" name="writer" value="${Board.MId}" disabled><br><br>
-		조회수 <input type="text" name="hit" value="${Board.BHit}" disabled><br><br>
+	<form id="f" method="post" enctype="multipart/form-data">
+		글번호 <input type="hidden" name="bIdx" value="${Board.BIdx}" disabled>
+		작성자 <input type="text" name="mId" value="${Board.MId}" disabled><br><br>
+		조회수 <input type="hidden" name="bHit" value="${Board.BHit}" disabled><br><br>
 		
-		제목 <input type="text" name="title" value="${Board.BTitle}" disabled>
-		작성일 <input type="text" name="postdate" value="${Board.BPostDate}" disabled>
+		제목 <input type="text" name="bTitle" value="${Board.BTitle}" disabled>
+		작성일 <input type="text" name="bPostdate" value="${Board.BPostDate}" disabled>
 		<br><br>
 		내용<br>
-		<textarea  cols="50" rows="10" disabled>${Board.BContent}</textarea><br><br>
+		<textarea name="bContent" cols="50" rows="10" disabled>${Board.BContent}</textarea><br><br>
 		<c:if test="${Board.BFileName1 ne 'null'}">
 			첨부 이미지<br>
-			<img name="image" alt="${Board.BFileName1}" src="resources/archive/board/${Board.BFileName1}" style="width: 300px">
-			<input type="hidden" name="filename1" value="${Board.BFileName1}">
+			<img name="image1" alt="${Board.BFileName1}" src="resources/archive/board/${Board.BFileName1}" style="width: 300px">
+			<input type="hidden" name="bFileName1" value="${Board.BFileName1}">
 		</c:if>
 		<c:if test="${Board.BFileName2 ne 'null'}">
-			첨부 이미지<br>
-			<img name="image" alt="${Board.BFileName2}" src="resources/archive/board/${Board.BFileName2}" style="width: 300px">
-			<input type="hidden" name="filename2" value="${Board.BFileName2}">
+			<br>첨부 이미지<br>
+			<img name="image2" alt="${Board.BFileName2}" src="resources/archive/board/${Board.BFileName2}" style="width: 300px">
+			<input type="hidden" name="bFileName2" value="${Board.BFileName2}">
 		</c:if>
 		<c:if test="${Board.BFileName3 ne 'null'}">
-			첨부 이미지<br>
-			<img name="image" alt="${Board.BFileName3}" src="resources/archive/board/${Board.BFileName3}" style="width: 300px">
-			<input type="hidden" name="filename3" value="${Board.BFileName3}">
+			<br>첨부 이미지<br>
+			<img name="image3" alt="${Board.BFileName3}" src="resources/archive/board/${Board.BFileName3}" style="width: 300px">
+			<input type="hidden" name="bFileName3" value="${Board.BFileName3}">
 		</c:if>
 		<br><br>
 		
 		<c:if test="${mode eq 'member'}">
 			<c:if test="${loginUser.MId == Board.MId}">
-				<input id="update_btn" type="button" value="수정하기" onclick='location.href="updateBoardPage.do?bIdx=${Board.BIdx}"'>
+				<input id="update_btn" type="button" value="수정하기">
 				<input id="delete_btn" type="button" value="삭제하기" >
 			</c:if>
 		</c:if>
 		<c:if test="${mode eq 'admin'}">
 			<c:if test="${loginAdmin.MId == Board.MId}">
-				<input id="update_btn" type="button" value="수정하기" onclick='location.href="updateBoardPage.do?bIdx=${Board.BIdx}"'>
+				<input id="update_btn" type="button" value="수정하기">
 				<input id="delete_btn" type="button" value="삭제하기" >
 			</c:if>
 		</c:if>
-		<input type="button" value="목록으로 돌아가기" onclick='history.back()'>
+		<input type="button" value="목록으로 돌아가기" onclick='history.back()'><br><br>
 		
 		<input type="hidden" name="bIdx" value="${Board.BIdx}">
 		<input type="hidden" name="content" value="${Board.BContent}">

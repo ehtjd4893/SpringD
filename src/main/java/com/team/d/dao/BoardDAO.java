@@ -28,5 +28,9 @@ public interface BoardDAO {
 	public void updateHitByIdx(long BIDX);
 
 	public BoardDTO selectBoardByIdx(long BIDX);
+
+	public void updateBoard(Map<String, Object> container);
+
+	public void deleteBoard(long BIDX);
 	
 }

@@ -31,6 +31,7 @@
 	<select id="getTotalRecord" resultType="int">
 		SELECT COUNT(BIDX)
 		  FROM BOARD
+		 WHERE MID != 'admin'
 	</select>
 	
 	<select id="getSearchedlRecord" resultType="int">
@@ -68,5 +69,25 @@
 		  FROM BOARD
 		 WHERE BIDX = #{BIDX}
 	</select>
+	
+	<update id="updateBoard" parameterType="map">
+		UPDATE BOARD
+		   SET BCONTENT = #{BCONTENT},
+		       BTITLE = #{BTITLE},
+		       <if test="#{BFILENAME1 != 'null'}">
+		   		    BFILENAME1 = #{BFILENAME1},
+		       </if>
+		       <if test="#{BFILENAME2 != 'null'}">
+		       		BFILENAME2 = #{BFILENAME2},
+		       </if>
+		       <if test="#{BFILENAME3 != 'null'}">
+		       		BFILENAME3 = #{BFILENAME3}
+		       </if>
+		 WHERE BIDX = #{BIDX}
+	</update>
+	
+	<delete id="deleteBoard">
+		DELETE FROM BOARD WHERE BIDX=#{BIDX}
+	</delete>
 	
 </mapper>

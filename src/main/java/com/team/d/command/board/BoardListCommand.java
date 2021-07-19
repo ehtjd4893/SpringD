@@ -29,15 +29,13 @@ public class BoardListCommand{
 		} else {
 			Optional<String> opt = Optional.ofNullable(p);
 			// page로 null값이 입력된다면 시작페이지로 지정
-			System.out.println(request.getParameter("page"));
 			page = Integer.parseInt(opt.orElse("1"));		
 		}
 		
-		
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
-		// 전체 게시물의 개수를 반환하는 함수
+		// 전체 게시물의 개수를 반환하는 함수, 공지사항 제외
 		int totalRecord = dao.getTotalRecord();
-		
+		System.out.println(totalRecord);
 		PageDTO pageDTO = PagingUtils.getPage(totalRecord, page);
 		
 		String paging = PagingUtils.getPaging("boardPage.do", page);

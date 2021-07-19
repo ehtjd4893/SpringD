@@ -17,7 +17,10 @@ import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
 import com.team.d.command.board.SelectNoticeCommand;
 import com.team.d.command.board.ShowBoardCommand;
+import com.team.d.command.board.UpdateBoardCommand;
+import com.team.d.command.board.UpdateBoardPageCommand;
 import com.team.d.command.board.BoardListCommand;
+import com.team.d.command.board.DeleteBoardCommand;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +35,9 @@ public class BoardController {
 	private SearchBoardCommand searchBoardCommand;
 	private SelectNoticeCommand selectNoticeCommand;
 	private ShowBoardCommand showBoardCommand;
+	private UpdateBoardPageCommand updateBoardPageCommand;
+	private UpdateBoardCommand updateBoardCommand;
+	private DeleteBoardCommand deleteBoardCommand;
 	
 	@Autowired
 	public BoardController(SqlSession sqlSession, 
@@ -39,7 +45,10 @@ public class BoardController {
 			BoardListCommand boardListCommand,
 			SearchBoardCommand searchBoardCommand,
 			SelectNoticeCommand selectNoticeCommand,
-			ShowBoardCommand showBoardCommand) {
+			ShowBoardCommand showBoardCommand,
+			UpdateBoardPageCommand updateBoardPageCommand,
+			UpdateBoardCommand updateBoardCommand,
+			DeleteBoardCommand deleteBoardCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.insertBoardCommand = insertBoardCommand;
@@ -47,10 +56,19 @@ public class BoardController {
 		this.searchBoardCommand = searchBoardCommand;
 		this.selectNoticeCommand = selectNoticeCommand;
 		this.showBoardCommand = showBoardCommand;
+		this.updateBoardPageCommand = updateBoardPageCommand;
+		this.updateBoardCommand = updateBoardCommand;
+		this.deleteBoardCommand = deleteBoardCommand;
 	}
 
 	@GetMapping(value="boardPage.do")
-	public String BoardPage() {
+	public String BoardPage(HttpServletRequest request, Model model) {
+		String page = request.getParameter("page");
+		if(page != null) {
+			model.addAttribute("page", page);
+		} else {
+			model.addAttribute("page", "1");
+		}
 		return "board/viewBoardList";
 	}
 	
@@ -64,7 +82,7 @@ public class BoardController {
 		model.addAttribute("multipartRequest", multipartRequest);
 		
 		insertBoardCommand.execute(sqlSession, model);
-		return "board/viewBoard";
+		return "board/viewBoardList";
 	}
 
 	@GetMapping(value="showList.do", produces="application/json; charset=utf-8")
@@ -80,6 +98,9 @@ public class BoardController {
 	@ResponseBody
 	public Map<String, Object> searchBoard(HttpServletRequest request, Model model){
 		model.addAttribute("request", request);
+		model.addAttribute("column", request.getParameter("column"));
+		model.addAttribute("query", request.getParameter("query"));
+		model.addAttribute("page", request.getParameter("page"));
 		
 		return searchBoardCommand.execute(sqlSession, model);
 	}
@@ -89,7 +110,7 @@ public class BoardController {
 		model.addAttribute("column", request.getParameter("column"));
 		model.addAttribute("query", request.getParameter("query"));
 		model.addAttribute("page", request.getParameter("page"));
-		return "board/viewBoard";
+		return "board/viewBoardList";
 	}
 	
 	@GetMapping(value="selectNotice.do", produces="application/json; charset=utf-8")
@@ -105,6 +126,29 @@ public class BoardController {
 		model.addAttribute("request", request);
 		showBoardCommand.execute(sqlSession, model);
 		return "board/selectBoard";
+	}
+	
+	@PostMapping(value="updateBoardPage.do")
+	public String updateBoardPage(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		model.addAttribute("page", "1");
+		updateBoardPageCommand.execute(sqlSession, model);
+		return "board/updateBoard";
+	}
+	
+	@PostMapping(value="updateBoard.do")
+	public String updateBoard(MultipartHttpServletRequest multipartRequest, Model model) {
+		model.addAttribute("multipartRequest", multipartRequest);
+		updateBoardCommand.execute(sqlSession, model);
+		return "board/viewBoardList";
+	}
+	
+	@PostMapping(value="deleteBoard.do")
+	public String deleteBoard(MultipartHttpServletRequest multipartRequest, Model model) {
+		model.addAttribute("multipartRequest", multipartRequest);
+		model.addAttribute("page", "1");
+		deleteBoardCommand.execute(sqlSession, model);
+		return "board/viewBoardList";
 	}
 	
 }

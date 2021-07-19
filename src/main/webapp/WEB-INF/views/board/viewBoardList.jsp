@@ -27,11 +27,21 @@
 			getDate();		// 시간 보여주는 함수
 			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
 			fn_insertBoard();	// 새 글 작성 버튼 클릭시 로그인창 켜지거나 페이지 이동하는 함수
-			fn_get_notice();	// 관리자의 글 공지사항으로 가져오기
+			
 			fn_init();	// 전체 목록 불러오기 버튼
-			fn_search();	// 검색버튼 클릭시 리스트 불러오는 함수
+			click_search();
 			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
-			fn_showList();	// 관리자의 글 제외하고 글 목록 가져오기
+			
+			
+			if(${query == null}){	
+				// 만약 model을 통해 query가 채워지지 않은 상태라면,
+				// search 결과가 아니라 전체 목록을 가져온다.
+				fn_showList();	// 관리자의 글 제외하고 글 목록 가져오기			
+			} else{
+				// 만약 검색 버튼을 통해 검색한 후, paging된 숫자를 눌렀다면,
+				// 전체 목록이 아니라 search결과만을 띄워준다.
+				fn_search();	// 검색버튼 클릭시 리스트 불러오는 함수
+			}
 		})	// onload 함수의 끝
 		
 		// 관리자의 글을 공지사항으로 가져오기
@@ -39,6 +49,7 @@
 			$.ajax({
 				url: 'selectNotice.do',
 				type: 'get',
+				async: false,
 				dataType: 'json',
 				success: function(resultMap){
 					console.log('공지');
@@ -64,14 +75,20 @@
 			
 		}
 		
+		function click_search(){
+			$('#search_btn').click(function(){
+				fn_search();
+			});
+		}
+		
 		// 검색 목록 불러오는 ajax
 		 function fn_search(){
-			$('#search_btn').click(function(){
 				$('#list').empty();
 				fn_get_notice();
 				$.ajax({
 					url: 'searchBoard.do',
 					type: 'get',
+					async: false,
 					data: 'column=' + $('#column').val() + '&query=' + $('#query').val() + '&page=${page}',
 					dataType: 'json',
 					success: function(resultMap){
@@ -83,7 +100,6 @@
 						alert('search_btn 오류');
 					}
 				});	// ajax	
-			});	// onclick
 		}	// fn_search 
 		
 		function fn_init(){
@@ -148,9 +164,12 @@
 	    } 
 		
 		function fn_showList(){
+			$('#list').empty();
+			fn_get_notice();	// 관리자의 글 공지사항으로 가져오기
 			$.ajax({
 				url: 'showList.do',
 				type: 'get',
+				async: false,
 				data: 'page=${page}',
 				dataType: 'json',
 				success: function(resultMap){

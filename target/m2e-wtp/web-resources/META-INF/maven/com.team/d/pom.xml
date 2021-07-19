@@ -13,14 +13,13 @@
 		<org.aspectj-version>1.9.2</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
-		<repositories>
+	<repositories>
 		<repository>
 			<id>oracle</id>
 			<name>Oracle JDBC Repository</name>
 			<url>https://maven.jahia.org/maven2</url>
 		</repository>
 	</repositories>
-	
 	<dependencies>
 	
 		<!-- Hikari(DBCP) -->

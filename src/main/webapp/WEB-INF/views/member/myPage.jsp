@@ -10,8 +10,8 @@
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
-			fn_presentPwCheck();
 			fn_updatePw();
+			fn_presentPwCheck();
 			fn_updateMember();
 			fn_emailCheck();
 			fn_email_code();
@@ -21,24 +21,22 @@
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
-				var obj = { // 현재 비밀번호 객체 생성
-						mPw : $('#mPw0').val()
+				var obj = {
+					pw: $('#mPw0').val()
 				};
 				$.ajax({
 					url: 'presentPwCheck.do',
 					type: 'post',
-					data: JSON.stringify(obj), // 보내는 data 문자열화
-					contentType: 'application/json; charset=utf-8', // 보내는 데이터가 json일 때 필수 옵션
-					dataType: 'json', // 받는 data
+					contentType: 'application/json',
+					data: JSON.stringify(obj),
+					dataType: 'json',
 					success: function(resultMap){
-						if(resultMap.isCorrect){ // session에 저장된 암호화 된 비밀번호와 일치할 경우 통과
+						console.log(resultMap.isCorrect);
+						if (resultMap.isCorrect) {
 							presentPwPass = true;
-						} else{
+						} else {
 							presentPwPass = false;
 						}
-					},
-					error: function(xhr, textStatus, errorThrown) {
-						
 					}
 				});
 			});
@@ -191,7 +189,7 @@
 		<input type="text" name="mId" id="mId" value="${loginUser.MId}" readonly><br><br>
 		
 		현재 비밀번호<br>
-		<input type="password" name="mPw0" id="mPw0"><br><br>
+		<input type="text" name="mPw0" id="mPw0" value="${loginUser.MPw}"><br><br>
 		새 비밀번호<br>
 		<input type="password" name="mPw" id="mPw"><br><br>
 		새 비밀번호 확인<br>

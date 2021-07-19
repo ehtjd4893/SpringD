@@ -161,8 +161,8 @@ public class MemberController {
 	@ResponseBody // AJAX매핑
 	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8") // 현재 비밀번호 확인 후 JSON형태로 반환
 	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, HttpSession session, Model model){ // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용								  
-		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("session", session);
+		model.addAttribute("memberDTO", memberDTO);
 		return presentPwCheckCommand.execute(sqlSession, model);
 	}
 	// 비밀번호 변경(updatePw) : 오류

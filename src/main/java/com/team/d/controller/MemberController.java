@@ -177,11 +177,11 @@ public class MemberController {
 		updateMemberCommand.execute(sqlSession, model);
 	}
 	// 아이디 찾기(findId)
-	@PostMapping(value="findId.do")
-	public String findId(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		findIdCommand.execute(sqlSession, model);
-		return "member/findIdResult";
+	@ResponseBody // AJAX매핑
+	@PostMapping(value="findId.do", produces="application/json; charset=utf-8")
+	public Map<String, Object> findId(@RequestBody MemberDTO memberDTO, Model model) { 
+		model.addAttribute("memberDTO", memberDTO);
+		return findIdCommand.execute(sqlSession, model);
 	}
 	// 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
 	@PostMapping(value="changePwPage.do")

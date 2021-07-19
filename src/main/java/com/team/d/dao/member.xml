@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 로그인(login) -->
 	<select id="login" resultType="com.team.d.dto.MemberDTO">
-		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
+		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE, STATUS
 		  FROM MEMBER
 		 WHERE MID = #{mId}
 		   AND MPW = #{mPw}
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입(join) -->
 	<insert id="join">
 		INSERT INTO MEMBER
-		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, 'bronze', SYSDATE)
+		VALUES (MEMBER_SEQ.NEXTVAL, #{mName}, #{mId}, #{mPw}, #{mEmail}, #{mPhone}, 'bronze', SYSDATE, 0)
 	</insert>
 	
 	<!-- 비밀번호 변경(updatePw) -->
@@ -53,15 +53,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findId" resultType="com.team.d.dto.MemberDTO">
 		SELECT MID, MREGDATE
 		  FROM MEMBER
-		 WHERE MEMAIL = #{mEmail}
-	</select>
-	
-	<!-- 아이디&이메일 체크(idAndEmail) : 보류 -->
-	<select id="idAndEmailCheck" resultType="int">
-		SELECT COUNT(MNO)
-		  FROM MEMBER
-		 WHERE MID = #{mId}
-		   AND MEMAIL = #{mEmail} 
+		 WHERE MNAME = #{mName}
+		   AND MEMAIL = #{mEmail}
 	</select>
 	
 	<!-- 비밀번호 찾기&새 비밀번호 변경(changePw) -->

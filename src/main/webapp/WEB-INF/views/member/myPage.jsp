@@ -14,6 +14,7 @@
 			fn_updatePw();
 			fn_updateMember();
 			fn_emailCheck();
+			fn_email_code();
 			fn_leave();
 		});
 		// 현재 비밀번호 확인(presentPwCheck)
@@ -27,7 +28,7 @@
 					url: 'presentPwCheck.do',
 					type: 'post',
 					data: JSON.stringify(obj), // 보내는 data 문자열화
-					contentType: 'application/json',  // 보내는 데이터가 json일 때 필수 옵션
+					contentType: 'application/json; charset=utf-8', // 보내는 데이터가 json일 때 필수 옵션
 					dataType: 'json', // 받는 data
 					success: function(resultMap){
 						if(resultMap.isCorrect){ // session에 저장된 암호화 된 비밀번호와 일치할 경우 통과
@@ -46,7 +47,7 @@
 					alert('현재 비밀번호를 입력하세요.');
 					$('#mPw0').focus();
 					return false;
-				} else if(!presentPwPass){ // 위 현재 비밀번호 통과를 못 했을 경우(기존 비밀번호와 일치하지 않을 경우)
+				} else if(!presentPwPass){ // 위 현재 비밀번호 통과를 안 했을 경우(기존 비밀번호와 일치하지 않을 경우)
 					alert('현재 비밀번호가 일치하지 않습니다. 확인해주세요.');
 					$('#mPw0').focus();
 					return false;
@@ -66,7 +67,8 @@
 		// 이메일 중복 체크(emailCheck)
 		var emailPass = false;
 		function fn_emailCheck(){
-			$('#email_code_btn').click(function(){ }).prop("disabled", true); // 이메일 인증코드 버튼 비활성화
+			// 이메일 인증코드 버튼 비활성화(이메일을 변경하지 않을 경우 인증절차를 막기 위함)
+			$('#email_code_btn').click(function(){ }).prop("disabled", true); 
 			$('#mEmail').keyup(function(){
 				$.ajax({
 					url: 'emailCheck.do',
@@ -74,13 +76,13 @@
 					data: 'mEmail=' + $('#mEmail').val(),
 					dataType: 'json',
 					success: function(resultMap){
-						if(resultMap.result == 0){ // DB에 일치하는 email이 없는 경우
+						if(resultMap.result == 0){ // DB에 일치하는 email이 없는 경우 인증버튼 활성화
 							$('#email_code_btn').click(function(){ }).prop("disabled", false); // 이메일 인증코드 버튼 활성화
 							$('.email_result').text('사용 가능한 이메일입니다. 인증코드를 받으세요.');
 							emailPass = true;
-						} else{
+						} else{ // DB에 일치하는 email이 있는 경우 인증버튼 비활성화로 막기
 							$('.email_result').text('이미 사용 중인 이메일입니다. 이메일 주소를 확인하세요.');
-							$('#email_code_btn').click(function(){ }).prop("disabled", true); // 이메일 인증코드 버튼 비활성화
+							$('#email_code_btn').click(function(){ }).prop("disabled", true);
 							emailPass = false;
 						}
 					},
@@ -93,7 +95,7 @@
 		// 이메일 인증코드 받기(emailCode)
 		function fn_email_code(){
 			$('#email_code_btn').click(function(){
-				if($('#mEmail').val() == ''){
+				if($('#mEmail').val() == ''){ // 이메일을 입력하지 않을 경우
 					alert('수정할 이메일을 입력하세요.');
 					$('#mEmail').focus();
 					return false;
@@ -133,36 +135,41 @@
 		// 회원 정보 변경(updateMember)
 		function fn_updateMember(){
 			$('#update_btn').click(function(){
+				// 이름, 전화번호, 이메일 중 하나라도 공백일 경우
 				if($('#mName').val() == '' 
 				   || $('#mPhone').val() == ''
-				   || $('#mEmail').val() == ''){ // 이름, 전화번호, 이메일 중 하나라도 공백일 경우
+				   || $('#mEmail').val() == ''){ 
 					  alert('이름, 전화번호, 이메일은 필수정보 입니다. 내용을 입력하세요.');
 					  return false;
-				} else if($('#mName').val() == '${loginUser.MName}'
-				   	 	  && $('#mPhone').val() == '${loginUser.MPhone}'
-					      && $('#mEmail').val() == '${loginUser.MEmail}'){ // 기존에 값과 동일할 경우(하나라도 변경 X)
-					      alert('변경된 정보가 없습니다.');
-					      return false;
-				} else if($('#mName').val() != '${loginUser.MName}'
-				   		  || $('#mPhone').val() != '${loginUser.MPhone}'
-				   		  || $('#mEmail').val() != '${loginUser.MEmail}'){ // 하나라도 변경된 정보가 있을 경우
-							if($('#mEmail').val() != '${loginUser.MEmail}' && authPass){ // 이메일 인증에 성공했을 경우
-								$('#f').attr('action', 'updateMember.do');
-								$('#f').submit();
-						  	}else{
-					  			alert('이메일인증은 필수입니다.');
-						  	}
-				} else{ 
-					 $('#f').attr('action', 'updateMember.do');
-					 $('#f').submit();
+				}
+				// 기존에 값과 동일할 경우(하나라도 변경 하지 않았을 경우)
+				if($('#mName').val() == '${loginUser.MName}'
+			   	 	  && $('#mPhone').val() == '${loginUser.MPhone}'
+				      && $('#mEmail').val() == '${loginUser.MEmail}'){ 
+				      alert('변경된 정보가 없습니다.');
+				      return false;
+				}
+				// 하나라도 변경된 정보가 있을 경우 회원정보 변경 성공(단, 이메일 변경 시에는 인증 필수)
+				if($('#mName').val() != '${loginUser.MName}'
+		   		   || $('#mPhone').val() != '${loginUser.MPhone}'
+		   		   || $('#mEmail').val() != '${loginUser.MEmail}'){ 
+						// 그중 이메일이 변경됐는데 이메일 인증을 안 했을 경우(회원정보 변경 불가)
+						if($('#mEmail').val() != '${loginUser.MEmail}' && !authPass){ 
+							alert('이메일인증은 필수입니다.');
+							return false;
+					  	}
+						$('#f').attr('action', 'updateMember.do');
+						$('#f').submit();
 				}
 			});
 		}
 		// 회원 탈퇴(leave)
 		function fn_leave(){
 			$('#leave_btn').click(function(){
-				if (confirm('탈퇴하시겠습니까?')) {
-					location.href = 'leave.do?mNo=${loginUser.MNo}';					
+				if (confirm('정말 탈퇴하시겠습니까?')) {
+					location.href = 'leave.do?mNo=${loginUser.MNo}';		
+				} else{
+					alert('비밀번호를 확인하세요.');
 				}
 			});
 		}

@@ -15,14 +15,15 @@
 			fn_pwCheck2();
 			fn_emailCheck();
 			fn_email_code();
+			fn_phoneCheck();
 			fn_join();
 		});
 		// 아이디 중복체크(idCheck)
 		var idPass = false;
 		function fn_idCheck(){
 			$('#mId').keyup(function(){
-				var regmId = /^[a-z]{3,6}$/;
-				if(!regmId.test($('#mId').val())){ // ID 정규식 조건을 통과하지 못 했을 경우
+				var regId = /^[a-z]{3,6}$/;
+				if(!regId.test($('#mId').val())){ // ID 정규식 조건을 통과하지 못 했을 경우
 					$('.id_result').text('아이디는 영어 소문자 3~6자리만 입력 가능합니다.');
 					// 실제 사용할 ID 정규식
 					// ^[a-z][a-z0-9_-]{4,19}$
@@ -142,6 +143,20 @@
 				}
 			});
 		}
+		// 전화번호(phoneCheck)
+		var phonePass = false;
+		function fn_phoneCheck(){
+			$('#mPhone').keyup(function(){
+				var regPhone = /^010[0-9]{8}$/;
+				if(regPhone.test($('#mPhone').val())){ // Phone 정규식 조건을 통과했을 경우
+					phonePass = true;
+				} else{
+					$('.phone_result').text('010을 포함하여 -(하이픈) 없이 입력하세요.');
+					phonePass = false;
+				}
+				
+			});
+		}
 		// 회원가입(join)
 		function fn_join() {
 			$('#join_btn').click(function(){
@@ -162,8 +177,8 @@
 				} else if(!authPass){
 					alert('이메일 인증은 필수입니다.');
 					return false;
-				} else if($('#mPhone').val() == ''){
-					alert('휴대전화 번호를 입력하세요.');
+				} else if(!phonePass){
+					alert('전화번호를 올바르게 입력하세요.');
 				    return false;
 				} else {
 					$('#f').attr('action', 'join.do');
@@ -202,7 +217,8 @@
 			<span class="emailAuth_result"></span><br><br>
 			
 			<span class="naming">전화번호</span><br>
-			<input type="text" name="mPhone" id="mPhone"><br><br>
+			<input type="text" name="mPhone" id="mPhone"><br>
+			<span class="phone_result"></span><br><br>
 			
 			<input type="button" value="가입하기" id="join_btn">
 			<input type="button" value="돌아가기" onclick="location.href='index.do'">

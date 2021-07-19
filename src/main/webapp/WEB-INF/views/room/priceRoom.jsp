@@ -93,6 +93,7 @@
 			float: left;
 		}
 		.rightArea {
+			width: 331px;
 			float: right;
 		}
 		.tableRoomInfo {
@@ -110,6 +111,16 @@
 		}
 		.rImg li {
 			margin: 5px 10px;
+		}
+		.btnSet {
+			height: 44px;
+		}
+		.btnSet li {
+			float: left;
+			margin-right: 6px;
+		}
+		.btnSet li.last {
+			margin-right: 0 !important;
 		}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -130,6 +141,15 @@
 			}
 			document.getElementById('satellite channel').onclick = function(){
 		    	window.open('satelliteChannel.do', '', 'width=520, height=520, resizable=no');
+			}
+			document.getElementById('floorPlan').onclick = function(){
+		    	window.open('floorPlan.do', '', 'width=640, height=480, resizable=no');
+			}
+			document.getElementById('inquire').onclick = function(){
+		    	location.href= "inquire.do";
+			}
+			document.getElementById('reservation').onclick = function(){
+		    	location.href= "reservation.do";
 			}
 		}
     </script>
@@ -248,7 +268,17 @@
 			</table>
 		</div>
 		<div class="rightArea">
-			
+			<ul class="btnSet">
+				<li class="first">
+					<img style="cursor: pointer;" id="floorPlan" src="resources/images/priceRoom/floorPlan.JPG" alt="도면보기">
+				</li>
+				<li>
+					<img style="cursor: pointer;" id="inquire" src="resources/images/priceRoom/inquire.JPG" alt="문의하기">
+				</li>
+				<li class="last">
+					<img style="cursor: pointer;" id="reservation" src="resources/images/priceRoom/reservation.JPG" alt="예약하기">
+				</li>
+			</ul>
 		</div>
 		
 	</div>

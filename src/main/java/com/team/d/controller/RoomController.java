@@ -43,6 +43,11 @@ public class RoomController {
 		return "room/satelliteChannel";
 	}
 	
+	@GetMapping(value="floorPlan.do")
+	public String floorPlan() {
+		return "room/floorPlan";
+	}
+	
 	@GetMapping(value="download.do")
 	public void download(HttpServletRequest request,
 						 HttpServletResponse response,

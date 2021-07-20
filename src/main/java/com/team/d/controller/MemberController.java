@@ -73,10 +73,9 @@ public class MemberController {
 		model.addAttribute("request", request);
 		String page = loginCommand.execute(sqlSession, model);
 		if(page.equals("selectBoard.do")) {
-			System.out.println("도착");
 			showBoardCommand.execute(sqlSession, model);
 			return "board/selectBoard";
-		}
+		} 
 		return page;
 	}
 	// 마이페이지 myPage.jsp 단순이동

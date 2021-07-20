@@ -29,6 +29,8 @@ import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.command.reply.GetReplyListCommand;
+import com.team.d.command.reply.InsertReplyCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
 import com.team.d.command.room.SelectRoomListCommand;
@@ -100,6 +102,16 @@ public class TeamConfiguration {
 	@Bean
 	public DeleteBoardCommand deleteBoardCommand() {
 		return new DeleteBoardCommand();
+	}
+	
+	/* Reply 관련 */
+	@Bean
+	public InsertReplyCommand insertReplyCommand() {
+		return new InsertReplyCommand();
+	}
+	@Bean
+	public GetReplyListCommand getReplyListCommand() {
+		return new GetReplyListCommand();
 	}
 	
 	/* Member 관련*/

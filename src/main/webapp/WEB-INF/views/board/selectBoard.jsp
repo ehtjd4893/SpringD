@@ -8,18 +8,83 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 	<title>DS - Homepage</title>	
+	<style>
+		.reply_box{
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+			width: 700px;
+			height: 100px;
+			font-size: 13px;
+		}
+		.writer_box{
+			font: bold;
+		}
+		.content_box{
+			color: blue;
+		}
+		.date_box{
+			font-size: 12px;
+			color: #999999;
+		}
+	</style>
 	<script>
 		$(function(){
-			fn_delete();
-			fn_update();
-			fn_reply_no_login();
-			
+			fn_delete();	// 삭제 버튼 클릭시
+			fn_update();	// 수정 버튼 클릭시
+			fn_reply_no_login();	// 로그인 없이 댓글 달기 시도할 때
+			fn_reply_btn();	// 로그인 후 댓글 달기 클릭시
 			fn_showLogin();	// 로그인 버튼 클릭시 로그인창이 펴지는 함수
 			getDate();		// 시간 보여주는 함수
 			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
 			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
+			fn_getReplyList();	// 댓글 출력 함수
 		});	// onload
 
+		 function fn_getReplyList(){
+				$.ajax({
+					url: 'getReplyList.do',
+					type: 'get',
+					async: false,
+					data: 'bIdx=${Board.BIdx}',
+					dataType: 'json',
+					success: function(resultMap){
+						console.log('hi');
+						fn_makeReply(resultMap.list);
+					},	// end of success
+					error: function(){
+						alert('목록 불러오기 오류');
+					}
+				})	// ajax
+		} 
+		
+
+		function fn_makeReply(list){
+
+			$.each(list, function(i, reply){
+				console.log(reply.mid);
+				console.log(reply.rcontent);
+				console.log(reply.rpostDate);
+				
+				$('<div class="reply_box">')
+				.append( $('<div class="writer_box">').append( $('<span>').text(reply.mid) )  )
+				.append( $('<div class="content_box">').append( $('<span>').text(reply.rcontent) )  )
+				.append( $('<div class="date_box">').append( $('<span>').text(reply.rpostDate) )  )
+				.append( $('<input type="button" onclick="">'))
+				.appendTo( $('#reply_list'));
+			});	// each 
+		}
+		
+		// 댓글 달기 버튼 클릭시
+		function fn_reply_btn(){
+			$('#reply_btn').click(function(){
+				if(confirm('댓글을 등록하시겠습니까?')){
+					$('#f_reply').attr('action', 'insertReply.do');
+					$('#f_reply').submit();
+				}
+			});	// onclick
+		}
+		
+		// 로그인 없이 댓글 달려고 할 때,
 		function fn_reply_no_login(){
 			$('#reply_no_login').click(function(){
 				$('.form').toggleClass('hide');		
@@ -193,7 +258,6 @@
 			<input type="hidden" name="bFileName3" value="${Board.BFileName3}">
 		</c:if>
 		<br><br>
-		</form>
 		
 		<c:if test="${mode eq 'member'}">
 			<c:if test="${loginUser.MId == Board.MId}">
@@ -209,31 +273,35 @@
 			</c:if>
 		</c:if>
 		
-		<input type="button" value="목록으로 돌아가기" onclick='history.back()'><br><br>
-		
-		<input type="hidden" name="bIdx" value="${Board.BIdx}">
-		<input type="hidden" name="content" value="${Board.BContent}">
-		<input type="hidden" name="replyWriter" value="${loginUser.MId}">
-		
+		<input type="button" value="목록으로 돌아가기" onclick='location.href="boardPage.do"'><br><br>
+		</form>
 		
 		<c:if test="${loginUser eq null && loginAdmin eq null}">
 			<textarea rows="2" cols="30" id="reply_no_login" name="reply" placeholder="댓글을 입력하시려면 로그인하세요."></textarea>
 		</c:if>
 		
-		<form id="f_reply">
-			<c:if test="${mode eq 'member'}">
-				<c:if test="${loginUser ne null}">
-					<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-					<input type="button" id="reply_btn" value="댓글 달기">
-				</c:if>
+	<form id="f_reply" method="post"> 
+		<input type="hidden" name="bIdx" value="${Board.BIdx}">
+		<input type="hidden" name="mode" value="${mode}">
+
+		
+		
+		<c:if test="${mode eq 'member'}">
+			<c:if test="${loginUser ne null}">
+				<input type="hidden" name="mId" value="${loginUser.MId}">
+				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+				<input type="button" id="reply_btn" value="댓글 달기">
 			</c:if>
-			
-			<c:if test="${mode ne 'admin'}">
-				<c:if test="${loginAdmin ne null}">
-					<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-					<input type="button" id="reply_btn" value="댓글 달기">
-				</c:if>
+		</c:if>
+		
+		<c:if test="${mode ne 'admin'}">
+			<c:if test="${loginAdmin ne null}">
+				<input type="hidden" name="mId" value="${loginAdmin.MId}">
+				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+				<input type="button" id="reply_btn" value="댓글 달기">
 			</c:if>
-		</form> 
+		</c:if>
+		<div id="reply_list"></div>
+	</form>
 </body>
 </html>

@@ -20,6 +20,7 @@ public class FindIdCommand {
 		// String mName = request.getParameter("mName");
 		// String mEmail = request.getParameter("mEmail");
 		
+		// get방식으로 직접 넘겨 받았음
 		// memberDTO에 mName, mEmail이 일치하는지 확인
 		// memberDTO.setMId(mName);
 		// memberDTO.setMEmail(mEmail);

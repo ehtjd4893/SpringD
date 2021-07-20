@@ -13,7 +13,7 @@
 		<org.springframework-version>5.1.4.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.9.2</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
-	</properties>
+	   </properties>
 	
 	<repositories>
 		<repository>
@@ -53,13 +53,14 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
-		<!-- 이메일 인증 디펜던시 2개: javaMail, spring-context-support -->
+		<!-- 이메일 인증 디펜던시 2개: javax.mail과 spring context support -->
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>mail</artifactId>
 		    <version>1.4.7</version>
 		</dependency>
+		<!-- spring version으로 맞추기 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -96,21 +97,20 @@
 		    <version>1.3.3</version>
 		</dependency>
 	
-		<!-- JSON과 Bean 상호변환 -->
+		<!-- json과 bean 상호변환 -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.9.4</version>
 		</dependency>
-
 		
 		<!-- JSON in Java : json simple 보다 쉽다 -->
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
-		    <groupId>org.json</groupId>
-		    <artifactId>json</artifactId>
-		    <version>20180813</version>
+    		<groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>20180813</version>
 		</dependency>
 	
 		<!-- BeanConfiguration.java -->

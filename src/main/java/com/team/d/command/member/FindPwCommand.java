@@ -12,10 +12,9 @@ import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
 
-public class FindPwCommand implements MemberCommand {
+public class FindPwCommand {
 
-	@Override
-	public void execute(SqlSession sqlSession, Model model) {
+	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
@@ -33,7 +32,7 @@ public class FindPwCommand implements MemberCommand {
 		
 		// memberDAO의 비밀번호 찾기&비밀번호 변경 changePw메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		int result = memberDAO.changePw(memberDTO);
+		int result = memberDAO.findPw(memberDTO);
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");

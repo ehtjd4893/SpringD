@@ -21,21 +21,27 @@
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
-				// var obj = JSON.stringify({'mPw':$('#mPw0').val()});
-				//console.log(obj);
+				var obj = JSON.stringify({'mPw':$('#mPw0').val()});
+				/* var obj ={
+						mPw : $('#mPw0').val()
+				} */
 				$.ajax({
 					url: 'presentPwCheck.do',
 					type: 'get',
-					//contentType: 'application/json',
-					// data: obj, // 보내는 data
+					contentType: 'application/json',
+					// data: JSON.stringify(obj), // 보내는 data 문자열화
 					data: 'mPw=' + $('#mPw0').val(),
 					dataType: 'json', // 받는 data
 					success: function(resultMap){
-						console.log(resultMap);
-						if (resultMap.isCorrect) {
+						if (resultMap.isCorrect) { // 현재 비밀번호가 일치할 경우
+							$('.mPw0_result').text('현재 비밀번호와 일치합니다.');
 							presentPwPass = true;
 						} else {
+							$('.mPw0_result').text('현재 비밀번호가 일치하지 않습니다. 확인하세요.');
 							presentPwPass = false;
+						},
+						error: function(xhr, textStatus, errorThrown) {
+							
 						}
 					}
 				});
@@ -189,12 +195,13 @@
 		<input type="text" name="mId" id="mId" value="${loginUser.MId}" readonly><br><br>
 		
 		현재 비밀번호<br>
-		<input type="password" name="mPw0" id="mPw0"><br><br>
+		<input type="password" name="mPw0" id="mPw0"><br>
+		<span class="mPw0_result"></span><br><br>
 		새 비밀번호<br>
 		<input type="password" name="mPw" id="mPw"><br><br>
 		새 비밀번호 확인<br>
 		<input type="password" name="mPw1" id="mPw1"><br><br>
-		<input type="button" id="pw_btn" value="비밀번호 변경하기"><br><br>
+		<input type="button" id="pw_btn" value="비밀번호 변경하기"><br><br><br>
 		
 		전화번호<br>
 		<input type="text" name="mPhone" id="mPhone" value="${loginUser.MPhone}"><br><br>

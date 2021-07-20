@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.d.command.member.EmailAuthCommand;
@@ -93,6 +92,7 @@ public class MemberController {
 		model.addAttribute("response", response);
 		loginCommand.execute(sqlSession, model);
 	}
+	
 	// 로그아웃(logout)
 	@GetMapping(value="logout.do")
 	public String logout(HttpSession session, Model model) {
@@ -100,6 +100,7 @@ public class MemberController {
 		logoutCommand.execute(sqlSession, model);
 		return "redirect:/";
 	}
+	
 	// 아이디 중복체크(idCheck) 
 	@ResponseBody // AJAX매핑
 	@GetMapping(value="idCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 JSON형태로 반환
@@ -107,6 +108,7 @@ public class MemberController {
 		model.addAttribute("request", request);
 		return idCheckCommand.execute(sqlSession, model);
 	}
+	
 	// 이메일 중복체크(emailCheck) 
 	@ResponseBody // AJAX매핑
 	@GetMapping(value="emailCheck.do", produces="application/json; charset=utf-8") // 중복 체크 후 JSON형태로 반환
@@ -114,6 +116,7 @@ public class MemberController {
 		model.addAttribute("request", request);
 		return emailCheckCommand.execute(sqlSession, model);
 	}
+	
 	// 이메일 인증코드 받기(emailCode)
 	@ResponseBody // AJAX매핑
 	@GetMapping(value="emailCode.do", produces="application/json; charset=utf-8") // 인증코드 확인 후 JSON형태로 반환
@@ -121,6 +124,7 @@ public class MemberController {
 		model.addAttribute("request", request);
 		return emailAuthCommand.execute(sqlSession, model);
 	}
+	
 	// 회원가입(join)
 	@PostMapping(value="join.do")
 	public void join(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -128,15 +132,23 @@ public class MemberController {
 		model.addAttribute("response", response);
 		joinCommand.execute(sqlSession, model);
 	}
-	// 현재 비밀번호 확인(presentPwCheck) : 오류
-	@GetMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
+	
+	// 현재 비밀번호 확인(presentPwCheck) : 라이브러리 오류로 getMapping으로 변경..
+	/*@ResponseBody
+	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
+	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, HttpSession session, Model model){
+		model.addAttribute("session", session);   
+		model.addAttribute("memberDTO", memberDTO);
+		return presentPwCheckCommand.execute(sqlSession, model);
+	}*/
 	@ResponseBody // AJAX매핑
-	public Map<String, Boolean> presentPwCheck(MemberDTO memberDTO, HttpSession session, Model model){ // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용								  
-		System.out.println("controller: " + memberDTO);
+	@GetMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
+	public Map<String, Boolean> presentPwCheck(MemberDTO memberDTO, HttpSession session, Model model){
 		model.addAttribute("session", session);   
 		model.addAttribute("memberDTO", memberDTO);
 		return presentPwCheckCommand.execute(sqlSession, model);
 	}
+	
 	// 비밀번호 변경(updatePw)
 	@PostMapping(value="updatePw.do")
 	public void updatePw(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -145,6 +157,7 @@ public class MemberController {
 		model.addAttribute("response", response);
 		updatePwCommand.execute(sqlSession, model);
 	}
+	
 	// 회원정보 변경(updateMember)
 	@PostMapping(value="updateMember.do")
 	public void updateMember(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -153,25 +166,34 @@ public class MemberController {
 		model.addAttribute("response", response);
 		updateMemberCommand.execute(sqlSession, model);
 	}
+	
 	// 아이디 찾기(findId)
 	@ResponseBody // AJAX매핑
-	@PostMapping(value="findId.do", produces="application/json; charset=utf-8")
-	public Map<String, Object> findId(@RequestBody MemberDTO memberDTO, Model model) { 
+	@GetMapping(value="findId.do", produces="application/json; charset=utf-8")
+	public Map<String, Object> findId(MemberDTO memberDTO, Model model) { 
 		model.addAttribute("memberDTO", memberDTO);
 		return findIdCommand.execute(sqlSession, model);
+	}
+	
+	// 비밀번호 찾기(findPw)
+	@GetMapping(value="findPw.do", produces="application/json; charset=utf-8")
+	public Map<String, Object> findPw(MemberDTO memberDTO, Model model) {
+		model.addAttribute("memberDTO", memberDTO);
+		return findPwCommand.execute(sqlSession, model);
 	}
 	// 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
 	@PostMapping(value="changePwPage.do")
 	public String changePwPage(@ModelAttribute("mEmail") String mEmail) {
 		return "member/changePw";
 	}
-	// 비밀번호 찾기&변경(changePw)
+	/*// 비밀번호 찾기&변경(changePw)
 	@PostMapping(value="changePw.do")
 	public void changePw(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
 		findPwCommand.execute(sqlSession, model);
-	}
+	}*/
+	
 	// 회원탈퇴(leave)
 	@GetMapping(value="leave.do")
 	public void leave(HttpSession session, HttpServletResponse response, Model model) {

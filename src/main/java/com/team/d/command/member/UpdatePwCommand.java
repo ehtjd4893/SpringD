@@ -38,7 +38,8 @@ public class UpdatePwCommand implements MemberCommand {
 		
 		try {
 			response.setContentType("text/html; charset=utf-8");
-			if (result > 0) { // 비밀번호 변경 성공
+			if (result > 0) { // 비밀번호 변경 성공 후 다시 로그인
+				session.invalidate();
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 로그인하세요.');");
 				response.getWriter().append("location.href='index.do';");

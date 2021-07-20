@@ -11,7 +11,7 @@ public interface MemberDAO {
 	public int updatePw(MemberDTO memberDTO); // 비밀번호 변경
 	public int updateMember(MemberDTO memberDTO); // 회원정보 변경
 	public MemberDTO findId(MemberDTO memberDTO); // 아이디 찾기
-	public int changePw(MemberDTO memberDTO); // 비밀번호 찾기&비밀번호 변경
+	public MemberDTO findPw(MemberDTO memberDTO); // 비밀번호 찾기
 	public int leave(long mNo); // 회원탈퇴
 
 	

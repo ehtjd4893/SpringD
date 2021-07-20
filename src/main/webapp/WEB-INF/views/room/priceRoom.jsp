@@ -17,6 +17,17 @@
 			margin: 0;
 			padding: 0;
 		}
+		li {
+			display: list-item;
+			text-align: -webkit-match-parent;
+		}
+		a {
+			text-decoration: none;
+			color: #555;
+		}
+		a:-webkit-any-link {
+			cursor: pointer;
+		}
 		.tableRoomInfo tr.first th,
 		.tableRoomInfo tr.first td {
 			padding: 24px 0 20px 0 !important;
@@ -63,12 +74,8 @@
 		    margin-inline-end: 0px;
 		    padding-inline-start: 40px;
 		}
-		.introList li {
-			display: list-item;
-			text-align: -webkit-match-parent;
-			padding-left: 8px;
-		    line-height: 21px;
-		    color: #444;
+		.rightArea ul {
+			list-style-type: none;
 		}
 		table {
 			display: table;
@@ -84,6 +91,13 @@
 		td {
 			display: table-cell;
 			vertical-align: inherit;
+		}
+		p {
+		    display: block;
+		    margin-block-start: 1em;
+		    margin-block-end: 1em;
+		    margin-inline-start: 0px;
+		    margin-inline-end: 0px;
 		}
 		.thumbnail {
 			width: 100px;
@@ -121,6 +135,32 @@
 		}
 		.btnSet li.last {
 			margin-right: 0 !important;
+		}
+		.HotelInfoBox {
+			margin-top: 20px !important;
+			width: 100%;
+		}
+		.HotelBoxTop {
+			padding: 25px 15px;
+			width: auto;
+			background: #faf7ed;
+		}
+		.conTitle1 {
+			height: 12px;
+			margin: 0 0 19px 0;
+		}
+		.introBtm {
+			clear: both;
+			padding-top: 18px;
+		}
+		.HotelInfoBox .HotelBoxTop .title {
+			font-weight: bold;
+			color: #444;
+			padding-left: 8px;
+		}
+		.useIntro p {
+			padding-left: 8px;
+			color: #444;
 		}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -197,8 +237,8 @@
 		<hr>
 		
 		<div class="leftArea">
-			<img alt="left" src="resources/images/priceRoom/leftArea.PNG"><br><br>
-			<img style="cursor: pointer;" id="amenity" alt="객실어매니티" src="resources/images/priceRoom/객실어매니티.PNG"><br><br>
+			<img alt="left" src="resources/images/priceRoom/leftArea.PNG"><br>
+			<img style="cursor: pointer;" id="amenity" alt="객실어매니티" src="resources/images/priceRoom/객실어매니티.PNG">
 			<table class="tableRoomInfo">
 				<tbody>
 					<tr class="first">
@@ -279,7 +319,51 @@
 					<img style="cursor: pointer;" id="reservation" src="resources/images/priceRoom/reservation.JPG" alt="예약하기">
 				</li>
 			</ul>
+			<div class="HotelInfoBox">
+				<div class="HotelBoxTop">
+					<div class="conTitle1">
+						<h3 class="title">Hotel Info.</h3>
+					</div>
+					<p class="title">조식 이용 안내</p>
+					<div class="useIntro">
+						<p>- 더 파크뷰 06:00~10:00(주중/주말/공휴일)</p>
+						<p>- 더 라이브러리 08:00~11:30</p>
+						<p style="text-indent: -16px; padding-left: 24px;">
+						※ 현재 더 라이브러리는 코로나19로 인한 운영시간 
+						<br>
+						  축소로 조식 운영을 하지 않고 있사오니 이용에 
+						<br>
+						  참고 부탁드립니다.
+						</p>
+					</div>
+					<div class="introBtm" style="min-height: 0px;">
+						<p class="title">체크인/체크아웃 시간</p>
+						<div class="useIntro">
+							<p>- 체크인 : 오후 3시 이후</p>
+							<p>- 체크아웃 : 낮 12시 </p>
+							<p>※ 2021년 10월 1일부터 체크인은 오후 2시 이후, 체크아웃은 오전 11시까지로 변경됩니다.</p>
+						</div>
+					</div>
+					<div class="introBtm" style="min-height: 0px;">
+						<p class="title">취소/변경 및 노쇼(No-show) 안내</p>
+						<div class="useIntro">
+							<p style="letter-spacing: -0.3px;">- 숙박 예정일 1일 전 18시까지는 위약금 없음</p>
+							<p style="letter-spacing: -0.3px;">- 숙박 예정일 1일 전 18시 이후 취소/변경/노쇼 발생 시</p>
+							<p style="padding: 0px 18px;">
+							 성수기(5월~10월, 12월 24일~31일) :
+							<br>
+							 최초 1일 숙박 요금의 80%가 위약금으로 부과
+							<br>
+							 비수기(성수기 외 기간) :
+							<br>
+							 최초 1일 숙박 요금의 10%가 위약금으로 부과
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+		
 		
 	</div>
 	

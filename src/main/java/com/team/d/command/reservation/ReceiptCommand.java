@@ -25,7 +25,7 @@ public class ReceiptCommand implements ReservationCommand {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		//방 번호
 		long rNo = Long.parseLong(request.getParameter("rNo"));
-		
+		 
 		
 		
 		//숙박인원 수

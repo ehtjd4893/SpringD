@@ -234,6 +234,6 @@
 					<input type="button" id="reply_btn" value="댓글 달기">
 				</c:if>
 			</c:if>
-		</form>
+		</form> 
 </body>
 </html>

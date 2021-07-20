@@ -30,7 +30,6 @@ public class ReceiptCommand implements ReservationCommand {
 		
 		//숙박인원 수
 		long people = Long.parseLong(request.getParameter("people"));
-		//System.out.println(people+"사람임~!~!");
 		// 체크인 날짜
 		Date checkIn = Date.valueOf( request.getParameter("checkIn"));
 		// 체크아웃 날짜
@@ -41,6 +40,8 @@ public class ReceiptCommand implements ReservationCommand {
 		long totalPay=Long.parseLong( request.getParameter("totalPay"));
 		//예약자명
 		String booker=request.getParameter("booker");
+		String reEmail=request.getParameter("reEmail");
+		String note=request.getParameter("note");
 		
 		
  
@@ -58,6 +59,8 @@ public class ReceiptCommand implements ReservationCommand {
 		r.setFood(food);
 		r.setTotalPay(totalPay);
 		r.setBooker(booker);
+		r.setReEmail(reEmail);
+		r.setNote(note);
 		
 		
 		
@@ -65,7 +68,7 @@ public class ReceiptCommand implements ReservationCommand {
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		
 		//DB에 '예약정보 삽입' 하고 '리턴값으로 예약시퀀스값' 저장
-		int result=reservationDAO.insertReservation(rNo, mNo, people, checkIn, checkOut, food,totalPay,booker);
+		int result=reservationDAO.insertReservation(rNo, mNo, people, checkIn, checkOut, food,totalPay,booker,reEmail,note);
 		System.out.println(result);
 		//System.out.println(rNo+","+ mNo+","+people+","+checkIn+","+checkOut+","+ food);
 		//DB에 삽입한 예약정보 model에 넘김

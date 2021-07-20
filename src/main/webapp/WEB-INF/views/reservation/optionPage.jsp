@@ -56,9 +56,12 @@
 		table,td,tr{
 			border: 1px solid pink;
 		}
-		#total_sum{
+		#totalPay{
 			border:0 solid black;
 			outline:none;
+			font-size: 30px;
+			width: 150px;
+			text-align: right;
 		}
 	</style>
 <title>Insert title here</title>
@@ -108,7 +111,7 @@
  		</tbody>
  		<tfoot>
  			<tr>
- 				<td colspan="5"><h1>총  	 <input type="text"  id="totalPay" name="totalPay" readonly >  원</h1> 	 </td>
+ 				<td colspan="5"><h1>총  	 <input type="text"  id="totalPay" name="totalPay" value="${selectRoom.RPrice * sleepDate}" readonly >  원</h1> 	 </td>
  			</tr>
  		</tfoot>
  	</table>

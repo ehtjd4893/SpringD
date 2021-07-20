@@ -11,6 +11,7 @@ import com.team.d.command.board.BoardListCommand;
 import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
 import com.team.d.command.board.SelectInformCommand;
+import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.member.AdminLoginCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
@@ -26,6 +27,7 @@ import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.team.d.command.reservation.ReceiptCommand;
+import com.team.d.command.reservation.ReceiptCommand2;
 import com.team.d.command.reservation.RevInfoCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
@@ -83,7 +85,10 @@ public class TeamConfiguration {
 	public SelectInformCommand selectInformCommand() {
 		return new SelectInformCommand();
 	}
-	
+	@Bean
+	public ShowBoardCommand showBoardCommand() {
+		return new ShowBoardCommand();
+	}
 	/* Member 관련*/
 	@Bean
 	public LoginCommand loginCommand() { // 로그인
@@ -162,6 +167,10 @@ public class TeamConfiguration {
 	@Bean
 	public RevInfoCommand revInfoCommand() {
 		return new RevInfoCommand();
+	}
+	@Bean
+	public ReceiptCommand2 receiptCommand2() {
+		return new ReceiptCommand2();
 	}
 	/* Room 관련*/
 	@Bean

@@ -32,11 +32,11 @@
 		<tbody>
 			<tr>
 				<td>예약번호</td>
-				<td>${reno}</td>
+				<td>${book.getReNo()}</td>
 			</tr>
 			<tr>
 				<td>예약자명</td>
-				<td>${reservationDTO.getBooker()}</td>
+				<td>${book.getBooker()}</td>
 			</tr>
 			<tr>
 				<td>예약하신 방</td>
@@ -44,23 +44,27 @@
 			</tr>
 			<tr>
 				<td>인원</td>
-				<td>${reservationDTO.getPeople()}</td>
+				<td>${book.getPeople()}</td>
 			</tr>
 			<tr>
 				<td>체크인</td>
-				<td>${reservationDTO.getCheckIn()}</td>
+				<td>${book.getCheckIn()}</td>
 			</tr>
 			<tr>
 				<td>체크아웃</td>
-				<td>${reservationDTO.getCheckOut()}</td>
+				<td>${book.getCheckOut()}</td>
 			</tr>
 			<tr>
 				<td>조식</td>
-				<td> ${reservationDTO.getFood()} 명</td>
+				<td> ${book.getFood()} 명</td>
+			</tr>
+			<tr>
+				<td>요청사항</td>
+				<td> ${book.getNote()} </td>
 			</tr>
 			<tr>
 				<td>총금액</td>
-				<td> ${reservationDTO.getTotalPay()}</td>
+				<td> ${book.getTotalPay()} 원</td>
 			</tr>
 		</tbody>
 	</table>

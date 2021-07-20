@@ -22,7 +22,7 @@
 	<!-- 예약정보 삽입 -->
 	<insert id="insertReservation" >
 		INSERT INTO SPRING.RESERVATION
-		VALUES (SPRING.RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
+		VALUES (SPRING.RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10})
 	</insert>
 	
 	<!-- 예약정보 뽑아오는 함수 -->
@@ -31,5 +31,14 @@
 		FROM SPRING.RESERVATION 
 		WHERE RENO=(SELECT MAX(RENO) FROM SPRING.RESERVATION)
 	</select>
+	
+	
+	<!-- 예약한 방 정보 -->
+	<select id="selectReservation" resultType="com.team.d.dto.ReservationDTO">
+		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE
+		FROM SPRING.RESERVATION
+		WHERE RENO = #{reNo}
+	</select>
+	
 	
 </mapper>

@@ -21,4 +21,6 @@ public class ReservationDTO {
 	private long food;
 	private long totalPay;
 	private String booker;
+	private String reEmail;
+	private String note;
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.member.AdminLoginCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
@@ -29,6 +30,7 @@ import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.command.reservation.RevInfoCommand;
 import com.team.d.dto.MemberDTO;
 
 @Controller
@@ -50,6 +52,8 @@ public class MemberController {
 	private FindPwCommand findPwCommand;
 	private LeaveCommand leaveCommand;
 	private AdminLoginCommand adminLoginCommand;
+	private ShowBoardCommand showBoardCommand;
+	private RevInfoCommand revInfoCommand;
 	
 	// constructor
 	@Autowired
@@ -67,7 +71,9 @@ public class MemberController {
 							// IdAndEmailCheckCommand idAndEmailCheckCommand,
 							FindPwCommand findPwCommand,
 							LeaveCommand leaveCommand,
-							AdminLoginCommand adminLoginCommand) {
+							AdminLoginCommand adminLoginCommand,
+							ShowBoardCommand showBoardCommand,
+							RevInfoCommand revInfoCommand) {
 		super();
 		this.sqlSession = sqlSession;
 		this.loginCommand = loginCommand;
@@ -84,6 +90,7 @@ public class MemberController {
 		this.findPwCommand = findPwCommand;
 		this.leaveCommand = leaveCommand;
 		this.adminLoginCommand = adminLoginCommand;
+		this.revInfoCommand=revInfoCommand;
 	}
 	
 	@GetMapping(value= {"/", "index.do"})
@@ -99,7 +106,19 @@ public class MemberController {
 	@PostMapping(value="login.do")
 	public String login(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		return loginCommand.execute(sqlSession, model);
+		String page = loginCommand.execute(sqlSession, model);
+		if(page.equals("selectBoard.do")) {
+			System.out.println("도착");
+			showBoardCommand.execute(sqlSession, model);
+			return "board/selectBoard";
+		}else if(page.equals("revInfoPage.do")) {
+			System.out.println("도착2");
+			revInfoCommand.execute(sqlSession, model);
+			return "reservation/revInfoPage";
+		}
+		
+		
+		return page;
 	}
 	// 마이페이지 myPage.jsp 단순이동
 	@GetMapping(value="myPage.do")

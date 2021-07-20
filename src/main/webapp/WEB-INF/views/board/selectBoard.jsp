@@ -11,7 +11,14 @@
 		$(function(){
 			fn_delete();
 			fn_update();
+			fn_reply_no_login();
 		});	// onload
+
+		function fn_reply_no_login(){
+			$('#reply_no_login').click(){
+				
+			}
+		}
 		
 		function fn_update(){
 			$('#update_btn').click(function(){
@@ -85,17 +92,26 @@
 				<input id="delete_btn" type="button" value="삭제하기" >
 			</c:if>
 		</c:if>
+		
 		<c:if test="${mode eq 'admin'}">
 			<c:if test="${loginAdmin.MId == Board.MId}">
 				<input id="update_btn" type="button" value="수정하기">
 				<input id="delete_btn" type="button" value="삭제하기" >
 			</c:if>
 		</c:if>
+		
 		<input type="button" value="목록으로 돌아가기" onclick='history.back()'><br><br>
 		
 		<input type="hidden" name="bIdx" value="${Board.BIdx}">
 		<input type="hidden" name="content" value="${Board.BContent}">
 		<input type="hidden" name="replyWriter" value="${loginUser.MId}">
+		
+		<c:if test="${mode eq null}">
+			<c:if test="${loginUser eq null && loginAdmin eq null}">
+				<textarea rows="2" cols="30" id="reply_no_login" name="reply" placeholder="댓글을 입력하시려면 로그인하세요."></textarea>
+			</c:if>
+		</c:if>
+		
 		<c:if test="${mode eq 'member'}">
 			<c:if test="${loginUser ne null}">
 				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>

@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,19 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.team.d.command.board.BoardListCommand;
+import com.team.d.command.board.DeleteBoardCommand;
 import com.team.d.command.board.InsertBoardCommand;
 import com.team.d.command.board.SearchBoardCommand;
 import com.team.d.command.board.SelectNoticeCommand;
 import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.board.UpdateBoardCommand;
 import com.team.d.command.board.UpdateBoardPageCommand;
-import com.team.d.command.board.BoardListCommand;
-import com.team.d.command.board.DeleteBoardCommand;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @Controller
 public class BoardController {
 
@@ -39,28 +37,6 @@ public class BoardController {
 	private UpdateBoardCommand updateBoardCommand;
 	private DeleteBoardCommand deleteBoardCommand;
 	
-	@Autowired
-	public BoardController(SqlSession sqlSession, 
-			InsertBoardCommand insertBoardCommand,
-			BoardListCommand boardListCommand,
-			SearchBoardCommand searchBoardCommand,
-			SelectNoticeCommand selectNoticeCommand,
-			ShowBoardCommand showBoardCommand,
-			UpdateBoardPageCommand updateBoardPageCommand,
-			UpdateBoardCommand updateBoardCommand,
-			DeleteBoardCommand deleteBoardCommand) {
-		super();
-		this.sqlSession = sqlSession;
-		this.insertBoardCommand = insertBoardCommand;
-		this.boardListCommand = boardListCommand;
-		this.searchBoardCommand = searchBoardCommand;
-		this.selectNoticeCommand = selectNoticeCommand;
-		this.showBoardCommand = showBoardCommand;
-		this.updateBoardPageCommand = updateBoardPageCommand;
-		this.updateBoardCommand = updateBoardCommand;
-		this.deleteBoardCommand = deleteBoardCommand;
-	}
-
 	@GetMapping(value="boardPage.do")
 	public String BoardPage(HttpServletRequest request, Model model) {
 		String page = request.getParameter("page");

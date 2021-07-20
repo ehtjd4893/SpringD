@@ -242,7 +242,7 @@
 	
 <body>
  
-	
+	 
 	<h1>게시판</h1>
 
 		<div class="btn_box">

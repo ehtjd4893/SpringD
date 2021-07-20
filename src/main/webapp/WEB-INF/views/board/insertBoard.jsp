@@ -37,6 +37,7 @@
 
 <body>
 	<h1> 글 입력</h1>
+	
 	<form id="f" action="insertBoard.do" method="POST" enctype="multipart/form-data">
 		<c:if test="${loginUser eq null && loginAdmin ne null}">
 			<input type="hidden" name="m_id" value="${loginAdmin.MId}"><br>

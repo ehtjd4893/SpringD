@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +29,9 @@ import com.team.d.command.member.UpdateMemberCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.team.d.dto.MemberDTO;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Controller
 public class MemberController {
 
@@ -47,37 +49,6 @@ public class MemberController {
 	private FindIdCommand findIdCommand;
 	private FindPwCommand findPwCommand;
 	private LeaveCommand leaveCommand;
-
-	// constructor
-	@Autowired
-	public MemberController(SqlSession sqlSession,
-							LoginCommand loginCommand,
-							LogoutCommand logoutCommand,
-							IdCheckCommand idCheckCommand,
-							EmailCheckCommand emailCheckCommand,
-							EmailAuthCommand emailAuthCommand,
-							JoinCommand joinCommand,
-							PresentPwCheckCommand presentPwCheckCommand,
-							UpdatePwCommand updatePwCommand,
-							UpdateMemberCommand updateMemberCommand,
-							FindIdCommand findIdCommand,
-							FindPwCommand findPwCommand,
-							LeaveCommand leaveCommand) {
-		super();
-		this.sqlSession = sqlSession;
-		this.loginCommand = loginCommand;
-		this.logoutCommand = logoutCommand;
-		this.idCheckCommand = idCheckCommand;
-		this.emailCheckCommand = emailCheckCommand;
-		this.emailAuthCommand = emailAuthCommand;
-		this.joinCommand = joinCommand;
-		this.presentPwCheckCommand = presentPwCheckCommand;
-		this.updatePwCommand = updatePwCommand;
-		this.updateMemberCommand = updateMemberCommand;
-		this.findIdCommand = findIdCommand;
-		this.findPwCommand = findPwCommand;
-		this.leaveCommand = leaveCommand;
-	}
 	
 	// 메인페이지 index.jsp 단순이동
 	@GetMapping(value= {"/", "index.do"})
@@ -158,14 +129,15 @@ public class MemberController {
 		joinCommand.execute(sqlSession, model);
 	}
 	// 현재 비밀번호 확인(presentPwCheck) : 오류
+	@GetMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
 	@ResponseBody // AJAX매핑
-	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8") // 현재 비밀번호 확인 후 JSON형태로 반환
-	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, HttpSession session, Model model){ // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용								  
-		model.addAttribute("session", session);
+	public Map<String, Boolean> presentPwCheck(MemberDTO memberDTO, HttpSession session, Model model){ // 파라미터 없이 JSON 객체 전달 받을 때 @RequestBody 사용								  
+		System.out.println("controller: " + memberDTO);
+		model.addAttribute("session", session);   
 		model.addAttribute("memberDTO", memberDTO);
 		return presentPwCheckCommand.execute(sqlSession, model);
 	}
-	// 비밀번호 변경(updatePw) : 오류
+	// 비밀번호 변경(updatePw)
 	@PostMapping(value="updatePw.do")
 	public void updatePw(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("memberDTO", memberDTO);

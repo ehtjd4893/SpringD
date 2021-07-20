@@ -21,17 +21,17 @@
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
-				var obj = {
-					pw: $('#mPw0').val()
-				};
+				// var obj = JSON.stringify({'mPw':$('#mPw0').val()});
+				//console.log(obj);
 				$.ajax({
 					url: 'presentPwCheck.do',
-					type: 'post',
-					contentType: 'application/json',
-					data: JSON.stringify(obj),
-					dataType: 'json',
+					type: 'get',
+					//contentType: 'application/json',
+					// data: obj, // 보내는 data
+					data: 'mPw=' + $('#mPw0').val(),
+					dataType: 'json', // 받는 data
 					success: function(resultMap){
-						console.log(resultMap.isCorrect);
+						console.log(resultMap);
 						if (resultMap.isCorrect) {
 							presentPwPass = true;
 						} else {
@@ -181,7 +181,7 @@
 	<!-- 마이페이지 화면 -->
 	<h3>${loginUser.MId} 님 환영합니다!</h3>
 	<form id="f" method="post">
-	
+		<input type="hidden" name="mNo" value="${loginUser.MNo}">
 		이름<br>
 		<input type="text" name="mName" id="mName" value="${loginUser.MName}"><br><br>
 		
@@ -189,7 +189,7 @@
 		<input type="text" name="mId" id="mId" value="${loginUser.MId}" readonly><br><br>
 		
 		현재 비밀번호<br>
-		<input type="text" name="mPw0" id="mPw0" value="${loginUser.MPw}"><br><br>
+		<input type="password" name="mPw0" id="mPw0"><br><br>
 		새 비밀번호<br>
 		<input type="password" name="mPw" id="mPw"><br><br>
 		새 비밀번호 확인<br>
@@ -209,7 +209,7 @@
 			
 		가입일 : ${loginUser.MRegdate}<br><br>
 		
-		<input type="hidden" name="mNo" value="${loginUser.MNo}">
+		
 		<input type="button" id="update_btn" value="정보변경하기">
 		<input type="button" id="leave_btn" value="회원탈퇴">
 		<input type="button" value="돌아가기" onclick="location.href='loginPage.do'">

@@ -35,7 +35,7 @@ public class BoardListCommand{
 			System.out.println(request.getParameter("page"));
 			page = Integer.parseInt(opt.orElse("1"));		
 		}
-		
+		 
 		
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
 		// 전체 게시물의 개수를 반환하는 함수

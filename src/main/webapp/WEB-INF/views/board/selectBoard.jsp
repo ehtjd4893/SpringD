@@ -6,18 +6,24 @@
 <head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>DS - Homepage</title>
+	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
+	<title>DS - Homepage</title>	
 	<script>
 		$(function(){
 			fn_delete();
 			fn_update();
 			fn_reply_no_login();
+			
+			fn_showLogin();	// 로그인 버튼 클릭시 로그인창이 펴지는 함수
+			getDate();		// 시간 보여주는 함수
+			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
+			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 		});	// onload
 
 		function fn_reply_no_login(){
-			$('#reply_no_login').click(){
-				
-			}
+			$('#reply_no_login').click(function(){
+				$('.form').toggleClass('hide');		
+			});	// onclick
 		}
 		
 		function fn_update(){
@@ -55,14 +61,116 @@
 				});	// ajax
 			});	// onclick
 		}	// fn_reply
+		
+		// 멤버 로그인, 관리자 로그인을 변경해주는 함수
+		function fn_toggle_mode(){
+			$('#mem_to_admin').click(function(){
+				$('#mem_mode').toggleClass('disabled');
+				$('#admin_mode').toggleClass('disabled');
+			});
+			
+			$('#admin_to_mem ').click(function(){
+				$('#mem_mode').toggleClass('disabled');
+				$('#admin_mode').toggleClass('disabled');
+			});	
+		}
+		
+		function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
+			$('#closeLogin').click(function(){
+				$('.form').toggleClass('hide');
+			})	// onclick#
+		}	// fn_closeLogin
+		
+		function fn_showLogin(){
+			$('.showLogin').on('click',function(){
+				$('.form').toggleClass('hide');
+			});	// onclick
+		}	// fn_login_btn
+		
+
+	    function getDate() { 
+	        date = setInterval(function () { 
+	            var dateString = ""; 
+
+	            var newDate = new Date(); 
+
+	            dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+	            dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
+	            //document.write(dateString); 문서에 바로 그릴 수 있다. 
+	            $("#date").text(dateString); 
+	        }, 1000);	// 1초 단위로  
+	    } 
+		
 	</script>
 </head>
 <body>
-
+	
+		<div class="btn_box">
+			<span>Seoul</span>
+			<span id="date"></span>
+			<c:if test="${loginUser eq null && loginAdmin eq null}">
+	 			<input type="button" class="showLogin" value="로그인">
+	 		</c:if>
+	 		<c:if test="${loginUser ne null || loginAdmin ne null}">
+	 			<input type="button" value="로그아웃" onclick="location.href='logout.do'">
+			</c:if>
+		</div>
+		<div id="mem_mode" class="myMenu">
+			<form action="login.do" method="post">
+  	   	 	<div class="form hide">
+  	   	 		<input type="hidden" name="page" value="selectBoard.do">
+  	   	 		<input type="hidden" name="bIdx" value="${Board.BIdx}">
+  	   	 		<h2 style="text-align:center">회원 로그인</h2>
+				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
+   				 <div class="form2">
+     				<div class="form3">
+     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
+      					<div class="clear"></div>
+      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
+     				</div>	<!-- form3 -->
+     				<input type="submit" id="login_btn" value="로그인">
+     				<div class="clear"></div>
+     				<div class="form4">
+      					<div class="clear"></div>
+     						<label><input type="button" value="회원가입"></label>
+     						<label><input type="button" value="아이디/비밀번호 찾기"></label>
+     						<label><input type="button" id="mem_to_admin" value="관리자로 로그인하기"></label>
+					</div>	<!-- form4 -->
+				</div>	<!-- form2 -->
+			</div>	<!-- form -->
+			</form>
+		</div>	<!-- myMenu -->
+		
+		<div id="admin_mode" class="myMenu disabled">
+			<form action="loginAdmin.do" method="post">
+  	   	 	<div class="form hide">
+  	   	 		<input type="hidden" name="page" value="selectBoard.do">
+  	   	 		<input type="hidden" name="bIdx" value="${Board.BIdx}">
+  	   	 		<h2 style="text-align:center">관리자 로그인</h2>
+				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
+   				 <div class="form2">
+     				<div class="form3">
+     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
+      					<div class="clear"></div>
+      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
+     				</div>	<!-- form3 -->
+     				<input type="submit" id="login_btn" value="로그인">
+     				<div class="clear"></div>
+     				<div class="form4">
+      					<div class="clear"></div>
+     						<label><input type="button" id="admin_to_mem" value="회원으로 로그인하기"></label>
+					</div>	<!-- form4 -->
+				</div>	<!-- form2 -->
+			</div>	<!-- form -->
+			</form>
+		</div>	<!-- myMenu -->
+	
+	
+	
 	<form id="f" method="post" enctype="multipart/form-data">
-		글번호 <input type="hidden" name="bIdx" value="${Board.BIdx}" disabled>
+		<input type="hidden" name="bIdx" value="${Board.BIdx}" disabled>
 		작성자 <input type="text" name="mId" value="${Board.MId}" disabled><br><br>
-		조회수 <input type="hidden" name="bHit" value="${Board.BHit}" disabled><br><br>
+		<input type="hidden" name="bHit" value="${Board.BHit}" disabled><br><br>
 		
 		제목 <input type="text" name="bTitle" value="${Board.BTitle}" disabled>
 		작성일 <input type="text" name="bPostdate" value="${Board.BPostDate}" disabled>
@@ -85,6 +193,7 @@
 			<input type="hidden" name="bFileName3" value="${Board.BFileName3}">
 		</c:if>
 		<br><br>
+		</form>
 		
 		<c:if test="${mode eq 'member'}">
 			<c:if test="${loginUser.MId == Board.MId}">
@@ -106,24 +215,25 @@
 		<input type="hidden" name="content" value="${Board.BContent}">
 		<input type="hidden" name="replyWriter" value="${loginUser.MId}">
 		
-		<c:if test="${mode eq null}">
-			<c:if test="${loginUser eq null && loginAdmin eq null}">
-				<textarea rows="2" cols="30" id="reply_no_login" name="reply" placeholder="댓글을 입력하시려면 로그인하세요."></textarea>
-			</c:if>
+		
+		<c:if test="${loginUser eq null && loginAdmin eq null}">
+			<textarea rows="2" cols="30" id="reply_no_login" name="reply" placeholder="댓글을 입력하시려면 로그인하세요."></textarea>
 		</c:if>
 		
-		<c:if test="${mode eq 'member'}">
-			<c:if test="${loginUser ne null}">
-				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-				<input type="button" id="reply_btn" value="댓글 달기">
+		<form id="f_reply">
+			<c:if test="${mode eq 'member'}">
+				<c:if test="${loginUser ne null}">
+					<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+					<input type="button" id="reply_btn" value="댓글 달기">
+				</c:if>
 			</c:if>
-		</c:if>
-		<c:if test="${mode ne 'admin'}">
-			<c:if test="${loginAdmin ne null}">
-				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-				<input type="button" id="reply_btn" value="댓글 달기">
+			
+			<c:if test="${mode ne 'admin'}">
+				<c:if test="${loginAdmin ne null}">
+					<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+					<input type="button" id="reply_btn" value="댓글 달기">
+				</c:if>
 			</c:if>
-		</c:if>
-	</form>
+		</form>
 </body>
 </html>

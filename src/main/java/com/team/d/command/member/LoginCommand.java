@@ -31,7 +31,7 @@ public class LoginCommand  {
 		String page = request.getParameter("page");
 		if(page == null)
 			page = "index";
-		System.out.println(page);
+		System.out.println("PAGE: " + page);
 		
 		String result = null;
 		if(loginUser != null) { // 로그인 성공의 경우, Session에 등록

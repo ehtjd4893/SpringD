@@ -26,11 +26,11 @@
 			fn_showLogin();	// 로그인 버튼 클릭시 로그인창이 펴지는 함수
 			getDate();		// 시간 보여주는 함수
 			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
+			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 			fn_insertBoard();	// 새 글 작성 버튼 클릭시 로그인창 켜지거나 페이지 이동하는 함수
 			
 			fn_init();	// 전체 목록 불러오기 버튼
 			click_search();
-			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 			
 			
 			if(${query == null}){	
@@ -71,8 +71,7 @@
 			$('#admin_to_mem ').click(function(){
 				$('#mem_mode').toggleClass('disabled');
 				$('#admin_mode').toggleClass('disabled');
-			});
-			
+			});	
 		}
 		
 		function click_search(){
@@ -244,7 +243,7 @@
  
 	 
 	<h1>게시판</h1>
-
+		
 		<div class="btn_box">
 			<span>Seoul</span>
 			<span id="date"></span>

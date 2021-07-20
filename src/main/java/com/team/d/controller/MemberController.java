@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.member.AdminLoginCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
@@ -31,6 +32,9 @@ import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.team.d.dto.MemberDTO;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 @Controller
 public class MemberController {
 
@@ -50,41 +54,9 @@ public class MemberController {
 	private FindPwCommand findPwCommand;
 	private LeaveCommand leaveCommand;
 	private AdminLoginCommand adminLoginCommand;
-	
+	private ShowBoardCommand showBoardCommand;
 	// constructor
-	@Autowired
-	public MemberController(SqlSession sqlSession,
-							LoginCommand loginCommand,
-							LogoutCommand logoutCommand,
-							IdCheckCommand idCheckCommand,
-							EmailCheckCommand emailCheckCommand,
-							EmailAuthCommand emailAuthCommand,
-							JoinCommand joinCommand,
-							PresentPwCheckCommand presentPwCheckCommand,
-							UpdatePwCommand updatePwCommand,
-							UpdateCommand updateCommand,
-							FindIdCommand findIdCommand,
-							// IdAndEmailCheckCommand idAndEmailCheckCommand,
-							FindPwCommand findPwCommand,
-							LeaveCommand leaveCommand,
-							AdminLoginCommand adminLoginCommand) {
-		super();
-		this.sqlSession = sqlSession;
-		this.loginCommand = loginCommand;
-		this.logoutCommand = logoutCommand;
-		this.idCheckCommand = idCheckCommand;
-		this.emailCheckCommand = emailCheckCommand;
-		this.emailAuthCommand = emailAuthCommand;
-		this.joinCommand = joinCommand;
-		this.presentPwCheckCommand = presentPwCheckCommand;
-		this.updatePwCommand = updatePwCommand;
-		this.updateCommand = updateCommand;
-		this.findIdCommand = findIdCommand;
-		// this.idAndEmailCheckCommand = idAndEmailCheckCommand;
-		this.findPwCommand = findPwCommand;
-		this.leaveCommand = leaveCommand;
-		this.adminLoginCommand = adminLoginCommand;
-	}
+
 	
 	@GetMapping(value= {"/", "index.do"})
 	public String index() {
@@ -99,7 +71,13 @@ public class MemberController {
 	@PostMapping(value="login.do")
 	public String login(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		return loginCommand.execute(sqlSession, model);
+		String page = loginCommand.execute(sqlSession, model);
+		if(page.equals("selectBoard.do")) {
+			System.out.println("도착");
+			showBoardCommand.execute(sqlSession, model);
+			return "board/selectBoard";
+		}
+		return page;
 	}
 	// 마이페이지 myPage.jsp 단순이동
 	@GetMapping(value="myPage.do")

@@ -6,10 +6,13 @@
 
 	
 	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
-		 SELECT DISTINCT r.RNO, r.RNAME, r.RPRICE, r.RGRADE, r.RIMG, r.RACCEPT, r.RSIZE
-	 	  FROM SPRING.ROOM r FULL OUTER JOIN SPRING.RESERVATION v
-		    ON r.RNO = v.RNO
-		 ORDER BY r.RNO ASC
+		SELECT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE
+		FROM SPRING.ROOM r LEFT OUTER JOIN SPRING.RESERVATION v
+		ON r.RNO = v.RNO
+		WHERE v.CHECKIN NOT BETWEEN  #{param1} AND #{param2}
+			  AND v.CHECKOUT NOT BETWEEN  #{param1} AND #{param2}
+			  AND r.RACCEPT>=#{param3}
+		ORDER BY r.RNO ASC
 	</select>
 	
 	<!-- 예약한 방 정보 -->

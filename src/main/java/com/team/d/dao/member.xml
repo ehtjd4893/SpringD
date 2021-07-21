@@ -59,16 +59,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 비밀번호 찾기(findPw) -->
 	<select id="findPw" resultType="com.team.d.dto.MemberDTO">
-		SELECT *
+		SELECT MPW
 		  FROM MEMBER
 		 WHERE MID = #{mId}
 		   AND MEMAIL = #{mEmail}
 	</select>
-	<!-- <update id="findPw">
+	
+	<!-- 비밀번호 찾기&변경(changePw) -->
+	<update id="changePw">
 		UPDATE MEMBER
 		   SET MPW = #{mPw}
 		 WHERE MEMAIL = #{mEmail}
-	</update> -->
+	</update>
 	
 	<!-- 회원탈퇴(leave) -->
 	<delete id="leave">

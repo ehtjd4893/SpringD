@@ -19,8 +19,7 @@ public class FindIdCommand {
 		// 아이디 찾기 시 request에 입력된 mName, mEmail 확인
 		// String mName = request.getParameter("mName");
 		// String mEmail = request.getParameter("mEmail");
-		
-		// get방식으로 직접 넘겨 받았음
+	
 		// memberDTO에 mName, mEmail이 일치하는지 확인
 		// memberDTO.setMId(mName);
 		// memberDTO.setMEmail(mEmail);
@@ -28,9 +27,6 @@ public class FindIdCommand {
 		// memberDAO의 아이디 찾기 findId메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		MemberDTO findUser = memberDAO.findId(memberDTO);
-		
-		// 일치하는 mId 반환
-		// String mId = findUser.getMId();
 
 		Map<String, Object> resultMap = new HashMap<>();
 		if(findUser == null) { // 입력한 정보와 일치하는 mId가 없을 경우

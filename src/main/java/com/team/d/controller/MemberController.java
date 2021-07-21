@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.d.command.member.ChangePwCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
 import com.team.d.command.member.FindIdCommand;
@@ -47,6 +48,7 @@ public class MemberController {
 	private UpdateMemberCommand updateMemberCommand;
 	private FindIdCommand findIdCommand;
 	private FindPwCommand findPwCommand;
+	private ChangePwCommand changePwCommand;
 	private LeaveCommand leaveCommand;
 	
 	// 메인페이지 index.jsp 단순이동
@@ -69,16 +71,6 @@ public class MemberController {
 	public String joinPage() {
 		return "member/join";
 	}
-	/*// 아이디 찾기 페이지 findId.jsp 단순이동
-	@GetMapping(value="findIdPage.do")
-	public String findIdPage() {
-		return "member/findId";
-	}
-	// 비밀번호 찾기 페이지 findPw.jsp 단순이동
-	@GetMapping(value="findPwPage.do")
-	public String findPwPage() {
-		return "member/findPw";
-	}*/
 	// 아이디/비밀번호 찾기 findIdAndPw.jsp 단순이동
 	@GetMapping(value="findIdAndPwPage.do")
 	public String findIdAndPwPage() {
@@ -176,23 +168,26 @@ public class MemberController {
 	}
 	
 	// 비밀번호 찾기(findPw)
+	@ResponseBody // AJAX매핑
 	@GetMapping(value="findPw.do", produces="application/json; charset=utf-8")
 	public Map<String, Object> findPw(MemberDTO memberDTO, Model model) {
 		model.addAttribute("memberDTO", memberDTO);
 		return findPwCommand.execute(sqlSession, model);
 	}
-	// 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
+	
+	// 비밀번호 찾고 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
 	@PostMapping(value="changePwPage.do")
 	public String changePwPage(@ModelAttribute("mEmail") String mEmail) {
 		return "member/changePw";
 	}
-	/*// 비밀번호 찾기&변경(changePw)
+	
+	// 비밀번호 찾기&변경(changePw)
 	@PostMapping(value="changePw.do")
 	public void changePw(HttpServletRequest request, HttpServletResponse response, Model model) {
 		model.addAttribute("request", request);
 		model.addAttribute("response", response);
-		findPwCommand.execute(sqlSession, model);
-	}*/
+		changePwCommand.execute(sqlSession, model);
+	}
 	
 	// 회원탈퇴(leave)
 	@GetMapping(value="leave.do")

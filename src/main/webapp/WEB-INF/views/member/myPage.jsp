@@ -244,6 +244,7 @@
 		<input type="button" id="update_btn" value="정보변경하기">
 		<input type="button" id="leave_btn" value="회원탈퇴">
 		<input type="button" value="돌아가기" onclick="location.href='loginPage.do'">
+		<input type="button" id="reserv_btn" value="예약 내역">
 	</form>
 	
 </body>

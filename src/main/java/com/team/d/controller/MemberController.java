@@ -1,7 +1,6 @@
 package com.team.d.controller;
 
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.d.command.member.ChangePwCommand;
@@ -52,15 +53,26 @@ public class MemberController {
 	private LeaveCommand leaveCommand;
 	
 	// 메인페이지 index.jsp 단순이동
-	@GetMapping(value= {"/", "index.do"})
+	@GetMapping(value={"/", "index.do"})
 	public String index() {
 		return "index";
 	}
-	// 로그인 페이지 login.jsp 단순이동
-	@GetMapping(value="loginPage.do")
-	public String loginPage() {
+	// 로그인 페이지
+	@RequestMapping(value="loginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String login(Model model, HttpSession session) {
+		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
+		//String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		// 네이버
+		//String kakaourl = Kakao_RestApi.getRedirectURL();
+		//model.addAttribute("naverurl", naverAuthUrl);
+		//model.addAttribute("kakaourl", kakaourl);
 		return "member/login";
 	}
+	// 로그인 페이지 login.jsp 단순이동
+	/*@GetMapping(value="loginPage.do")
+	public String loginPage() {
+		return "member/login";
+	}*/
 	// 마이페이지 myPage.jsp 단순이동
 	@GetMapping(value="myPage.do")
 	public String myPage() {

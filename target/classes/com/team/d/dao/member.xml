@@ -73,12 +73,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MEMAIL = #{mEmail}
 	</update>
 	
-	<!-- 회원탈퇴(leave) -->
-	<!-- <delete id="leave">
-		DELETE
-		  FROM MEMBER
-		 WHERE MNO = #{mNo}
-	</delete> -->
 	<update id="leave">
 		UPDATE MEMBER
 		   SET STATUS = -1

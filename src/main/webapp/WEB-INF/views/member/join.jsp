@@ -10,6 +10,7 @@
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
+			fn_nameCheck();
 			fn_idCheck();
 			fn_pwCheck();
 			fn_pwCheck2();
@@ -18,6 +19,21 @@
 			fn_phoneCheck();
 			fn_join();
 		});
+		// 이름 체크(nameCheck)
+		var namePass = false;
+		function fn_nameCheck(){
+			$('#mName').keyup(function(){
+				// 이름 정규식
+				var regNAME = /^[가-힣a-zA-Z]{3,10}$/; 
+				if(regNAME.test($('#mName').val())){ // 이름 정규식 조건을 통과 했을 경우
+					$('.name_result').text('');
+					namePass = true;
+				} else{
+					$('.name_result').text('이름은 3~10글자로 구성된 한글, 영문자만 입력 가능합니다.');
+					namePass = false;
+				}
+			});
+		}
 		// 아이디 중복체크(idCheck)
 		var idPass = false;
 		function fn_idCheck(){
@@ -169,24 +185,24 @@
 		// 회원가입(join)
 		function fn_join() {
 			$('#join_btn').click(function(){
-				if($('#mName').val() == ''){
-					alert('이름을 입력하세요.');
+				if(!namePass || $('#mName').val() == ''){
+					alert('이름을 확인하세요.');
 					return false;
-				} else if(!idPass){
+				} else if(!idPass || $('#mId').val() == ''){
 					alert('아이디를 확인하세요.');
 					return false;
-				} else if(!pwPass){
+				} else if(!pwPass || $('#mPw').val() == ''){
 					alert('비밀번호를 확인하세요.');
 					return false;
-				} else if(!pwPass2){
+				} else if(!pwPass2 || $('#mPw2').val() == ''){
 					alert('비밀번호 확인을 검증하세요.');
 					return false;
-				} else if(!emailPass){
+				} else if(!emailPass || $('#mEmail').val() == ''){
 					alert('이메일을 확인하세요.');
 				} else if(!authPass){
 					alert('이메일 인증은 필수입니다.');
 					return false;
-				} else if(!phonePass){
+				} else if(!phonePass || $('#mPhone').val() == ''){
 					alert('전화번호를 올바르게 입력하세요.');
 				    return false;
 				} else {
@@ -203,7 +219,8 @@
 	<div class="join_form">
 		<form id="f" method="post">
 			<span class="naming">이름</span><br>
-			<input type="text" name="mName" id="mName" placeholder="ex) 홍길동 or hong"><br><br>
+			<input type="text" name="mName" id="mName" placeholder="ex) 홍길동 or hong"><br>
+			<span class="name_result"></span><br><br>
 			
 			<span class="naming">아이디</span><br>
 			<input type="text" name="mId" id="mId" placeholder="ex) hong123"><br>

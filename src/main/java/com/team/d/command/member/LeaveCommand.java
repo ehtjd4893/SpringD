@@ -31,6 +31,8 @@ public class LeaveCommand implements MemberCommand {
 		try {
 			response.setContentType("text/html; charset=utf-8");
 			if (result > 0) { // 탈퇴 성공 시 session 비우기
+				// String mPw = ((MemberDTO)session.getAttribute("loginUser")).getMPw();
+				// String decodePw = SecurityUtils.decodeBase64(mPw);
 				session.invalidate();
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('탈퇴되었습니다. 이용해주셔서 감사합니다.');");

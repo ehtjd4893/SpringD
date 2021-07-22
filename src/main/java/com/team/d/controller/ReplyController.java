@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.d.command.board.ShowBoardCommand;
+import com.team.d.command.reply.GetChildListCommand;
 import com.team.d.command.reply.GetReplyListCommand;
 import com.team.d.command.reply.InsertReplyCommand;
 
@@ -25,6 +26,7 @@ public class ReplyController {
 	private ShowBoardCommand showBoardCommand;
 	private InsertReplyCommand insertReplyCommand;
 	private GetReplyListCommand getReplyListCommand;
+	private GetChildListCommand getChildListCommand;
 	
 	@PostMapping(value="insertReply.do")
 	public String insertReply(HttpServletRequest request, Model model) {
@@ -39,5 +41,19 @@ public class ReplyController {
 	public Map<String, Object> getReplyList(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		return getReplyListCommand.execute(sqlSession, model);
+	}
+
+	@GetMapping(value="getChildList.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> getChildList(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return getChildListCommand.execute(sqlSession, model);
+	}
+
+	@GetMapping(value="insertReReply.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public Map<String, Object> insertReReply(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		return getChildListCommand.execute(sqlSession, model);
 	}
 }

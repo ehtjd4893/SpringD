@@ -7,17 +7,21 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<title>DS - Homepage</title>	
 	<style>
 		.reply_box{
+			margin-top: 1px;
 			border-top: 1px solid black;
 			border-bottom: 1px solid black;
 			width: 700px;
 			height: 100px;
 			font-size: 13px;
+			backgroun-color: light-grey;
 		}
 		.writer_box{
 			font: bold;
+			font-weight: 800;
 		}
 		.content_box{
 			color: blue;
@@ -25,6 +29,24 @@
 		.date_box{
 			font-size: 12px;
 			color: #999999;
+		}
+		.hide{
+			display:none;
+		}
+		.sizeUp{
+			height: 500px;
+		}
+		.re_re_box{
+			padding: 0;
+			height: 45px;
+			width: 750px;
+			justify-content: space-between;
+		}
+		.re_re_content{
+			border: 1px solid black;
+			margin: 0 15px;
+			height: 30px;
+			width: 600px;
 		}
 	</style>
 	<script>
@@ -48,7 +70,6 @@
 					data: 'bIdx=${Board.BIdx}',
 					dataType: 'json',
 					success: function(resultMap){
-						console.log('hi');
 						fn_makeReply(resultMap.list);
 					},	// end of success
 					error: function(){
@@ -57,19 +78,61 @@
 				})	// ajax
 		} 
 		
-
+		// 답글 버튼 클릭시 펼치기
+		function fn_child_reply(box ,parent){
+			$(box).parent().toggleClass('sizeUp');
+			$(box).parent().children('.re_reply').toggleClass('hide');
+			$.ajax({
+				url: 'getChildList.do',
+				type: 'get',
+				async: false,
+				data: 'parent=' + parent,
+				dataType: 'json',
+				success: function(resultMap){
+					$(box).parent().children('.re_reply').append( resultMap. );
+				},	// success
+				error: function(){
+					alert('답글 펼치기 오류');
+				}	// error
+			})
+		}
+		
+		// 대댓글 삽입 함수
+		function fn_insert_re_re(parent){
+			var content = $('#re_re' + parent).val();
+			$.ajax({
+				url: 'insertReReply.do',
+				type: 'get',
+				data: 'bIdx=${Board.BIdx}' + '&mId=${loginUser.mId}' + '&parent=' + parent + '&content=' + content,
+				async: false,
+				dataType: 'json',
+				success: function(){
+					
+				},
+				error: function(){
+					
+				}
+			})
+		}	// fn_insert_re_re(parent)
+		
+		// 댓글 불러오기 함수
 		function fn_makeReply(list){
 
 			$.each(list, function(i, reply){
-				console.log(reply.mid);
-				console.log(reply.rcontent);
-				console.log(reply.rpostDate);
 				
 				$('<div class="reply_box">')
 				.append( $('<div class="writer_box">').append( $('<span>').text(reply.mid) )  )
 				.append( $('<div class="content_box">').append( $('<span>').text(reply.rcontent) )  )
 				.append( $('<div class="date_box">').append( $('<span>').text(reply.rpostDate) )  )
-				.append( $('<input type="button" onclick="">'))
+				.append( $('<input type="button" value="답글" onclick="fn_child_reply(this,' + reply.ridx + ')">'))
+				.append( $('<div class="hide re_reply">')
+						.append( $('<div class="re_re_box">')
+								.append( $('<i class="fab fa-replyd fa-2x"></i>') )	
+								.append( $('<input type="text" class="re_re_content" id="re_re' + reply.rIdx + '">') )		
+								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + reply.rIdx +')">') )
+						)
+						
+				)
 				.appendTo( $('#reply_list'));
 			});	// each 
 		}
@@ -80,6 +143,12 @@
 				if(confirm('댓글을 등록하시겠습니까?')){
 					$('#f_reply').attr('action', 'insertReply.do');
 					$('#f_reply').submit();
+				}
+			});	// onclick
+			
+			$('.re_reply').click(function(){
+				if(confirm('대댓글을 등록하시겠습니까?')){
+					fn_insert_re_re(reply.rIdx);
 				}
 			});	// onclick
 		}
@@ -137,13 +206,13 @@
 			$('#admin_to_mem ').click(function(){
 				$('#mem_mode').toggleClass('disabled');
 				$('#admin_mode').toggleClass('disabled');
-			});	
+			});
 		}
 		
 		function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
 			$('#closeLogin').click(function(){
 				$('.form').toggleClass('hide');
-			})	// onclick#
+			})	// onclick
 		}	// fn_closeLogin
 		
 		function fn_showLogin(){
@@ -290,6 +359,7 @@
 			<c:if test="${loginUser ne null}">
 				<input type="hidden" name="mId" value="${loginUser.MId}">
 				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+				<input type="hidden" name="parent" value="0">
 				<input type="button" id="reply_btn" value="댓글 달기">
 			</c:if>
 		</c:if>
@@ -298,6 +368,7 @@
 			<c:if test="${loginAdmin ne null}">
 				<input type="hidden" name="mId" value="${loginAdmin.MId}">
 				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
+				<input type="hidden" name="parent" value="0">
 				<input type="button" id="reply_btn" value="댓글 달기">
 			</c:if>
 		</c:if>

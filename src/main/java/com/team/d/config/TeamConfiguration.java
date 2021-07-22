@@ -29,6 +29,7 @@ import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.command.reply.GetChildListCommand;
 import com.team.d.command.reply.GetReplyListCommand;
 import com.team.d.command.reply.InsertReplyCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
@@ -112,6 +113,10 @@ public class TeamConfiguration {
 	@Bean
 	public GetReplyListCommand getReplyListCommand() {
 		return new GetReplyListCommand();
+	}
+	@Bean
+	public GetChildListCommand getChildListCommand() {
+		return new GetChildListCommand();
 	}
 	
 	/* Member 관련*/

@@ -9,10 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.team.d.dao.ReplyDAO;
-import com.team.d.dto.ReplyDTO;
 
-public class InsertReplyCommand implements ReplyCommand {
-
+public class insertReReplyCommand implements ReplyCommand{
+	
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		
@@ -21,18 +20,16 @@ public class InsertReplyCommand implements ReplyCommand {
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		long bIdx = Long.parseLong(request.getParameter("bIdx"));
-		String rContent = request.getParameter("reply");
-		String mId = request.getParameter("mId");
+		String content = request.getParameter("content");
 		long parent = Long.parseLong(request.getParameter("parent"));
-		
+		String mId = request.getParameter("mId");
 		Map<String, Object> container = new HashMap<String, Object>();
 		container.put("BIDX", bIdx);
-		container.put("RCONTENT", rContent);
-		container.put("MID", mId);
+		container.put("CONTENT", content);
 		container.put("PARENT", parent);
+		container.put("MID", mId);
 		
 		ReplyDAO dao = sqlSession.getMapper(ReplyDAO.class);
-		dao.insertReply(container);		
+		dao.insertReReply(container);		
 	}
-
 }

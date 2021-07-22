@@ -53,6 +53,9 @@
 		<a href="boardPage.do">게시판</a>
 		<a href="myPage.do">마이페이지</a>
 		<a href="logout.do">로그아웃</a>
+		
+		<!-- 수진추가 코드 : 회원의 예약정보 페이지로 이동(resevationController) -->
+		<a href="myReservation.do?mNo=${loginUser.MNo}">${loginUser.MId}님의 예약목록</a>
 	</c:if>
 
 </body>

@@ -12,15 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReservationDTO {
 
-	private long reNo;
-	private long rNo;
-	private long mNo;
-	private long people;
+	private long reNo;	//예약번호
+	private long rNo;	//방번호
+	private long mNo;	//회원번호
+	private long people;	//예약인원
 	private Date checkIn;
 	private Date checkOut;
-	private long food;
-	private long totalPay;
-	private String booker;
-	private String reEmail;
-	private String note;
+	private long food;		//조식
+	private long totalPay;	
+	private String booker;	//실제 예약자명
+	private String reEmail;	
+	private String note;	//요청사항
+	private String state;	//예약상태
 }

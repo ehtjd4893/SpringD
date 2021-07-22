@@ -12,4 +12,5 @@ public interface ReservationDAO {
 	public int insertReservation(long rNo,long mNo,long people,Date checkIn,Date checkOut,long food,long totalSum,String booker,String reEmail,String note);
 	public long selectViewReservation();
 	public ReservationDTO selectReservation(long reNo);
+	public List<ReservationDTO> reservationList(long mNo);
 }

@@ -4,14 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.d.dao.ReservationDAO">
 
-	
+	<!-- 예약할수 있는 방  -->
 	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
-		SELECT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE
+	 SELECT DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE
 		FROM SPRING.ROOM r LEFT OUTER JOIN SPRING.RESERVATION v
 		ON r.RNO = v.RNO
-		WHERE v.CHECKIN NOT BETWEEN  #{param1} AND #{param2}
-			  AND v.CHECKOUT NOT BETWEEN  #{param1} AND #{param2}
-			  AND r.RACCEPT>=#{param3}
+		WHERE (v.CHECKIN  IS NULL OR v.CHECKOUT IS NULL)
+              OR (v.CHECKIN  NOT BETWEEN TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
+			  AND v.CHECKOUT NOT BETWEEN  TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
+			  AND r.RACCEPT>=#{param3})
 		ORDER BY r.RNO ASC
 	</select>
 	
@@ -25,7 +26,7 @@
 	<!-- 예약정보 삽입 -->
 	<insert id="insertReservation" >
 		INSERT INTO SPRING.RESERVATION
-		VALUES (SPRING.RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10})
+		VALUES (SPRING.RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},'예약중')
 	</insert>
 	
 	<!-- 예약정보 뽑아오는 함수 -->
@@ -43,5 +44,11 @@
 		WHERE RENO = #{reNo}
 	</select>
 	
+	<!-- 회원의 예약 리스트 -->
+	<select id="reservationList" resultType="com.team.d.dto.ReservationDTO">
+		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE
+		FROM SPRING.RESERVATION
+		WHERE MNO = #{mNo}
+	</select>
 	
 </mapper>

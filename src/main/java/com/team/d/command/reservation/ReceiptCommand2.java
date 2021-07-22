@@ -32,7 +32,7 @@ public class ReceiptCommand2 implements ReservationCommand {
 		model.addAttribute("book",dto); 
 		model.addAttribute("selectRoom",reservationDAO.selectRoom(dto.getRNo())); 
 		
-		
+ 
 	}
 
 }

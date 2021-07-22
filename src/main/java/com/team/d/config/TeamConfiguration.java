@@ -26,6 +26,7 @@ import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.command.reservation.MyReservationCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
 import com.team.d.command.reservation.RevInfoCommand;
@@ -171,6 +172,11 @@ public class TeamConfiguration {
 	@Bean
 	public ReceiptCommand2 receiptCommand2() {
 		return new ReceiptCommand2();
+	}
+	
+	@Bean
+	public MyReservationCommand myReservationCommand() {
+		return new MyReservationCommand();
 	}
 	/* Room 관련*/
 	@Bean

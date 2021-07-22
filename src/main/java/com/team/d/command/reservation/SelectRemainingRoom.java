@@ -29,8 +29,10 @@ public class SelectRemainingRoom implements ReservationCommand {
 		
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		
-		// 예약정보 불러오는 함수(현재는 존재하는 모든 방 출력하도록 해놓음)
+		// 예약가능한 방 불러오는 함수
 		model.addAttribute("room",reservationDAO.remainingRoom(checkIn,checkOut,people));
+		
+		System.out.println(reservationDAO.remainingRoom(checkIn,checkOut,people));
 		model.addAttribute("checkIn",checkIn);
 		model.addAttribute("checkOut",checkOut);
 		model.addAttribute("people",people);

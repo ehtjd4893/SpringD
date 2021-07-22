@@ -6,9 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.d.command.reservation.MyReservationCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
 import com.team.d.command.reservation.RevInfoCommand;
@@ -29,6 +28,7 @@ public class ReservationController {
 	private ReceiptCommand receiptCommand;
 	private ReceiptCommand2 receiptCommand2;
 	private RevInfoCommand revInfoCommand;
+	private MyReservationCommand myReservationCommand;
 	 
 	 
 	// 조회 페이지로 이동
@@ -76,5 +76,15 @@ public class ReservationController {
 		receiptCommand2.execute(sqlSession, model);
 		return "reservation/receiptPage";
 	}
+	
+	
+	@GetMapping(value="myReservation.do")
+	public String myReservation(HttpServletRequest request,Model model) {
+		model.addAttribute("request",request);
+		myReservationCommand.execute(sqlSession, model);
+		return "reservation/myReservation";
+	}
+	
+	
 	
 }

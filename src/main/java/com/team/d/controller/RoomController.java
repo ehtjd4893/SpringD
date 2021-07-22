@@ -48,6 +48,21 @@ public class RoomController {
 		return "room/floorPlan";
 	}
 	
+	@GetMapping(value="privacy.do")
+	public String privacy() {
+		return "room/privacy";
+	}
+	
+	@GetMapping(value="term.do")
+	public String term() {
+		return "room/term";
+	}
+	
+	@GetMapping(value="noEmail.do")
+	public String noEail() {
+		return "room/noEmail";
+	}
+	
 	@GetMapping(value="download.do")
 	public void download(HttpServletRequest request,
 						 HttpServletResponse response,

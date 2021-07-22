@@ -162,6 +162,77 @@
 			padding-left: 8px;
 			color: #444;
 		}
+		#footer {
+			clear: both;
+			background: #f1e3c4;
+			padding: 50px 15px;
+			text-align: center;
+			font-weight: 100;
+		}
+		footer {
+			display: block;
+		}
+		:after, :before {
+			box-sizing: border-box;
+		}
+		#footer > dl {
+			width: 100%;
+			text-align: center;
+			display: block;
+		    margin-block-start: 1em;
+		    margin-block-end: 1em;
+		    margin-inline-start: 0px;
+		    margin-inline-end: 0px;
+		}
+		#footer > dl > dt {
+			width: 100%;
+			text-align: center;
+			display: block;
+		}
+		#footer > dl > dt
+		h3 {
+			display: block;
+			margin: 0 auto;
+			height: 15px;
+			width: auto;
+			max-width: 100%;
+		}
+		#footer > dl > dd {
+			padding: 15px 0;
+			display: block;
+			margin-inline-start: 40px;
+		}
+		#footer > dl > dd span {
+			display: inline-block;
+			padding: 5px;
+			color: #333;
+		}
+		#footer address {
+			font-style: normal;
+			color: #666;
+			display: block;
+		}
+		#footer address span {
+			display: inline-block;
+			padding: 2px 5px;
+		}
+		#footer p {
+			color: #999;
+			font-size: 11px;
+			font-family: verdana;
+			padding-top: 15px;
+			margin: 0;
+			padding: 0;
+			word-break: break-all;
+			display: block;
+		    margin-block-start: 1em;
+		    margin-block-end: 1em;
+		    margin-inline-start: 0px;
+		    margin-inline-end: 0px;
+		}
+		#footer b {
+			font-weight: bold;
+		}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -190,6 +261,15 @@
 			}
 			document.getElementById('reservation').onclick = function(){
 		    	location.href= "reservation.do";
+			}
+			document.getElementById('privacy').onclick = function(){
+		    	window.open('privacy.do', '', 'width=640, height=480, resizable=no');
+			}
+			document.getElementById('term').onclick = function(){
+		    	window.open('term.do', '', 'width=640, height=480, resizable=no');
+			}
+			document.getElementById('noEmail').onclick = function(){
+		    	window.open('noEmail.do', '', 'width=400, height=352, resizable=no');
 			}
 		}
     </script>
@@ -364,8 +444,38 @@
 			</div>
 		</div>
 		
-		
 	</div>
+	
+	<footer id="footer">
+		<dl>
+			<dt>
+				<h3>MOOYA HOTEL</h3>
+			</dt>
+			<dd>
+				<span id="privacy" style="cursor: pointer;">개인정보처리방침</span>
+				<span id="term" style="cursor: pointer;">이용약관</span>
+				<span id="noEmail" style="cursor: pointer;">이메일주소 무단수집거부</span>
+			</dd>
+		</dl>
+		<address>
+			<span>서울특별시 마포구 서강로 136 아이비티워 2층,3층</span>
+			<span>  Tel. 02-123-4567  </span>
+			<span> (주)무야호 </span>
+			<br>
+			<span> 
+				E-mail. 
+				<a href="mailto:hotel@mooyahotel.co.kr">hotel@mooyahotel.co.kr</a>
+			</span>
+			<br>
+			<span>대표자:유재석  </span>
+			<span>등록번호 111 22 33333</span>
+		</address>
+		<p>
+			<i class="far fa-copyright"></i>
+			<b>www.mooyahotel.com</b>
+			<span>All rights reserved.</span>
+		</p>
+	</footer>
 	
 </body>
 </html>

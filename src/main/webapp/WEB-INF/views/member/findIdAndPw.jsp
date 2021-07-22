@@ -12,6 +12,7 @@
 			fn_findCheck();
 			fn_findId();
 			fn_findPw();
+			fn_emailCheck();
 		})
 		// 아이디/비밀번호 찾기 radio 체크에 따른 화면 전환
 		function fn_findCheck(){
@@ -78,13 +79,13 @@
 					dataType: 'json',
 					success: function(resultMap){
 						if(resultMap.status == 500){ // 아이디와 이메일이 일치하지 않을 경우
-							$('.mEmail2_result').text('입력하신 아이디와 이메일이 일치하지 않습니다. 확인하세요.');
+							$('.email2_result').text('입력하신 아이디와 이메일이 일치하지 않습니다. 확인하세요.');
 							$('#mId').val('');
 							$('#mEmail2').val('');
 							return false;
 						} else if(resultMap.status == 200){ // 아이디와 이메일이 일치할 경우 인증코드 버튼 활성화
 							$('#emailCode_btn').click(function(){ }).prop("disabled", false);
-							$('.mEmail2_result').text("입력하신 정보가 확인되었습니다. 인증코드를 받으세요.");
+							$('.email2_result').text("입력하신 정보가 확인되었습니다. 인증코드를 받으세요.");
 							fn_emailCode();
 						}
 					},
@@ -125,6 +126,32 @@
 				}
 			});
 		}
+		// 이메일 정규식(emailCheck)
+		function fn_emailCheck(){
+			$('#mEmail').keyup(function(){
+				// 이메일 정규식
+				var regEmail = /^[a-z0-9][a-z0-9_-]*@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+				if(!regEmail.test($('#mEmail').val())){ // 이메일 정규식 조건을 통과하지 못 했을 경우
+					$('.email_result').text('이메일 형식에 맞지 않습니다. 다시 입력하세요.');
+					return false;
+				} else{
+					$('.email_result').text('');
+					return true;
+				}
+			});
+			
+			$('#mEmail2').keyup(function(){
+				// 이메일 정규식
+				var regEmail = /^[a-z0-9][a-z0-9_-]*@[a-zA-Z0-9]+([.][a-zA-Z]{2,}){1,2}$/;
+				if(!regEmail.test($('#mEmail2').val())){ // 이메일 정규식 조건을 통과하지 못 했을 경우
+					$('.email2_result').text('이메일 형식에 맞지 않습니다. 다시 입력하세요.');
+					return false;
+				} else{
+					$('.email2_result').text('');
+					return true;
+				}
+			});
+		}
 	</script>
 </head>
 <body>
@@ -148,7 +175,7 @@
 			<!-- 이름 -->
 			<div class="form_group">
 				<label for="mName">이름</label><br>
-				<input type="text" name="mName" id="mName" placeholder="ex) 홍길동 or hong">
+				<input type="text" name="mName" id="mName" placeholder="ex) 홍길동">
 			</div><br>
 			<!-- 이메일 -->
 			<div class="form_group">
@@ -176,8 +203,8 @@
 			<!-- 이메일 -->
 			<div class="form_group">
 				<label for="mEmail2">이메일</label><br>
-				<input type="text" name="mEmail2" id="mEmail2" placeholder="ex) hong@example.com"><br>
-				<span class="mEmail2_result"></span><br>
+				<input type="text" name="mEmail" id="mEmail2" placeholder="ex) hong@example.com"><br>
+				<span class="email2_result"></span><br>
 			</div><br>
 			<!-- 확인 버튼 -->
 			<div class="form_group">

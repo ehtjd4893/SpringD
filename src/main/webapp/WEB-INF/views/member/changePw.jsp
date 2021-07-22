@@ -9,13 +9,13 @@
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
+			fn_pwCheck();
+			fn_pwCheck2();
 			fn_changePw();
 		})
-		// 비밀번호 변경(changePw)
-		function fn_changePw(){
-			
-			// 새 비밀번호 검증
-			var pwPass = false;
+		// 새 비밀번호 검증
+		var pwPass = false;
+		function fn_pwCheck(){
 			$('#mPw').keyup(function(){
 				// 비밀번호 정규식
 				var regPW = /^[0-9]{4}$/; 
@@ -30,9 +30,10 @@
 					pwPass = false;
 				}
 			});
-			
-			// 새 비밀번호 검증 확인
-			var pwPass2 = false;
+		}
+		// 새 비밀번호 검증 확인
+		var pwPass2 = false;
+		function fn_pwCheck2(){
 			$('#mPw2').keyup(function(){
 				if($('#mPw').val() == $('#mPw2').val()){
 					$('.pw2_result').text('비밀번호가 일치합니다.');
@@ -43,8 +44,9 @@
 					pwPass2 = false;
 				}
 			});
-			
-			// 비밀번호 변경
+		}
+		// 비밀번호 변경(changePw)
+		function fn_changePw(){
 			$('#changePw_btn').click(function(){
 				if($('#mPw').val() == ''){ // 비밀번호 입력하지 않을 경우
 					alert('비밀번호를 입력하세요.');
@@ -66,7 +68,6 @@
 					$('#f').submit();
 				}
 			});
-			
 		}
 	</script>
 </head>
@@ -83,7 +84,7 @@
 		<input type="password" name="mPw2" id="mPw2"><br>
 		<span class="pw2_result"></span><br><br>
 		
-		<input type="hidden" name="mEmail" value="${mEmail}">
+		<input type="hidden" name="mEmail" value="${memberDTO.MEmail}">
 		<input type="button" id="changePw_btn" value="비밀번호 변경">
 		<input type="button" value="돌아가기" onclick="location.href='index.do'">
 	</form>

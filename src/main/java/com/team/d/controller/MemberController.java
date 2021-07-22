@@ -76,6 +76,11 @@ public class MemberController {
 	public String findIdAndPwPage() {
 		return "member/findIdAndPw";
 	}
+	// 비밀번호 변경 페이지 changePw.jsp 단순이동
+	@GetMapping(value="changePwPage.do")
+	public String changePwPage() {
+		return "member/changePw";
+	}
 	
 	// 로그인(login)
 	@PostMapping(value="login.do")
@@ -175,9 +180,9 @@ public class MemberController {
 		return findPwCommand.execute(sqlSession, model);
 	}
 	
-	// 비밀번호 찾고 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동
+	// 비밀번호 찾고 새 비밀번호 변경 페이지 changePw.jsp로 파라미터값 가지고 이동(@ModelAttribute)
 	@PostMapping(value="changePwPage.do")
-	public String changePwPage(@ModelAttribute("mEmail") String mEmail) {
+	public String changePwPage(@ModelAttribute MemberDTO memberDTO) {
 		return "member/changePw";
 	}
 	

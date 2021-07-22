@@ -196,9 +196,11 @@
 		function fn_leave(){
 			$('#leave_btn').click(function(){
 				if (confirm('정말 탈퇴하시겠습니까?')) {
-					location.href = 'leave.do?mNo=${loginUser.MNo}';		
-				} else{
-					alert('비밀번호를 확인하세요.');
+					if(prompt('탈퇴하시려면 비밀번호를 입력하세요.') == '${loginUser.MPw}'){
+						location.href = 'leave.do?mNo=${loginUser.MNo}';	
+					} else{
+						alert('비밀번호를 확인하세요.');
+					} 
 				}
 			});
 		}

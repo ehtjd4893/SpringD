@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
@@ -21,8 +20,7 @@ public class ChangePwCommand implements MemberCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
-		HttpSession session = request.getSession();
-		
+
 		// 비밀번호 찾기 시 request를 통해 입력된 mPw가 memberDTO에 mPw와 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
 		memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw"))); // 입력된 비밀번호 암호화 처리
@@ -31,16 +29,10 @@ public class ChangePwCommand implements MemberCommand {
 		// memberDAO의 비밀번호 찾기&변경 changePw메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		int result = memberDAO.changePw(memberDTO);
-		
-		// 변경된 비밀번호 session에 등록
-		MemberDTO loginUser = (MemberDTO)session.getAttribute("loginUser");
-		loginUser.setMPw(memberDTO.getMPw());
-		loginUser.setMEmail(memberDTO.getMEmail());
-		
+				
 		try {
 			response.setContentType("text/html; charset=utf-8");
 			if (result > 0) { // 새 비밀번호 등록 성공 후 다시 로그인
-				session.invalidate();
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 로그인하세요.');");
 				response.getWriter().append("location.href='index.do';");
@@ -48,7 +40,7 @@ public class ChangePwCommand implements MemberCommand {
 			} else {
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('비밀번호 변경에 실패했습니다.');");
-				// response.getWriter().append("history.back();");
+				response.getWriter().append("history.back();");
 				response.getWriter().append("</script>");
 			}
 		} catch (IOException e) {

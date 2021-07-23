@@ -38,7 +38,6 @@
 				redirectUri: 'http://localhost:8080/user/loginpage_kakao_callback'
 			});
 		}
-
 	</script>
 
 </head>

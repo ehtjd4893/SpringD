@@ -35,7 +35,6 @@ public class BoardListCommand{
 		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
 		// 전체 게시물의 개수를 반환하는 함수, 공지사항 제외
 		int totalRecord = dao.getTotalRecord();
-		System.out.println(totalRecord);
 		PageDTO pageDTO = PagingUtils.getPage(totalRecord, page);
 		
 		String paging = PagingUtils.getPaging("boardPage.do", page);

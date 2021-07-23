@@ -16,12 +16,12 @@ public class GetChildListCommand {
 		Map<String, Object> map = model.asMap();
 		
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		long rIdx = Long.parseLong(request.getParameter("parent"));
+		long parent = Long.parseLong(request.getParameter("parent"));
 		
 		ReplyDAO dao = sqlSession.getMapper(ReplyDAO.class);
 		Map<String, Object> resultMap = new HashMap<>();
 		
-		resultMap.put("list", dao.getChildListByRidx(rIdx));
+		resultMap.put("list", dao.getChildListByRidx(parent));
 		return resultMap;
 	}
 

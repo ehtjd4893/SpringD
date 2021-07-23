@@ -11,17 +11,16 @@
 	<title>DS - Homepage</title>	
 	<style>
 		.reply_box{
-			margin-top: 1px;
 			border-top: 1px solid black;
 			border-bottom: 1px solid black;
 			width: 700px;
-			height: 100px;
 			font-size: 13px;
-			backgroun-color: light-grey;
+			background-color: #f0efed;
 		}
 		.writer_box{
 			font: bold;
-			font-weight: 800;
+			font-weight: 900;
+			font-size: 16px;
 		}
 		.content_box{
 			color: blue;
@@ -33,9 +32,7 @@
 		.hide{
 			display:none;
 		}
-		.sizeUp{
-			height: 500px;
-		}
+
 		.re_re_box{
 			padding: 0;
 			height: 45px;
@@ -47,6 +44,26 @@
 			margin: 0 15px;
 			height: 30px;
 			width: 600px;
+		}
+		.re_writer_box{
+			background-color: black;
+			color: white;
+			border-radius: 5px;
+		}
+		.child_writer_box{
+			margin-left: 30px;
+			font-weight: 900;
+			font-size: 16px;
+		}
+		.child_content_box, .child_date_box{
+			margin-left: 60px;
+		}
+		.child{
+			margin: 5px 0 5px 30px;
+			padding: 3px 3px 3px 0;
+			border: 1px solid black;
+			border-radius: 5px;
+			background-color: #f0efed;
 		}
 	</style>
 	<script>
@@ -67,10 +84,12 @@
 					url: 'getReplyList.do',
 					type: 'get',
 					async: false,
-					data: 'bIdx=${Board.BIdx}',
+					data: 'bIdx=${Board.BIdx}&page=${page}',
 					dataType: 'json',
 					success: function(resultMap){
-						fn_makeReply(resultMap.list);
+						fn_makeReply(resultMap.list);		
+						$('#reply_paging').empty();
+						$('#reply_paging').html(resultMap.paging);
 					},	// end of success
 					error: function(){
 						alert('목록 불러오기 오류');
@@ -89,7 +108,7 @@
 				data: 'parent=' + parent,
 				dataType: 'json',
 				success: function(resultMap){
-					$(box).parent().children('.re_reply').append( resultMap. );
+					fn_makeReReply(box, resultMap.list, parent);
 				},	// success
 				error: function(){
 					alert('답글 펼치기 오류');
@@ -97,26 +116,52 @@
 			})
 		}
 		
+		function fn_makeReReply(box, list, parent){
+			$(box).parent().children('.re_reply').children('#child' + parent).remove();
+			$.each(list, function(i, reply){
+				
+				$('<div class="child" id="child' + parent + '">')
+				.append( $('<div class="child_writer_box">').append( $('<i class="fab fa-replyd fa-2x"></i>') ).append( $('<span style="margin-left:10px">').text(reply.mid) )  )
+				.append( $('<div class="child_content_box">').append( $('<span>').text(reply.rcontent) )  )
+				.append( $('<div class="child_date_box">').append( $('<span>').text(reply.rpostDate) )  )
+				.appendTo( $(box).parent().children('.re_reply') );
+			});	// each 
+		}
+		
 		// 대댓글 삽입 함수
 		function fn_insert_re_re(parent){
 			var content = $('#re_re' + parent).val();
-			$.ajax({
-				url: 'insertReReply.do',
-				type: 'get',
-				data: 'bIdx=${Board.BIdx}' + '&mId=${loginUser.mId}' + '&parent=' + parent + '&content=' + content,
-				async: false,
-				dataType: 'json',
-				success: function(){
-					
-				},
-				error: function(){
-					
-				}
-			})
+			
+			if(${loginUser == null && loginAdmin == null}){
+				$('.form').toggleClass('hide');	
+				$('#mId').focus();
+				return;
+			}
+			
+			if(content == null || content == ""){
+				alert('댓글 내용을 입력하세요.')
+				return;
+			}
+			
+			if(confirm('대댓글을 등록하시겠습니까?')){		
+				$.ajax({
+					url: 'insertReReply.do',
+					type: 'get',
+					data: 'bIdx=${Board.BIdx}' + '&mId=${loginUser.MId}' + '&parent=' + parent + '&content=' + content,
+					async: false,
+					success: function(){
+						$('#reply_list').empty();
+						fn_getReplyList();
+					},
+					error: function(){
+						
+					}
+				})
+			}
 		}	// fn_insert_re_re(parent)
 		
 		// 댓글 불러오기 함수
-		function fn_makeReply(list){
+		function fn_makeReply(list, paging){
 
 			$.each(list, function(i, reply){
 				
@@ -125,15 +170,14 @@
 				.append( $('<div class="content_box">').append( $('<span>').text(reply.rcontent) )  )
 				.append( $('<div class="date_box">').append( $('<span>').text(reply.rpostDate) )  )
 				.append( $('<input type="button" value="답글" onclick="fn_child_reply(this,' + reply.ridx + ')">'))
-				.append( $('<div class="hide re_reply">')
+				.append( $('<div class="hide re_reply" id=re_reply' + reply.ridx + '>')
 						.append( $('<div class="re_re_box">')
 								.append( $('<i class="fab fa-replyd fa-2x"></i>') )	
-								.append( $('<input type="text" class="re_re_content" id="re_re' + reply.rIdx + '">') )		
-								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + reply.rIdx +')">') )
-						)
-						
+								.append( $('<input type="text" class="re_re_content" id="re_re' + reply.ridx + '">') )		
+								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + reply.ridx +')">') )
+						)						
 				)
-				.appendTo( $('#reply_list'));
+				.appendTo( $('#reply_list') );
 			});	// each 
 		}
 		
@@ -146,18 +190,13 @@
 				}
 			});	// onclick
 			
-			$('.re_reply').click(function(){
-				if(confirm('대댓글을 등록하시겠습니까?')){
-					fn_insert_re_re(reply.rIdx);
-				}
-			});	// onclick
 		}
 		
 		// 로그인 없이 댓글 달려고 할 때,
 		function fn_reply_no_login(){
-			$('#reply_no_login').click(function(){
+			$('#reply_no_login').focus(function(){
 				$('.form').toggleClass('hide');		
-			});	// onclick
+			});	// onfocus
 		}
 		
 		function fn_update(){
@@ -179,6 +218,7 @@
 			});	// onclick
 		}	// fn_delete
 		
+		// 댓글 달기, 데이터베이스에 삽입
 		function fn_reply(){
 			$('#reply_btn').click(function(){
 				$.ajax({
@@ -187,7 +227,7 @@
 					type: 'get',
 					dataType: 'json',
 					success: function(resultMap){
-						alert(resultMap.message);
+						alert('댓글 달기 성공');
 					},
 					error: function(){
 						alert('댓글 오류 발생');
@@ -302,7 +342,8 @@
 	
 	
 	<form id="f" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="bIdx" value="${Board.BIdx}" disabled>
+		<input type="hidden" name="page" value="${page}">
+		<input type="hidden" name="bIdx" value="${Board.BIdx}">
 		작성자 <input type="text" name="mId" value="${Board.MId}" disabled><br><br>
 		<input type="hidden" name="bHit" value="${Board.BHit}" disabled><br><br>
 		
@@ -372,7 +413,9 @@
 				<input type="button" id="reply_btn" value="댓글 달기">
 			</c:if>
 		</c:if>
-		<div id="reply_list"></div>
+		<div id="reply_list">
+		</div>
+		<div id="reply_paging"></div>
 	</form>
 </body>
 </html>

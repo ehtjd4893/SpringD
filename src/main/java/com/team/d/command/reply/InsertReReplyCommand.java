@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 
 import com.team.d.dao.ReplyDAO;
 
-public class insertReReplyCommand implements ReplyCommand{
+public class InsertReReplyCommand implements ReplyCommand{
 	
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {

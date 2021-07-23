@@ -15,6 +15,7 @@ import com.team.d.command.board.ShowBoardCommand;
 import com.team.d.command.reply.GetChildListCommand;
 import com.team.d.command.reply.GetReplyListCommand;
 import com.team.d.command.reply.InsertReplyCommand;
+import com.team.d.command.reply.InsertReReplyCommand;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +28,7 @@ public class ReplyController {
 	private InsertReplyCommand insertReplyCommand;
 	private GetReplyListCommand getReplyListCommand;
 	private GetChildListCommand getChildListCommand;
+	private InsertReReplyCommand insertReReplyCommand;
 	
 	@PostMapping(value="insertReply.do")
 	public String insertReply(HttpServletRequest request, Model model) {
@@ -40,6 +42,7 @@ public class ReplyController {
 	@ResponseBody
 	public Map<String, Object> getReplyList(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
+		model.addAttribute("page", request.getParameter("page"));
 		return getReplyListCommand.execute(sqlSession, model);
 	}
 
@@ -47,13 +50,14 @@ public class ReplyController {
 	@ResponseBody
 	public Map<String, Object> getChildList(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
+
 		return getChildListCommand.execute(sqlSession, model);
 	}
 
 	@GetMapping(value="insertReReply.do", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public Map<String, Object> insertReReply(HttpServletRequest request, Model model) {
+	public void insertReReply(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		return getChildListCommand.execute(sqlSession, model);
+		insertReReplyCommand.execute(sqlSession, model);
 	}
 }

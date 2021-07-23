@@ -100,6 +100,7 @@ public class BoardController {
 	@GetMapping(value="selectBoard.do")
 	public String showBoard(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
+		model.addAttribute("page", request.getParameter("page"));
 		showBoardCommand.execute(sqlSession, model);
 		return "board/selectBoard";
 	}

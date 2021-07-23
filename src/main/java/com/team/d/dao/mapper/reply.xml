@@ -8,19 +8,28 @@
 		INSERT INTO BOARD_REPLY VALUES(BOARD_REPLY_SEQ.NEXTVAL, #{MID}, #{RCONTENT}, #{PARENT} ,#{BIDX}, SYSDATE)
 	</insert>
 	
-	<select id="getReplyListByBidx" resultType="com.team.d.dto.ReplyDTO">
+	<select id="getReplyListByBidx" parameterType="map" resultType="com.team.d.dto.ReplyDTO">
 		SELECT RIDX, RCONTENT, PARENT, MID, BIDX, RPOSTDATE
 		  FROM BOARD_REPLY
 		 WHERE BIDX = #{BIDX}
+		   AND PARENT = 0
+		 ORDER BY RPOSTDATE DESC
 	</select>
 	
 	<select id="getChildListByRidx" resultType="com.team.d.dto.ReplyDTO">
 		SELECT RIDX, RCONTENT, PARENT, MID, BIDX, RPOSTDATE
 		  FROM BOARD_REPLY
-		 WHERE PARENT = #{RIDX}
+		 WHERE PARENT = #{PARENT}
+		 ORDER BY RPOSTDATE DESC
 	</select>
 
 	<insert id="insertReReply" parameterType="map">
 		INSERT INTO BOARD_REPLY VALUES(BOARD_REPLY_SEQ.NEXTVAL, #{MID}, #{CONTENT}, #{PARENT} ,#{BIDX}, SYSDATE)
 	</insert>
+	
+	<select id="getTotalReplyByBIDX" resultType="int">
+		SELECT COUNT(RIDX)
+		  FROM BOARD_REPLY
+		 WHERE BIDX = #{BIDX}
+	</select>
 </mapper>

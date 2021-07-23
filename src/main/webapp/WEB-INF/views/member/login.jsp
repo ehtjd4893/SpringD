@@ -56,6 +56,7 @@
 		
 		<!-- 수진추가 코드 : 회원의 예약정보 페이지로 이동(resevationController) -->
 		<a href="myReservation.do?mNo=${loginUser.MNo}">${loginUser.MId}님의 예약목록</a>
+		<a href="reservationSelectDatePage.do">예약하기</a>	
 	</c:if>
 
 </body>

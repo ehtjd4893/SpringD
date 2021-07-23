@@ -13,4 +13,5 @@ public interface ReservationDAO {
 	public long selectViewReservation();
 	public ReservationDTO selectReservation(long reNo);
 	public List<ReservationDTO> reservationList(long mNo);
+	public int cancelReservation(long reNo);
 }

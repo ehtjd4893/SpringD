@@ -16,7 +16,10 @@
 		fn_email_code();
 		fn_email_auth();
 		fn_doReservation();
-	});
+		fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
+		fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
+	});	
+	
 	
 	//체크박스('회원정보와 동일하다') 클릭시, 정보 뿌려줌
 	function fn_ch(){
@@ -120,6 +123,31 @@
 			}
 			
 		});
+	}
+	
+	
+	//로그인 관련 script
+	
+	
+	function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
+		$('#closeLogin').click(function(){
+			$('.form hide').toggleClass('hide');
+		})	// onclick#
+	}	// fn_closeLogin
+	
+	
+	
+	function fn_toggle_mode(){
+		$('#mem_to_admin').click(function(){
+			$('#mem_mode').toggleClass('disabled');
+			$('#admin_mode').toggleClass('disabled');
+		});
+		
+		$('#admin_to_mem ').click(function(){
+			$('#mem_mode').toggleClass('disabled');
+			$('#admin_mode').toggleClass('disabled');
+		});
+		
 	}
 	
 	

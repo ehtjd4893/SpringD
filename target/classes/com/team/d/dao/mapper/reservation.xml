@@ -46,9 +46,16 @@
 	
 	<!-- 회원의 예약 리스트 -->
 	<select id="reservationList" resultType="com.team.d.dto.ReservationDTO">
-		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE
+		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE,STATE
 		FROM SPRING.RESERVATION
 		WHERE MNO = #{mNo}
 	</select>
+	
+	
+	<update id="cancelReservation">
+		UPDATE SPRING.RESERVATION
+		SET	STATE='취소'
+		WHERE RENO=#{param1}
+	</update>
 	
 </mapper>

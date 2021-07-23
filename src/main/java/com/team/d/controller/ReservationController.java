@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.team.d.command.reservation.CancelRevCommand;
 import com.team.d.command.reservation.MyReservationCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
@@ -29,6 +30,7 @@ public class ReservationController {
 	private ReceiptCommand2 receiptCommand2;
 	private RevInfoCommand revInfoCommand;
 	private MyReservationCommand myReservationCommand;
+	private CancelRevCommand cancelRevCommand;
 	 
 	 
 	// 조회 페이지로 이동
@@ -85,6 +87,11 @@ public class ReservationController {
 		return "reservation/myReservation";
 	}
 	
-	
+	@GetMapping(value="cancelPage.do")
+	public String cancelPage(HttpServletRequest request,Model model) {
+		model.addAttribute("request",request);
+		cancelRevCommand.execute(sqlSession, model);
+		return "reservation/cancelPage";
+	}
 	
 }

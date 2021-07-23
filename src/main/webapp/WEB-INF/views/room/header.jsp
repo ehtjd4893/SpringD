@@ -11,7 +11,18 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 	    onload = function(){
+	    	
 			getDate();
+			
+			document.getElementById('privacy').onclick = function(){
+		    	window.open('privacy.do', '', 'width=640, height=480, resizable=no');
+			}
+			document.getElementById('term').onclick = function(){
+		    	window.open('term.do', '', 'width=640, height=480, resizable=no');
+			}
+			document.getElementById('noEmail').onclick = function(){
+		    	window.open('noEmail.do', '', 'width=400, height=352, resizable=no');
+			}
 		}
 	    
 	    function getDate() { 

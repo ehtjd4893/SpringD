@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="resources/css/infoRoom.css">
-</head>
-<body>
 
+	<%@ include file="header.jsp" %>
+
+	<link rel="stylesheet" href="resources/css/infoRoom.css">
+	<style>
+		.room-description > p {
+			color: white;
+		}
+	</style>
+
+	<br><br><br><br>
+	
 	<h1>룸 정보 페이지</h1>
 	
     <div class="container">
@@ -26,5 +29,5 @@
             </c:forEach>
         </div>
     </div>
-</body>
-</html>
+    
+	<%@ include file="footer.jsp" %>

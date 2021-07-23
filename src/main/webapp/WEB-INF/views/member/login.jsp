@@ -24,9 +24,12 @@
 			});
 		}
 	</script>
-	<!-- 카카오 로그인 -->
-	<script src="//developers.kakao.com/sdk/js/kakao.js"></script>
+	<!-- 카카오 API -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script type="text/javascript">
+		function fn_kakaoLogin(){
+			window.parent.location.href="https://"
+		}
 
 	</script>
 
@@ -54,11 +57,9 @@
 		<!-- 네이버 로그인 -->
 		
 		<!-- 카카오 로그인 -->
-<%-- 		<div id="kakao_id_login" style="text-align: center">
-			<a href="${kakao_url}">
-				<img width="223" src="images/kakao_account_login_btn_medium_narrow.png" />
-			</a>
-		</div> --%>
+		<a id="kakaoLogin" href="javascript:void(0)" onclick="fn_kakaoLogin();">
+		    <img src="//k.kakaocdn.net/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg" width="300px;"/>
+		</a>
 
 	</c:if>
 	

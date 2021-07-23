@@ -14,16 +14,8 @@ public class FindIdCommand {
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		
 		Map<String, Object> map = model.asMap();
-		MemberDTO memberDTO = (MemberDTO)map.get("memberDTO");
-		
-		// 아이디 찾기 시 request에 입력된 mName, mEmail 확인
-		// String mName = request.getParameter("mName");
-		// String mEmail = request.getParameter("mEmail");
-	
-		// memberDTO에 mName, mEmail이 일치하는지 확인
-		// memberDTO.setMId(mName);
-		// memberDTO.setMEmail(mEmail);
-		
+		MemberDTO memberDTO = (MemberDTO)map.get("memberDTO"); // memberDTO에서 이름, 이메일 가져오기
+
 		// memberDAO의 아이디 찾기 findId메소드 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 		MemberDTO findUser = memberDAO.findId(memberDTO);

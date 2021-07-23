@@ -34,17 +34,16 @@
 					alert('이름과 이메일 모두 입력하세요');
 					return false;
 				} 
-				// 이름과 이메일 객체 생성(post 방식) : presentPwCheck와 마찬가지로 jackson lib 오류
-				/*var obj = { 
-						mName : $('#mName').val(),
-						mEmail : $('#mEmail').val()
-				}; */
+				var obj = { // 이름과 이메일 객체 생성
+						mname : $('#mName').val(),
+						memail : $('#mEmail').val()
+				};
 				$.ajax({
 					url: 'findId.do',
-					type: 'get',
-					// data: JSON.stringify(obj),
-					data: 'mName=' + $('#mName').val() + '&mEmail=' + $('#mEmail').val(),
-					dataType: 'json',
+					type: 'post',
+					data: JSON.stringify(obj), // 보내는 data 문자열화
+					contentType: 'application/json', // 보내는 data가 json일 때, 필수 옵션
+					dataType: 'json', // 받는 data
 					success: function(resultMap){
 						if(resultMap.status == 500){ // 이름과 이메일이 일치하지 않을 경우
 							alert('입력하신 정보와 일치하는 계정이 없습니다.');
@@ -72,20 +71,27 @@
 					alert('아이디와 이메일 모두 입력하세요');
 					return false;
 				}
+				var obj = { // 이름과 이메일 객체 생성
+						mid : $('#mId').val(),
+						memail : $('#mEmail2').val()
+				};
 				$.ajax({
 					url: 'findPw.do',
-					type: 'get',
-					data: 'mId=' + $('#mId').val() + '&mEmail=' + $('#mEmail2').val(),
+					type: 'post',
+					data: JSON.stringify(obj),
+					contentType: 'application/json',
 					dataType: 'json',
 					success: function(resultMap){
-						if(resultMap.status == 500){ // 아이디와 이메일이 일치하지 않을 경우
+						if(resultMap.status == 500){ // 아이디와 이메일이 일치하지 않을 경우 인증코드 버튼 비활성화
 							$('.email2_result').text('입력하신 아이디와 이메일이 일치하지 않습니다. 확인하세요.');
+							$('#emailCode_btn').click(function(){ }).prop("disabled", true);
 							$('#mId').val('');
 							$('#mEmail2').val('');
 							return false;
-						} else if(resultMap.status == 200){ // 아이디와 이메일이 일치할 경우 인증코드 버튼 활성화
-							$('#emailCode_btn').click(function(){ }).prop("disabled", false);
+						} else if(resultMap.status == 200){ // 아이디와 이메일이 일치할 경우 인증코드 버튼 활성화 + 이메일 재입력 막기(readonly)
 							$('.email2_result').text("입력하신 정보가 확인되었습니다. 인증코드를 받으세요.");
+							$('#emailCode_btn').click(function(){ }).prop("disabled", false);
+							$('#mEmail2').keyup(function(){ }).prop("readonly", true);
 							fn_emailCode();
 						}
 					},
@@ -104,7 +110,7 @@
 					data: 'mEmail=' + $('#mEmail2').val(),
 					dataType: 'json',
 					success: function(resultMap) {
-						alert('인증코드가 발송되었습니다.');
+						alert('입력하신 메일로 임시 비밀번호가 발송되었습니다.');
 						fn_emailAuth(resultMap.authCode);
 					},
 					error: function(xhr, textStatus, errorThrown) {
@@ -209,6 +215,7 @@
 			<!-- 확인 버튼 -->
 			<div class="form_group">
 				<input type="button" id="findPw_btn" value="확인">
+				<input type="reset" value="초기화">
 			</div><br><br>
 		</form>
 		

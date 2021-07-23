@@ -22,16 +22,14 @@
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
-				var obj = JSON.stringify({'mPw':$('#mPw0').val()});
-				/* var obj ={
-						mPw : $('#mPw0').val()
-				} */
+				var obj ={ // 현재 비밀번호 객체 생성
+						mpw : $('#mPw0').val()
+				}
 				$.ajax({
 					url: 'presentPwCheck.do',
-					type: 'get',
-					contentType: 'application/json',
-					// data: JSON.stringify(obj), // 보내는 data 문자열화
-					data: 'mPw=' + $('#mPw0').val(),
+					type: 'post',
+					data: JSON.stringify(obj), // 보내는 data 문자열화
+					contentType: 'application/json', // 보내는 data가 json일 때, 필수 옵션
 					dataType: 'json', // 받는 data
 					success: function(resultMap){
 						if (resultMap.isCorrect) { // 현재 비밀번호가 일치할 경우

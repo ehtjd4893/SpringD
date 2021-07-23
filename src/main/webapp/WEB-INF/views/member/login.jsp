@@ -25,19 +25,9 @@
 		}
 	</script>
 	<!-- 카카오 로그인 -->
-	<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
-		// 초기화 시키기
-		$(document).ready(function(){
-			Kakao.init('자바스크립트 앱키 입력');
-			Kakao.isInitialized();
-		});
-		// 카카오 로그인 버튼 생성
-		function loginWithKakao(){
-			Kakao.Auth.authorize({
-				redirectUri: 'http://localhost:8080/user/loginpage_kakao_callback'
-			});
-		}
+
 	</script>
 
 </head>
@@ -64,27 +54,12 @@
 		<!-- 네이버 로그인 -->
 		
 		<!-- 카카오 로그인 -->
-		<a id="kakaoLogin_btn"></a>
-	    <a href="http://developers.kakao.com/logout"></a>
+<%-- 		<div id="kakao_id_login" style="text-align: center">
+			<a href="${kakao_url}">
+				<img width="223" src="images/kakao_account_login_btn_medium_narrow.png" />
+			</a>
+		</div> --%>
 
-		<script src="//developers.kakao.com/sdk/js/kakao.js"></script>
-	    <script type='text/javascript'>
-	 		// 발급 받은 JavaScript 키
-	        window.Kakao.init('464a8f29a97a043193116da7f11294e8');
-	     	// 카카오 로그인 버튼 생성
-	        Kakao.Auth.createLoginButton({
-	            container: '#kakaoLogin_btn',
-	            scope: 'account_email', // 동의 항목(이메일)
-	            success: function (authObj) {
-	            	url: '/v2/user/me',
-	                alert(JSON.stringify(authObj));
-	            },
-	            fail: function (err) {
-	                alert(JSON.stringify(err));
-	            }
-	        });
-		</script>
-		
 	</c:if>
 	
 	<!-- 로그인 성공 화면 -->

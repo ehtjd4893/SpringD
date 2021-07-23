@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,6 +58,7 @@ public class MemberController {
 	public String index() {
 		return "index";
 	}
+
 	// 로그인 페이지
 	@RequestMapping(value="loginPage.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(Model model, HttpSession session) {
@@ -142,17 +144,10 @@ public class MemberController {
 		joinCommand.execute(sqlSession, model);
 	}
 	
-	// 현재 비밀번호 확인(presentPwCheck) : 라이브러리 오류로 getMapping으로 변경..
-	/*@ResponseBody
+	// 현재 비밀번호 확인(presentPwCheck)
+	@ResponseBody // AJAX 매핑
 	@PostMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
 	public Map<String, Boolean> presentPwCheck(@RequestBody MemberDTO memberDTO, HttpSession session, Model model){
-		model.addAttribute("session", session);   
-		model.addAttribute("memberDTO", memberDTO);
-		return presentPwCheckCommand.execute(sqlSession, model);
-	}*/
-	@ResponseBody // AJAX매핑
-	@GetMapping(value="presentPwCheck.do", produces="application/json; charset=utf-8")
-	public Map<String, Boolean> presentPwCheck(MemberDTO memberDTO, HttpSession session, Model model){
 		model.addAttribute("session", session);   
 		model.addAttribute("memberDTO", memberDTO);
 		return presentPwCheckCommand.execute(sqlSession, model);
@@ -178,16 +173,16 @@ public class MemberController {
 	
 	// 아이디 찾기(findId)
 	@ResponseBody // AJAX매핑
-	@GetMapping(value="findId.do", produces="application/json; charset=utf-8")
-	public Map<String, Object> findId(MemberDTO memberDTO, Model model) { 
+	@PostMapping(value="findId.do", produces="application/json; charset=utf-8")
+	public Map<String, Object> findId(@RequestBody MemberDTO memberDTO, Model model) { 
 		model.addAttribute("memberDTO", memberDTO);
 		return findIdCommand.execute(sqlSession, model);
 	}
 	
 	// 비밀번호 찾기(findPw)
 	@ResponseBody // AJAX매핑
-	@GetMapping(value="findPw.do", produces="application/json; charset=utf-8")
-	public Map<String, Object> findPw(MemberDTO memberDTO, Model model) {
+	@PostMapping(value="findPw.do", produces="application/json; charset=utf-8")
+	public Map<String, Object> findPw(@RequestBody MemberDTO memberDTO, Model model) {
 		model.addAttribute("memberDTO", memberDTO);
 		return findPwCommand.execute(sqlSession, model);
 	}

@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<style>
@@ -233,6 +234,163 @@
 		#footer b {
 			font-weight: bold;
 		}
+		/* 1900px 이상이면 */
+		@media screen and (min-width: 1900px) {
+			.header {
+				display: block;
+				width: 100%;
+				margin: 0 auto 0 auto;
+				height: 90px;
+				position: relative;
+				background: #f1e3c4;
+			}
+			.logo {
+				display: block;
+				position: absolute;
+				left: 50%;
+				top: 0px;
+				width: 202px;
+				margin: 0 0 0 -101px;
+				margin-block-start: 0.67em;
+			    margin-block-end: 0.67em;
+			    margin-inline-start: 0px;
+			    margin-inline-end: 0px;
+			}
+			.logo a {
+				display: block;
+				height: 90px;
+				overflow: hidden;
+				text-decoration: none;
+				color: #555;
+			}
+			.logo a:-webkit-any-link {
+				cursor: pointer;
+			}
+			.small_header_right {
+				display: none;
+			}
+			.header_right {
+				position: absolute;
+				top: 19px;
+				right: 260px;
+			}
+			.header_right > a {
+				position: relative;
+				float: left;
+				color: #856f56;
+				margin-right: 15px;
+				margin-left: 15px;
+				text-decoration: none;
+			}
+			.header_right > span {
+				position: relative;
+				float: left;
+				color: #856f56;
+				margin-right: 5px;
+				margin-left: 5px;
+				font-weight: bold;
+			}
+			.header_right > a:-webkit-any-link {
+				cursor: pointer;
+			}
+			.header_right > a:before {
+				position: absolute;
+				top: 3px;
+				right: -15px;
+				content: '';
+				display: inline-block;
+				width: 1px;
+				height: 10px;
+				background: #d2c4a5;
+			}
+			.header_left {
+				position: absolute;
+				top: 19px;
+				left: 260px;
+			}
+			.header_left a {
+				position: relative;
+				float: left;
+				color: #856f56;
+				margin-right: 15px;
+				margin-left: 15px;
+				text-decoration: none;
+			}
+			.header_left a:-webkit-any-link {
+				cursor: pointer;
+			}
+			.header_left > a:before {
+				position: absolute;
+				top: 3px;
+				left: -15px;
+				content: '';
+				display: inline-block;
+				width: 1px;
+				height: 10px;
+				background: #d2c4a5;
+			}
+		}
+		/* 1900px 이하이면 */
+		@media screen and (max-width: 1900px) {
+			.header {
+				display: block;
+				width: 100%;
+				margin: auto;
+				height: 90px;
+				position: fixed;
+				background: #f1e3c4;
+				left: 0px;
+				top: 0px;
+			}
+			.logo {
+				float: left;
+			}
+			.logo a {
+				display: block;
+				height: 90px;
+				padding: 20px 0px 0px 15px;
+				text-decoration: none;
+				color: #555;
+			}
+			.logo a:-webkit-any-link {
+				cursor: pointer;
+			}
+			.header_right {
+				display: none;
+			}
+			.header_left {
+				display: none;
+			}
+			.small_header_right {
+				position: fixed;
+				top: 15px;
+				right: 15px;
+			}
+			.small_header_right > a {
+				position: relative;
+				float: left;
+				color: #856f56;
+				margin-right: 15px;
+				margin-left: 15px;
+				text-decoration: none;
+			}
+			.small_header_right > span {
+				font-weight: bold;
+			}
+			small_header_right > a:-webkit-any-link {
+				cursor: pointer;
+			}
+			small_header_right > a:before {
+				position: absolute;
+				top: 3px;
+				right: -15px;
+				content: '';
+				display: inline-block;
+				width: 1px;
+				height: 10px;
+				background: #d2c4a5;
+			}
+		}
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -271,13 +429,59 @@
 			document.getElementById('noEmail').onclick = function(){
 		    	window.open('noEmail.do', '', 'width=400, height=352, resizable=no');
 			}
+			getDate();
 		}
+	    
+	    function getDate() { 
+	           date = setInterval(function () { 
+	               var dateString = ""; 
+
+	               var newDate = new Date(); 
+
+	               dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+	               dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
+	               //document.write(dateString); 문서에 바로 그릴 수 있다. 
+	               $("#date1").text(dateString); 
+	               $("#date2").text(dateString); 
+	           }, 1000);   // 1초 단위로  
+	    }
+	    
     </script>
 </head>
 <body>
-
-	<div id="container">
 	
+	<div class="header">
+		<h1 class="logo">
+			<a href="index.do">MOOYA HOTEL</a>
+		</h1>
+		<div class="small_header_right">
+			<span>Seoul</span>
+			<span id="date1"></span>
+			<a href="">로그인</a>
+			<a href="">회원가입</a>
+			<a href="">예약하기</a>
+			<a href="">게시판</a>
+			<a href="">이벤트</a>
+			<a href="">객실</a>
+		</div>
+		<div class="header_right">
+			<span>Seoul</span>
+			<span id="date2"></span>
+			<a href="">로그인</a>
+			<a href="">회원가입</a>
+			<a href="">예약하기</a>
+		</div>
+		<div class="header_left">
+			<a href="">게시판</a>
+			<a href="">이벤트</a>
+			<a href="">객실</a>
+		</div>
+	</div>
+	
+	<div id="container">
+		
+		<br><br>
+		
 		<h1>룸 가격 페이지</h1>
 		
 		<form id="f" method="post">

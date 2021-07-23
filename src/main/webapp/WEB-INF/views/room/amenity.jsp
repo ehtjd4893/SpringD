@@ -6,72 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<style>
-		body, div, td, th, p, textarea {
-	        margin: 0;
-	        padding: 0;
-	        font: 12px/160% Dotum,'돋움',sans-serif;
-	        color: #101010;
-        }
-        ul, ol, li, dl, dt, dd {
-        	margin: 0;
-        	padding: 0;
-        }
-        ul {
-        	list-style-type: disc;
-        }
-        li {
-        	display: list-item;
-        	text-align: -webkit-match-parent;
-        }
-        div {
-        	display: block;
-        }
-        .allWrap {
-        	overflow: hidden;
-        	border-top: 1px solid #a1886f;
-        	border-bottom: 1px solid #a1886f;
-        	padding: 20px 0;
-        }
-        .allWrap h3 {
-        	margin-bottom: 20px;
-        	height: 11px;
-        }
-        .allWrap ul li {
-        	padding-left: 8px;
-        	line-height: 20px;
-        	color: #444;
-        }
-        .allWrap ul.mgb50 {
-        	margin-bottom: 50px;
-        }
-        .left {
-        	float: left;
-        	border-right: 1px solid #eceae1;
-        	padding: 0 0 0 14px;
-        	height: 191px;
-        	height: 400px;
-        }
-        .mid {
-        	float: left;
-        	border-right: 1px solid #eceae1;
-        	width: 154px;
-        	padding: 0 0 0 20px;
-        	height: 400px;
-        }
-        .right {
-        	float: left;
-        	padding: 0 0 0 20px;
-        	width: 135px;
-        	height: 400px;
-        }
-	</style>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			
-		});
-	</script>
+	<link rel="stylesheet" href="resources/css/amenity.css">
 </head>
 <body>
 

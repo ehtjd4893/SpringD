@@ -23,6 +23,9 @@ sujin 계정이 안돼서 다시만듦
         0722 : -예약 가능한 방 만뽑아오기 오류 수정 完
                 - 회원 로그인시 (login.do) 에 '예약정보 확인(myReservation.jsp)' 링크 추가 完
                 -예약 정보 확인 페이지 기능(member/myPage.jsp에 태그 ) 完
-             
-        
+        0723 :  -member/login.jsp에 예약하기 버튼 추가
+                -cancelPage.jsp추가
+                - 예약 정보 확인 페이지 기능(member/myPage.jsp에 태그 ) 수정 中
+                - 앞으로 해야될 것 : 예약 취소 버튼 누를시 -> 비밀번호 ajax로 확인(일치x면 비밀번호 일치x 알림창)하고 -> CancelCommand로 넘겨서 db의 상태칼럼 '예약 취소'로 변경
+
         

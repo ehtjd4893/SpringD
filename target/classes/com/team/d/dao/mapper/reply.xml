@@ -14,7 +14,7 @@
 		 WHERE BIDX = #{BIDX}
 		   AND PARENT = 0
 		 ORDER BY RPOSTDATE DESC
-	</select>
+	</select> 
 	
 	<select id="getChildListByRidx" resultType="com.team.d.dto.ReplyDTO">
 		SELECT RIDX, RCONTENT, PARENT, MID, BIDX, RPOSTDATE

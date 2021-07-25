@@ -12,13 +12,14 @@ import lombok.ToString;
 public class MemberDTO {
 
 	// field
-	private long mNo;
-	private String mName;
-	private String mId;
-	private String mPw;
-	private String mEmail;
-	private String mPhone;
-	private String mGrade;
-	private Date mRegdate;
+	private long mNo; // 회원 번호
+	private String mName; // 이름
+	private String mId; // 아이디
+	private String mPw; // 비밀번호
+	private String mEmail; // 이메일
+	private String mPhone; // 전화번호
+	private String mGrade; // 등급
+	private Date mRegdate; // 가입일
+	private int status; // 회원 상태(탈퇴 여부)
 	
 }

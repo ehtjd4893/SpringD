@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.d.api.KakaoApi;
 import com.team.d.command.member.ChangePwCommand;
 import com.team.d.command.member.EmailAuthCommand;
 import com.team.d.command.member.EmailCheckCommand;
@@ -52,6 +55,7 @@ public class MemberController {
 	private ChangePwCommand changePwCommand;
 	private LeaveCommand leaveCommand;
 
+	
 	// 메인페이지 index.jsp 단순이동
 	@GetMapping(value={"/", "index.do"})
 	public String index() {

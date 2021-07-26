@@ -58,7 +58,6 @@ public class MemberController {
 	public String index() {
 		return "index";
 	}
-
 	// 로그인 페이지 login.jsp 단순이동
 	@GetMapping(value="loginPage.do")
 	public String loginPage() {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,7 +206,14 @@
 		function fn_leave(){
 			$('#leave_btn').click(function(){
 				if (confirm('정말 탈퇴하시겠습니까?')) {
-					if(prompt('탈퇴하시려면 비밀번호를 입력하세요.') == '${loginUser.MPw}'){
+					var inputPw = prompt("탈퇴하려면 비밀번호를 입력하세요.");
+					/*  
+						javaScript window 객체(Explorer 10 이상 지원) 사용
+						atob() -> base64 스트링 디코딩(복호화)
+						btoa() -> base64 스트링 인코딩(암호화)
+					*/
+					// prompt창에서 입력한 값(inputPw)을 암호화해서 기존 비밀번호와 비교
+					if(btoa(inputPw) == '${loginUser.MPw}'){ // 비밀번호가 일치할 경우 탈퇴
 						location.href = 'leave.do?mNo=${loginUser.MNo}';	
 					} else{
 						alert('비밀번호를 확인하세요.');
@@ -221,6 +229,7 @@
 	<h3>${loginUser.MId} 님 환영합니다!</h3>
 	<form id="f" method="post">
 		<input type="hidden" name="mNo" value="${loginUser.MNo}">
+		
 		이름<br>
 		<input type="text" name="mName" id="mName" value="${loginUser.MName}"><br><br>
 		
@@ -252,8 +261,8 @@
 		
 		<input type="button" id="update_btn" value="정보변경하기">
 		<input type="button" id="leave_btn" value="회원탈퇴">
-		<input type="button" value="돌아가기" onclick="location.href='loginPage.do'">
 		<input type="button" id="reserv_btn" value="예약 내역">
+		<input type="button" value="돌아가기" onclick="location.href='loginPage.do'">
 	</form>
 	
 </body>

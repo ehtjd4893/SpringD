@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <% request.setCharacterEncoding("utf-8"); %>
@@ -43,10 +44,6 @@
 
 	<!-- script -->
 	<script type="text/javascript">
-		// 카카오 API 초기화
-		Kakao.init('464a8f29a97a043193116da7f11294e8');	// 발급 받은 javaScript 키
-		console.log(Kakao.isInitialized()); // 카카오 라이브러리(sdk) 초기화
-		
 		// 페이지 로드
 		$(document).ready(function(){
 			fn_login();
@@ -66,17 +63,26 @@
 			});
 		}
 		
+		// 카카오 API 초기화
+		Kakao.init('464a8f29a97a043193116da7f11294e8');	// 발급 받은 javaScript 키
+		console.log(Kakao.isInitialized()); // 카카오 라이브러리(sdk) 초기화
+		
 		// 카카오 로그인(loginKakaoPopUp) - 팝업 방식
 		function loginKakaoPopUp() {
 		    Kakao.Auth.login({
-		        success: function(authObj) { // 로그인 할 카카오계정 인증할 때, 토큰 발급 받음
-		            Kakao.Auth.setAccessToken(authObj.access_token); // 받아 온 토큰 세팅
-					setUserEmail(); // 사용자 이메일 조회
+		        success: function(authObj) { // 카카오계정 인증할 때, 토큰 발급 받음
+		            Kakao.Auth.setAccessToken(authObj.access_token); // 발급 받은 토큰 사용하도록 세팅
+					setUserEmail(); // 사용자 이메일 조회(이메일 존재 여부에 따라 회원가입 or 로그인)
 		        },
-		        fail: function(err) {
-		            alert(JSON.stringify(err))
+		        fail: function(err) { // 카카오계정 인증에 실패할 경우
+		            alert('카카오톡과 연결이 완료되지 않았습니다. 다시 시도해주세요.' + JSON.stringify(err));
 		        },
 		    })
+		}
+		
+		// 카카오톡 로그아웃(logoutKakao)
+		function logoutKakao(){
+			sessionStorage.clear();
 		}
 		
 		// 사용자 이메일 조회(setUserEmail) : DB에 이메일 존재 여부에 따라 회원가입 or 로그인
@@ -150,7 +156,9 @@
 				<h3>${loginUser.MId} 님 환영합니다!</h3>
 				<a href="myPage.do">마이페이지</a>
 				<a href="logout.do">로그아웃</a>
+				<a href="javascript:logoutKakao()">(카카오)로그아웃</a>
 			</c:if>
+
 		</div>
 	</div>
 	

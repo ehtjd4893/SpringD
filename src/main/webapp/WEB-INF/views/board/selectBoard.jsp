@@ -65,6 +65,18 @@
 			border-radius: 5px;
 			background-color: #f0efed;
 		}
+		.disable {
+			color: silver;
+		}
+		.link {
+			cursor: pointer;
+		}
+		.now_page {
+			color: limegreen;
+		}
+		.re_reply_paging{
+			display: flex;
+		}
 	</style>
 	<script>
 		$(function(){
@@ -79,6 +91,7 @@
 			fn_getReplyList();	// 댓글 출력 함수
 		});	// onload
 
+		// 댓글 불러오기 함수
 		 function fn_getReplyList(){
 				$.ajax({
 					url: 'getReplyList.do',
@@ -97,27 +110,125 @@
 				})	// ajax
 		} 
 		
+		
+			// 2. 회원 목록 페이징(페이징 링크 처리)
+			function fn_paging() {
+				$('.re_reply_paging').on('click', '.previous_block', function(){
+					re_page = $(this).attr('data-page');
+				});
+				$('.re_reply_paging').on('click', '.go_page', function(){
+					re_page = $(this).attr('data-page');
+				});
+				$('.re_reply_paging').on('click', '.next_block', function(){
+					re_page = $(this).attr('data-page');
+					fn_child_reply();
+				});
+			}
+		
+		var re_page = 1;
 		// 답글 버튼 클릭시 펼치기
 		function fn_child_reply(box ,parent){
-			$(box).parent().toggleClass('sizeUp');
+			
+			// 숨겨놨던 대댓글 부분 보이게 해주기.
 			$(box).parent().children('.re_reply').toggleClass('hide');
+			
+			var paging = null;
+			
 			$.ajax({
 				url: 'getChildList.do',
-				type: 'get',
+				type: 'post',
 				async: false,
-				data: 'parent=' + parent,
+				data: 're_page=' + re_page + '&parent=' + parent + '&bIdx=${Board.BIdx}',
 				dataType: 'json',
 				success: function(resultMap){
 					fn_makeReReply(box, resultMap.list, parent);
+					
+					var paging = resultMap.paging;
+					// 대댓글 페이징 만들기
+					
+					var paging_box = $(box).parent().children('.re_reply').children('.re_reply_paging');
+					
+
+					paging_box.empty();
+
+					if(paging.beginPage <= paging.pagePerBlock){
+						$('<div>')
+						.addClass('disable')
+						.text('◀')
+						.appendTo(paging_box);
+					} else {  // 이전('◀')이 있음
+						// class
+						// 1. previous_block : click 이벤트에서 활용
+						// 2. link : cursor pointer
+						$('<div>')
+						.addClass('previous_block').addClass('link')
+						.attr('data-page', paging.beginPage - 1)
+						.attr('onclick', function(){
+							re_page = $(this).attr('data-page');
+						})
+						.text('▶')
+						.appendTo(paging_box);
+					
+					}
+					
+					for(let p = paging.beginPage; p <= paging.endPage; p++){
+						if(p == paging.page) {
+							$('<div>')
+							.addClass('now_page')
+							.text(p)
+							.appendTo(paging_box);
+						} else {
+							// class
+							// 1. go_page : click 이벤트에서 활용
+							// 2. link : cursor pointer
+							$('<div>')
+							.addClass('go_page').addClass('link')
+							.attr('data-page', p)
+							.text(p)
+							.appendTo(paging_box);
+						}
+					}
+					// 4) 다음('▶')
+					if (paging.endPage == paging.totalPage) {  // 다음('▶')이 없음(마지막 블록)
+						// class
+						// 1. disable : color silver
+						$('<div>')
+						.addClass('disable')
+						.text('▶')
+						.appendTo(paging_box);
+					} else {  // 다음('▶')이 있음
+						// class
+						// 1. next_block : click 이벤트에서 활용
+						// 2. link : cursor pointer
+						$('<div>')
+						.addClass('next_block').addClass('link')
+						.attr('data-page', paging.endPage + 1)
+						.attr('onclick', function(){
+							re_page = $(this).attr('data-page');
+						})
+						.text('▶')
+						.appendTo(paging_box);
+					}
+					
+					
 				},	// success
 				error: function(){
 					alert('답글 펼치기 오류');
 				}	// error
 			})
+		
+			
+			
+			
+
 		}
 		
+		
+		// 대댓글 출력함수
 		function fn_makeReReply(box, list, parent){
+			// 원래 있던 대댓글 지우고 다시 출력(중복해서 쌓이는것을 방지)
 			$(box).parent().children('.re_reply').children('#child' + parent).remove();
+			
 			$.each(list, function(i, reply){
 				
 				$('<div class="child" id="child' + parent + '">')
@@ -175,7 +286,8 @@
 								.append( $('<i class="fab fa-replyd fa-2x"></i>') )	
 								.append( $('<input type="text" class="re_re_content" id="re_re' + reply.ridx + '">') )		
 								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + reply.ridx +')">') )
-						)						
+						)
+						.append( $('<div class="re_reply_paging">') )
 				)
 				.appendTo( $('#reply_list') );
 			});	// each 

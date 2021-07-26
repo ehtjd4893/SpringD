@@ -12,10 +12,12 @@ public interface ReplyDAO {
 
 	public List<ReplyDTO> getReplyListByBidx(Map<String, Object> container);
 
-	public List<ReplyDTO> getChildListByRidx(long PARENT);
+	public List<ReplyDTO> getChildListByRidx(Map<String, Object> container);
 
 	public void insertReReply(Map<String, Object> container);
 
 	public int getTotalReplyByBIDX(long bIdx);
+
+	public int getTotalChildReplyByBIDX(Map<String, Object> container);
 	
 }

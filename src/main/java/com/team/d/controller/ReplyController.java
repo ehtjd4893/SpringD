@@ -46,7 +46,7 @@ public class ReplyController {
 		return getReplyListCommand.execute(sqlSession, model);
 	}
 
-	@GetMapping(value="getChildList.do", produces="application/json; charset=utf-8")
+	@PostMapping(value="getChildList.do", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> getChildList(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);

@@ -8,19 +8,30 @@
 		INSERT INTO BOARD_REPLY VALUES(BOARD_REPLY_SEQ.NEXTVAL, #{MID}, #{RCONTENT}, #{PARENT} ,#{BIDX}, SYSDATE)
 	</insert>
 	
-	<select id="getReplyListByBidx" parameterType="map" resultType="com.team.d.dto.ReplyDTO">
-		SELECT RIDX, RCONTENT, PARENT, MID, BIDX, RPOSTDATE
-		  FROM BOARD_REPLY
-		 WHERE BIDX = #{BIDX}
-		   AND PARENT = 0
-		 ORDER BY RPOSTDATE DESC
+	<select id="getReplyListByBidx" parameterType="map" resultType="com.team.d.dto.ReplyDTO"> 
+		SELECT B.RN, B.RIDX, B.RCONTENT, B.PARENT, B.MID, B.BIDX, B.RPOSTDATE
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT RIDX, RCONTENT, PARENT, MID, BIDX, RPOSTDATE
+		  		  		  FROM BOARD_REPLY
+		  		  		 WHERE BIDX = #{BIDX}
+		  		  		   AND PARENT = 0
+		 		 		 ORDER BY RPOSTDATE DESC) A) B
+	  	 WHERE B.RN BETWEEN #{beginRecord} AND #{endRecord}
 	</select> 
 	
-	<select id="getChildListByRidx" resultType="com.team.d.dto.ReplyDTO">
+	<select id="getChildListByRidx" parameterType="map" resultType="com.team.d.dto.ReplyDTO">
 		SELECT RIDX, RCONTENT, PARENT, MID, BIDX, RPOSTDATE
 		  FROM BOARD_REPLY
 		 WHERE PARENT = #{PARENT}
+		   AND BIDX = #{BIDX}
 		 ORDER BY RPOSTDATE DESC
+	</select>
+
+	<select id="getTotalChildReplyByBIDX" parameterType="map" resultType="int">
+		SELECT COUNT(RIDX)
+		  FROM BOARD_REPLY
+		 WHERE BIDX = #{BIDX}
+		   AND PARENT = #{PARENT}
 	</select>
 
 	<insert id="insertReReply" parameterType="map">
@@ -31,5 +42,6 @@
 		SELECT COUNT(RIDX)
 		  FROM BOARD_REPLY
 		 WHERE BIDX = #{BIDX}
+		   AND PARENT = 0
 	</select>
 </mapper>

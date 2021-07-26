@@ -34,7 +34,6 @@ public class GetReplyListCommand  {
 			re_page = Integer.parseInt(opt.orElse("1"));
 		}
 		
-		System.out.println("re_page: " + re_page);
 		ReplyDAO dao = sqlSession.getMapper(ReplyDAO.class);
 		// 전체 게시물의 개수를 반환하는 함수, 공지사항 제외
 		int totalReply = dao.getTotalReplyByBIDX(bIdx);

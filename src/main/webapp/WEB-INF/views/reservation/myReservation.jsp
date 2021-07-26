@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>예약 리스트</title>
@@ -41,71 +43,114 @@
                     <td> ${my.getMNo()}</td>
                     <td> ${my.booker}</td>
                     <td> ${my.people }</td>
-                    <td>  [${my.checkIn } ]</td>
-                    <td>  ${my.checkOut }</td>
+                    <td>  [ ${my.checkIn } ]</td>
+                    <td>  [ ${my.checkOut } ]</td>
                     <td> ${my.food }</td>
                     <td>${my.note}</td>
                     <td> ${my.totalPay }</td>
                     
-                    <td><input type="button" class="checkBtn" value="클릭" /></td>
+                    <c:if test="${ my.state  == '예약중'}">
+                     <td><input type="button" class="cancel_btn" value="예약취소" /></td>
+                    </c:if>
+                   <c:if test="${ my.state  == '취소'}">
+                     <td> ${my.state }</td>
+                    </c:if>
                 </tr>
                </c:forEach>
                  
             </tbody>
         </table>
-        <div class="col-lg-12" id="ex2_Result1" ></div> 
-        <div class="col-lg-12" id="ex2_Result2" ></div> 
+        
+        <!-- 취소시 비밀번호 확인 -->
+        <div id="subData">
+	        <form id="reNo_f">
+	        	비밀번호 확인<br>
+	        	<input type="text" id="reNo" name="reNo">
+	        	비밀번호 <input type="password" id="mPw" >
+	        	<input type="button" value="확인" id="pw_check">
+	        </form>
+       </div>
+       
     </div>
  
+
+         
  
-        <br><br>
- 
- 
-    <script>
- 
-        // 버튼 클릭시 Row 값 가져오기
-        $(".checkBtn").click(function(){ 
+
+<script>
+ 	$(document).ready(function(){
+ 		fn_cancel();
+ 		fn_presentPwCheck();
+ 		fn_updatePw();
+ 	});
+    
+    
+    // 취소할 예약번호 가져오기
+    function fn_cancel(){
+        $(".cancel_btn").click(function(){ 
             
             var str = ""
-            var tdArr = new Array();    // 배열 선언
-            var checkBtn = $(this);
+            var cancel_btn = $(this);
             
-            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-            var tr = checkBtn.parent().parent();
+            var tr = cancel_btn.parent().parent();
             var td = tr.children();
-            
-            console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-            
             var reNo = td.eq(0).text();
-            var userid = td.eq(1).text();
-            var name = td.eq(2).text();
-            var email = td.eq(3).text();
-            var email = td.eq(4).text();
-            var email = td.eq(5).text();
-            var email = td.eq(6).text();
-            var email = td.eq(7).text();
-            var email = td.eq(8).text();
-            var email = td.eq(9).text();
-            var email = td.eq(10).text();
             
-            
-            // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-            td.each(function(i){    
-                tdArr.push(td.eq(i).text());
-            });
-            
-            console.log("배열에 담긴 값 : "+tdArr);
-            
- 
-            str +=    " * 클릭된 Row의 td값 = reNo. : <font color='red'>" + reNo + "</font>" ;     
-            
-            $("#ex2_Result1").html(" * 클릭한 Row의 모든 데이터 = " + tr.text());        
-            $("#ex2_Result2").html(str);    
+            $("#reNo").val(reNo);    
         });
-    
+    }
  
-    </script>
+    //취소시 비밀번호 확인창 - 토글
+    function fn_showLogin(){
+			$('.cancel_btn').on('click',function(){
+				$('#reNo_f').toggle();
+			});	 
+		}	 
+    
+    
+ 	// 현재 비밀번호 확인(presentPwCheck)
+	var presentPwPass = false;
+	function fn_presentPwCheck(){
+		$('#mPw').keyup(function(){
+			var obj = { // 현재 비밀번호 객체 생성
+					mpw: $('#mPw').val()
+			};
+			$.ajax({
+				url: 'presentPwCheck.do',
+				type: 'post',
+				contentType: 'application/json',
+				data: JSON.stringify(obj),
+				dataType: 'json',
+				success: function(resultMap){
+					if(resultMap.isCorrect){
+						presentPwPass = true;
+					} else{
+						presentPwPass = false;
+					}
+				}
+			});
+		});
+	}
+	// 비밀번호 변경(updatePw)
+	function fn_updatePw(){
+		$('#pw_check').click(function(){
+			if(!presentPwPass){ // 기존 비밀번호와 일치하지 않을 경우
+				alert('현재 비밀번호가 일치하지 않습니다. 확인해주세요.');
+				$('#mPw').focus();
+				return false;
+			}else{
+				$('#reNo_f').attr('action', 'cancelPage.do');
+				$('#reNo_f').submit();
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
+</script>
 
 
 

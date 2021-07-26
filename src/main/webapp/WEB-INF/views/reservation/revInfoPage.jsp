@@ -267,7 +267,7 @@
 		<div id="admin_mode" class="myMenu disabled">
 			<form action="loginAdmin.do" method="post">
   	   	 	<div class="form hide">
-  	   	 		<input type="hidden" name="page" value="board/viewBoard">
+  	   	 		<input type="hidden" name="page" value="revInfoPage.do">
   	   	 		<h2 style="text-align:center">관리자 로그인</h2>
 				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
    				 <div class="form2">

@@ -20,8 +20,10 @@ public class MyReservationCommand implements ReservationCommand {
 		
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		
-		// 예약가능한 방 불러오는 함수
+		// 회원의 예약리스트
 		model.addAttribute("myReservationList",reservationDAO.reservationList(mNo));
+		
+		
 		
 
 	}

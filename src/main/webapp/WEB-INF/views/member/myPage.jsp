@@ -29,7 +29,7 @@
 		function fn_presentPwCheck(){
 			$('#mPw0').keyup(function(){
 				var obj = { // 현재 비밀번호 객체 생성
-						mPw: $('#mPw0').val()
+						mpw: $('#mPw0').val()
 				};
 				$.ajax({
 					url: 'presentPwCheck.do',

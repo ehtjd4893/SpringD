@@ -1,5 +1,7 @@
 package com.team.d.controller;
 
+import java.util.function.Predicate;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,6 +13,7 @@ import com.team.d.command.reservation.CancelRevCommand;
 import com.team.d.command.reservation.MyReservationCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
+import com.team.d.command.reservation.ReservationCommand;
 import com.team.d.command.reservation.RevInfoCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
@@ -31,6 +34,7 @@ public class ReservationController {
 	private RevInfoCommand revInfoCommand;
 	private MyReservationCommand myReservationCommand;
 	private CancelRevCommand cancelRevCommand;
+	
 	 
 	 
 	// 조회 페이지로 이동
@@ -94,4 +98,5 @@ public class ReservationController {
 		return "reservation/cancelPage";
 	}
 	
+	 
 }

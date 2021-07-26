@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
+// 로그아웃
 public class LogoutCommand implements MemberCommand {
 
 	@Override

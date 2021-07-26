@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import com.team.d.dao.MemberDAO;
 
+// 아이디 존재 여부(중복 확인)
 public class IdCheckCommand{
 
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {

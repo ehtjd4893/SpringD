@@ -1,5 +1,8 @@
 package com.team.d.command.member;
+
 import java.io.IOException;
+
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +15,7 @@ import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
 
+// 비밀번호 찾고 새 비밀번호로 변경
 public class ChangePwCommand implements MemberCommand {
 
 	@Override

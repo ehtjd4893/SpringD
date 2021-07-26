@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 import com.team.d.dao.MemberDAO;
 
+// 이메일 존재 여부(중복 확인)
 public class EmailCheckCommand {
 
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {

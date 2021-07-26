@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 
+// 아이디 찾기
 public class FindIdCommand {
 
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
@@ -23,7 +24,7 @@ public class FindIdCommand {
 		Map<String, Object> resultMap = new HashMap<>();
 		if(findUser == null) { // 입력한 정보와 일치하는 mId가 없을 경우
 			resultMap.put("status", 500);
-		} else {
+		} else { // 입력한 정보와 일치하는 mId가 있을 경우 반환
 			resultMap.put("status", 200);
 			resultMap.put("mId", findUser.getMId());
 		}

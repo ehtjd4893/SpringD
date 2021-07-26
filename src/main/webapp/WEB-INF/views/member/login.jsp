@@ -6,115 +6,119 @@
 	<jsp:param value="로그인" name="title" />
 </jsp:include>
 
-<link rel="stylesheet" href="resources/css/layout.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
-<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오 API -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<style>
-	.container{
-		margin: 0 auto;
-		width: 1200px;
-		height: 500px;
-		margin-top: 100px;
-	}
-	.login_form{
-		margin: 0 auto;
-		width: 400px;
-		padding-top: 100px;
-		text-align: center;
-	}
-	#f input{
-		width: 300px;
-		height: 50px;
-		border: 1px solid black;
-	}
-	#f button{
-		width: 300px;
-		height: 50px;
-		background-color: #f1e3c4;
-		border: none;
-	}
-	#f button:hover {
-		cursor: pointer;
-	}
-</style>
+	<link rel="stylesheet" href="resources/css/layout.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오 API -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	<!-- CSS -->
+	<style>
+		.container{
+			margin: 0 auto;
+			width: 1200px;
+			height: 500px;
+			margin-top: 100px;
+		}
+		.login_form{
+			margin: 0 auto;
+			width: 400px;
+			padding-top: 100px;
+			text-align: center;
+		}
+		#f input{
+			width: 300px;
+			height: 50px;
+			border: 1px solid black;
+		}
+		#f button{
+			width: 300px;
+			height: 50px;
+			background-color: #f1e3c4;
+			border: none;
+		}
+		#f button:hover {
+			cursor: pointer;
+		}
+	</style>
 
-<script type="text/javascript">
-	// 카카오 API 초기화
-	Kakao.init('464a8f29a97a043193116da7f11294e8');	// 발급 받은 javaScript 키
-	console.log(Kakao.isInitialized()); // 카카오 라이브러리(sdk) 초기화
-	
-	// 페이지 로드
-	$(document).ready(function(){
-		fn_login();
-	});
-	
-	// 로그인(login)
-	function fn_login(){
-		$('#f').submit(function(e){
-			if($('#kakaoLogin').val == "N"){ // 일반 로그인일 때만 유효성 검사
-				if($('#mId').val() == '' || $('#mPw').val() == ''){ // 아이디, 비밀번호 입력 값이 없을 경우
-					alert('아이디와 비밀번호는 필수입니다.');
-					e.preventDefault();
-					$('#mId').focus();
-					return false;
+	<!-- script -->
+	<script type="text/javascript">
+		// 카카오 API 초기화
+		Kakao.init('464a8f29a97a043193116da7f11294e8');	// 발급 받은 javaScript 키
+		console.log(Kakao.isInitialized()); // 카카오 라이브러리(sdk) 초기화
+		
+		// 페이지 로드
+		$(document).ready(function(){
+			fn_login();
+		});
+		
+		// 로그인(login)
+		function fn_login(){
+			$('#f').submit(function(e){
+				if($('#kakaoLogin').val == "N"){ // 일반 로그인일 때만 유효성 검사
+					if($('#mId').val() == '' || $('#mPw').val() == ''){ // 아이디, 비밀번호 입력 값이 없을 경우
+						alert('아이디와 비밀번호는 필수입니다.');
+						e.preventDefault();
+						$('#mId').focus();
+						return false;
+					}
 				}
-			}
-		});
-	}
-	
-	// 카카오 로그인(loginKakaoPopUp) - 팝업 방식
-	function loginKakaoPopUp() {
-	    Kakao.Auth.login({
-	        success: function(authObj) { // 로그인 할 카카오계정 인증할 때, 토큰 발급 받음
-	            Kakao.Auth.setAccessToken(authObj.access_token); // 받아 온 토큰 세팅
-				setUserEmail(); // 사용자 이메일 조회
-	        },
-	        fail: function(err) {
-	            alert(JSON.stringify(err))
-	        },
-	    })
-	}
-	
-	// 사용자 이메일 조회(setUserEmail) : DB에 이메일 존재 여부에 따라 회원가입 or 로그인
-	function setUserEmail(){
-		Kakao.API.request({ // 카카오에서 가져 올 프로퍼티 요청
-		    url: '/v2/user/me',
-		    data: { // 이메일 가져오기
-		        property_keys: ["kakao_account.email"]
-		    },
-		    success: function(response) { // 카카오에서 가져 온 이메일 중복체크
-		    	$('#mEmail').val(response.kakao_account.email);
-		    	emailCheck(response.kakao_account.email);
-		    },
-		    fail: function(error) {
-		        console.log(error);
-		    }
-		});
-	}
-	
-	// 이메일 중복체크
-	function emailCheck(mEmail){
-		$.ajax({
-			url: 'emailCheck.do',
-			type: 'get',
-			data: 'mEmail=' + mEmail,
-			dataType: 'json',
-			success: function(resultMap){
-				if(resultMap.result == 0){ // DB에 일치하는 이메일이 없는 경우 회원가입으로 이동
-					location.href = 'http://localhost:9090/d/joinPage.do';
-				} else{ // DB에 일치하는 이메일이 있는 경우 해당 이메일로 로그인
-					$('#kakaoLogin').val("Y");
-					$('#f').submit();
+			});
+		}
+		
+		// 카카오 로그인(loginKakaoPopUp) - 팝업 방식
+		function loginKakaoPopUp() {
+		    Kakao.Auth.login({
+		        success: function(authObj) { // 로그인 할 카카오계정 인증할 때, 토큰 발급 받음
+		            Kakao.Auth.setAccessToken(authObj.access_token); // 받아 온 토큰 세팅
+					setUserEmail(); // 사용자 이메일 조회
+		        },
+		        fail: function(err) {
+		            alert(JSON.stringify(err))
+		        },
+		    })
+		}
+		
+		// 사용자 이메일 조회(setUserEmail) : DB에 이메일 존재 여부에 따라 회원가입 or 로그인
+		function setUserEmail(){
+			Kakao.API.request({ // 카카오에서 가져 올 프로퍼티 요청
+			    url: '/v2/user/me',
+			    data: { // 이메일 가져오기
+			        property_keys: ["kakao_account.email"]
+			    },
+			    success: function(response) { // 카카오에서 가져 온 이메일 중복체크
+			    	$('#mEmail').val(response.kakao_account.email);
+			    	emailCheck(response.kakao_account.email);
+			    },
+			    fail: function(error) {
+			        console.log(error);
+			    }
+			});
+		}
+		
+		// 이메일 중복 체크(emailCheck)
+		function emailCheck(mEmail){
+			$.ajax({
+				url: 'emailCheck.do',
+				type: 'get',
+				data: 'mEmail=' + mEmail,
+				dataType: 'json',
+				success: function(resultMap){
+					if(resultMap.result == 0){ // DB에 일치하는 이메일이 없는 경우 회원가입으로 이동
+						location.href = 'http://localhost:9090/d/joinPage.do';
+					} else{ // DB에 일치하는 이메일이 있는 경우 해당 이메일로 로그인
+						$('#kakaoLogin').val("Y");
+						$('#f').submit();
+					}
+				},
+				error: function(xhr, textStatus, errorThrown) {
+					
 				}
-			},
-			error: function(xhr, textStatus, errorThrown) {
-				
-			}
-		});
-	}
-</script>
-
+			});
+		}
+	</script>
+	
+	<!-- 화면 -->
 	<div class="container">
 		<div class="login_form">
 			<!-- 비로그인 화면 -->

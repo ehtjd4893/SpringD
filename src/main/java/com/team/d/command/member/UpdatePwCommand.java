@@ -14,6 +14,7 @@ import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
 
+// 비밀변호 변경
 public class UpdatePwCommand implements MemberCommand {
 
 	@Override

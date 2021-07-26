@@ -1,6 +1,7 @@
 package com.team.d.command.member;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,10 +11,12 @@ import org.springframework.ui.Model;
 
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
+
+// 현재 비밀번호 확인
 public class PresentPwCheckCommand {
 
-public Map<String, Boolean> execute(SqlSession sqlSession, Model model) {
-		
+	public Map<String, Boolean> execute(SqlSession sqlSession, Model model) {
+			
 		Map<String, Object> map = model.asMap();
 		HttpSession session = (HttpSession)map.get("session");
 		MemberDTO memberDTO = (MemberDTO)map.get("memberDTO");

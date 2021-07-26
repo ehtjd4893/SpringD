@@ -7,6 +7,8 @@
 	<meta charset="UTF-8">
 	<title>마이페이지</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	<!-- script -->
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
@@ -18,6 +20,7 @@
 			fn_emailCode();
 			fn_leave();
 		});
+		
 		// 현재 비밀번호 확인(presentPwCheck)
 		var presentPwPass = false;
 		function fn_presentPwCheck(){
@@ -46,6 +49,7 @@
 				});
 			});
 		}
+		
 		// 비밀번호 변경(updatePw)
 		function fn_updatePw(){
 			$('#updatePw_btn').click(function(){
@@ -70,10 +74,12 @@
 				}
 			});
 		}
-		// 전화번호(phoneCheck)
+		
+		// 전화번호 유효성 검사(phoneCheck)
 		var phonePass = false;
 		function fn_phoneCheck(){
 			$('#mPhone').keyup(function(){
+				// 전화번호 정규식
 				var regPhone = /^010[0-9]{3,4}[0-9]{4}$/;
 				if(regPhone.test($('#mPhone').val())){ // 전화번호 정규식 조건을 통과 했을 경우
 					$('.phone_result').text('');
@@ -84,6 +90,7 @@
 				}
 			});
 		}
+		
 		// 이메일 중복 체크(emailCheck)
 		var emailPass = false;
 		function fn_emailCheck(){
@@ -122,6 +129,7 @@
 				});
 			});
 		}
+		
 		// 이메일 인증코드 받기(emailCode)
 		function fn_emailCode(){
 			$('#emailCode_btn').click(function(){
@@ -145,6 +153,7 @@
 				});
 			});
 		}
+		
 		// 이메일 인증(emailAuth)
 		var authPass = false;
 		function fn_emailAuth(authCode){
@@ -159,6 +168,7 @@
 				}
 			});
 		}
+		
 		// 회원 정보 변경(updateMember)
 		function fn_updateMember(){
 			$('#update_btn').click(function(){
@@ -190,6 +200,7 @@
 				}
 			});
 		}
+		
 		// 회원 탈퇴(leave)
 		function fn_leave(){
 			$('#leave_btn').click(function(){

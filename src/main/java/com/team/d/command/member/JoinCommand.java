@@ -13,6 +13,7 @@ import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
 
+// 회원가입
 public class JoinCommand {
 
 	public void execute(SqlSession sqlSession, Model model) {
@@ -40,7 +41,7 @@ public class JoinCommand {
 				response.getWriter().append("alert('회원가입이 완료되었습니다. 로그인하세요.');");
 				response.getWriter().append("location.href='index.do';");
 				response.getWriter().append("</script>");
-			} else {
+			} else{
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('회원가입에 실패했습니다. 다시 시도해주세요.');");
 				response.getWriter().append("history.back();");

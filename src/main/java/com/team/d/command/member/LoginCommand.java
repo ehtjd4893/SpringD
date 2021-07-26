@@ -13,6 +13,7 @@ import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
 
+// MOOYA HOTEL 일반 로그인과 카카오계정 로그인
 public class LoginCommand implements MemberCommand {
 
 	@Override
@@ -26,24 +27,21 @@ public class LoginCommand implements MemberCommand {
 		MemberDTO memberDTO = new MemberDTO();
 		MemberDTO loginUser = null;
 		
-		// 카카오 로그인일 경우 이메일로 유저 조회 
+		// 카카오 로그인일 경우 mEmail이 memberDTO에 mEmail과 일치하는지 확인 
 		if("Y".equals(request.getParameter("kakaoLogin"))){
-			
 			memberDTO.setMEmail(request.getParameter("mEmail"));
 			
-			// memberDAO의 로그인 login메소드 호출
+			// 일치하면 memberDAO의 로그인 login메소드 호출
 			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 			loginUser = memberDAO.loginKakao(memberDTO);
 		
-		}else{ // 일반 로그인일 경우 mId, mPw로 유저 조회
-			
+		} else{ // 일반 로그인일 경우 request를 통해 입력된 mId, mPw가 memberDTO에 mId, mPw와 일치하는지 확인
 			memberDTO.setMId(request.getParameter("mId"));
 			memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw"))); // 입력된 비밀번호 암호화 처리
 			
 			// memberDAO의 로그인 login메소드 호출
 			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
 			loginUser = memberDAO.login(memberDTO);
-			
 		}
 
 		try{
@@ -59,11 +57,9 @@ public class LoginCommand implements MemberCommand {
 				response.getWriter().append("location.href='index.do'");
 				response.getWriter().append("</script>");
 			}
-		} catch (Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 }

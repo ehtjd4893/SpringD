@@ -14,6 +14,7 @@ import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.util.SecurityUtils;
 
+// 회원 정보 변경
 public class UpdateMemberCommand implements MemberCommand {
 
 	@Override

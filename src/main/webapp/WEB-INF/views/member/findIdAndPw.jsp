@@ -6,6 +6,8 @@
 	<meta charset="UTF-8">
 	<title>아이디/비밀번호 찾기</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	<!-- script -->
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
@@ -14,6 +16,7 @@
 			fn_findPw();
 			fn_emailCheck();
 		})
+		
 		// 아이디/비밀번호 찾기 radio 체크에 따른 화면 전환
 		function fn_findCheck(){
 			$('input[type=radio][name=find]').on('click', function(){
@@ -27,6 +30,7 @@
 				}
 			});
 		}
+		
 		// 아이디 찾기(findId)
 		function fn_findId(){
 			$('#findId_btn').click(function(){
@@ -62,9 +66,10 @@
 				});
 			});
 		}
+		
 		// 비밀번호 찾기(findPw) : 이메일 인증 필요(mEmail2)
 		function fn_findPw(){
-			// 이메일 인증코드 버튼 비활성화(아이디, 이메일 확인 전까지 인증절차를 막기 위함)
+			// 이메일 인증코드 버튼 비활성화(아이디, 이메일 확인 전까지 인증 절차를 막기 위함)
 			$('#emailCode_btn').click(function(){ }).prop("disabled", true); 
 			$('#findPw_btn').click(function(){
 				if($('#mId').val() == '' || $('#mEmail2').val() == ''){
@@ -101,6 +106,7 @@
 				});
 			});
 		}
+		
 		// 이메일 인증코드 받기(emailCode)
 		function fn_emailCode(){
 			$('#emailCode_btn').click(function(){
@@ -119,6 +125,7 @@
 				});
 			});
 		}
+		
 		// 이메일 인증(emailAuth)
 		function fn_emailAuth(authCode) {
 			$('#emailAuth_btn').click(function() {
@@ -132,7 +139,8 @@
 				}
 			});
 		}
-		// 이메일 정규식(emailCheck)
+		
+		// 이메일 유효성 검사(emailCheck)
 		function fn_emailCheck(){
 			$('#mEmail').keyup(function(){
 				// 이메일 정규식

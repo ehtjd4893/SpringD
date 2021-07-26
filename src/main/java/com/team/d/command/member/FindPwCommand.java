@@ -1,4 +1,5 @@
 package com.team.d.command.member;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 
+// 비밀번호 찾기
 public class FindPwCommand {
 
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
@@ -23,7 +25,7 @@ public class FindPwCommand {
 		Map<String, Object> resultMap = new HashMap<>();
 		if(findUser == null){ // 입력한 정보와 일치하지 않을 경우
 			resultMap.put("status", 500);
-		} else{
+		} else{ // 입력한 정보가 일치할 경우 
 			resultMap.put("status", 200);
 		}
 		return resultMap;

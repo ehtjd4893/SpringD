@@ -6,6 +6,8 @@
 	<meta charset="UTF-8">
 	<title>비밀번호 변경</title>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
+	<!-- script -->
 	<script type="text/javascript">
 		// 페이지 로드
 		$(document).ready(function(){
@@ -13,7 +15,8 @@
 			fn_pwCheck2();
 			fn_changePw();
 		})
-		// 새 비밀번호 검증
+		
+		// 새 비밀번호 검증(pwCheck)
 		var pwPass = false;
 		function fn_pwCheck(){
 			$('#mPw').keyup(function(){
@@ -31,20 +34,22 @@
 				}
 			});
 		}
-		// 새 비밀번호 검증 확인
+		
+		// 새 비밀번호 확인 검증(pwCheck2)
 		var pwPass2 = false;
 		function fn_pwCheck2(){
 			$('#mPw2').keyup(function(){
-				if($('#mPw').val() == $('#mPw2').val()){
+				if($('#mPw').val() == $('#mPw2').val()){ // 입력한 비밀번호와 비밀번호 확인 값이 일치할 경우
 					$('.pw2_result').text('비밀번호가 일치합니다.');
 					pwPass2 = true;
-				} else if($('#mPw').val() != $('#mPw2').val()){
+				} else{
 					$('.pw2_result').text('새로 입력한 비밀번호가 일치하지 않습니다. 확인하세요.');
 					$('#mPw2').focus();
 					pwPass2 = false;
 				}
 			});
 		}
+		
 		// 비밀번호 변경(changePw)
 		function fn_changePw(){
 			$('#changePw_btn').click(function(){
@@ -72,7 +77,8 @@
 	</script>
 </head>
 <body>
-
+	
+	<!-- 비밀번호 변경 화면 -->
 	<h3>비밀번호 변경</h3>
 	
 	<form id="f" method="post">

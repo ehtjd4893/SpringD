@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 
 import com.team.d.util.SecurityUtils;
 
+// 이메일 인증코드 전송
 public class EmailAuthCommand {
 
 	@Autowired
@@ -29,7 +30,7 @@ public class EmailAuthCommand {
 		String mEmail = request.getParameter("mEmail");
 		String authCode = null;
 		MimeMessage mMsg = mailSender.createMimeMessage(); // 이메일 작성 클래스(MimeMessage)
-		
+
 		try {
 			mMsg.setHeader("Content-Type", "text/plain; charset=utf-8");
 			mMsg.setFrom(new InternetAddress("jeonsoonjo@gmail.com", "관리자")); // 보내는 사람

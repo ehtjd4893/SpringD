@@ -28,4 +28,6 @@ sujin 계정이 안돼서 다시만듦
                 - 예약 정보 확인 페이지 기능(member/myPage.jsp에 태그 ) 수정 中
                 - 앞으로 해야될 것 : 예약 취소 버튼 누를시 -> 비밀번호 ajax로 확인(일치x면 비밀번호 일치x 알림창)하고 -> CancelCommand로 넘겨서 db의 상태칼럼 '예약 취소'로 변경
 
-        
+        0726 : 
+                - 예약시 남은 방들 뽑는 DB 수정 (reservation.xml) 中
+                - 회원의 예약 리스트 보여주고, 예약 취소시 비밀번호 확인(myReservation.jsp) (toggle 때문에 미완성)

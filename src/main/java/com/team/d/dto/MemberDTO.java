@@ -21,5 +21,6 @@ public class MemberDTO {
 	private String mGrade; // 등급
 	private Date mRegdate; // 가입일
 	private int status; // 회원 상태(탈퇴 여부)
+	private String kakaoLogin; // 카카오 로그인 여부  
 	
 }

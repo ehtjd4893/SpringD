@@ -14,6 +14,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   AND STATUS = 0
 	</select>
 	
+	<!-- 카카오 로그인(loginKakao) -->
+	<select id="loginKakao" resultType="com.team.d.dto.MemberDTO">
+		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE, STATUS
+		  FROM MEMBER
+		 WHERE MEMAIL = #{mEmail}
+		   AND STATUS = 0
+	</select> 
+	
 	<!-- 아이디 체크(idCheck) -->
 	<select id="idCheck" resultType="int">
 		SELECT COUNT(MNO)

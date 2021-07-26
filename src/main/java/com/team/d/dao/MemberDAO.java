@@ -5,6 +5,7 @@ import com.team.d.dto.MemberDTO;
 public interface MemberDAO {
 
 	public MemberDTO login(MemberDTO memberDTO); // 로그인
+	public MemberDTO loginKakao(MemberDTO memberDTO); // 카카오 로그인
 	public int idCheck(String mId); // 아이디 중복체크
 	public int emailCheck(String mEmail); // 이메일 중복체크
 	public int join(MemberDTO memberDTO); // 회원가입

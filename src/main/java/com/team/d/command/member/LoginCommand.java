@@ -23,14 +23,28 @@ public class LoginCommand implements MemberCommand {
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		HttpSession session = request.getSession();
 		
-		// request를 통해 입력된 mId, mPw가 memberDTO에 mId, mPw와 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMId(request.getParameter("mId"));
-		memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw"))); // 입력된 비밀번호 암호화 처리
+		MemberDTO loginUser = null;
 		
-		// memberDAO의 로그인 login메소드 호출
-		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		MemberDTO loginUser = memberDAO.login(memberDTO);
+		// 카카오 로그인일 경우 이메일로 유저 조회 
+		if("Y".equals(request.getParameter("kakaoLogin"))){
+			
+			memberDTO.setMEmail(request.getParameter("mEmail"));
+			
+			// memberDAO의 로그인 login메소드 호출
+			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+			loginUser = memberDAO.loginKakao(memberDTO);
+		
+		}else{ // 일반 로그인일 경우 mId, mPw로 유저 조회
+			
+			memberDTO.setMId(request.getParameter("mId"));
+			memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw"))); // 입력된 비밀번호 암호화 처리
+			
+			// memberDAO의 로그인 login메소드 호출
+			MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
+			loginUser = memberDAO.login(memberDTO);
+			
+		}
 
 		try{
 			response.setContentType("text/html; charset=utf-8");
@@ -48,5 +62,8 @@ public class LoginCommand implements MemberCommand {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
 	}
 }

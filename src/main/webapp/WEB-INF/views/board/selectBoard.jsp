@@ -32,7 +32,6 @@
 		.hide{
 			display:none;
 		}
-
 		.re_re_box{
 			padding: 0;
 			height: 45px;
@@ -103,6 +102,13 @@
 						fn_makeReply(resultMap.list);		
 						$('#reply_paging').empty();
 						$('#reply_paging').html(resultMap.paging);
+						
+						totalReply = resultMap.totalReply;
+						
+						for( let k = 0; k < resultMap.totalReply; k++ ){
+							page_arr[k] = 1;	// 페이징, 일단 모두 1로 초기화
+						}
+						
 					},	// end of success
 					error: function(){
 						alert('목록 불러오기 오류');
@@ -111,21 +117,42 @@
 		} 
 		
 		
-			// 2. 회원 목록 페이징(페이징 링크 처리)
-			function fn_paging() {
-				$('.re_reply_paging').on('click', '.previous_block', function(){
-					re_page = $(this).attr('data-page');
-				});
-				$('.re_reply_paging').on('click', '.go_page', function(){
-					re_page = $(this).attr('data-page');
-				});
-				$('.re_reply_paging').on('click', '.next_block', function(){
-					re_page = $(this).attr('data-page');
-					fn_child_reply();
-				});
-			}
+ 			function fn_paging() {
+ 				
+ 				for(let k = 0; k < totalReply; k++){
+					
+ 					// 각 댓글마다 대댓글 페이징 링크 걸기
+  					$('.re_reply_paging:eq(' + k + ')').on('click', '.previous_block', function(){
+ 						page_arr[k] = $(this).attr('data-page');
+ 						var box = $(this).parent().parent().parent().children('.btn');	
+ 						$(box).parent().children('.re_reply').toggleClass('hide');
+ 						fn_child_reply(box, parent[k]);
+ 					}); 
+ 					
+ 					$('.re_reply_paging:eq(' + k + ')').on('click', '.go_page', function(){
+ 						page_arr[k] = $(this).attr('data-page');
+ 						var box = $(this).parent().parent().parent().children('.btn');
+ 								
+ 						$(box).parent().children('.re_reply').toggleClass('hide');
+ 						fn_child_reply(box, parent[k]);
+ 					});
+ 					
+  					$('.re_reply_paging:eq(' + k + ')').on('click', '.next_block', function(){
+ 						page_arr[k] = $(this).attr('data-page');
+ 						var box = $(this).parent().parent().parent().children('.btn');
+ 						$(box).parent().children('.re_reply').toggleClass('hide');
+ 						fn_child_reply(box, parent[k]);
+ 					}); 
+ 				}
+ 			}
+ 				
 		
-		var re_page = 1;
+		// 각 댓글의 대댓글 페이징을 위한 변수
+		let page_arr = [];
+		let parent = [];
+		// 게시물의 총 댓글 수 저장.
+		var totalReply;
+		
 		// 답글 버튼 클릭시 펼치기
 		function fn_child_reply(box ,parent){
 			
@@ -133,24 +160,29 @@
 			$(box).parent().children('.re_reply').toggleClass('hide');
 			
 			var paging = null;
+			var index = $('.btn').index(box);
+			
+			
 			
 			$.ajax({
 				url: 'getChildList.do',
 				type: 'post',
 				async: false,
-				data: 're_page=' + re_page + '&parent=' + parent + '&bIdx=${Board.BIdx}',
+				data: 're_page=' + page_arr[index] + '&parent=' + parent + '&bIdx=${Board.BIdx}',
 				dataType: 'json',
 				success: function(resultMap){
 					fn_makeReReply(box, resultMap.list, parent);
 					
-					var paging = resultMap.paging;
 					// 대댓글 페이징 만들기
+ 					var paging = resultMap.paging;
 					
 					var paging_box = $(box).parent().children('.re_reply').children('.re_reply_paging');
 					
-
 					paging_box.empty();
-
+					
+					// 대댓글이 없다면 함수 끝냄
+					if(paging.endPage == 0){ return; } 
+					
 					if(paging.beginPage <= paging.pagePerBlock){
 						$('<div>')
 						.addClass('disable')
@@ -163,14 +195,9 @@
 						$('<div>')
 						.addClass('previous_block').addClass('link')
 						.attr('data-page', paging.beginPage - 1)
-						.attr('onclick', function(){
-							re_page = $(this).attr('data-page');
-						})
-						.text('▶')
+						.text('◀')
 						.appendTo(paging_box);
-					
 					}
-					
 					for(let p = paging.beginPage; p <= paging.endPage; p++){
 						if(p == paging.page) {
 							$('<div>')
@@ -203,25 +230,17 @@
 						$('<div>')
 						.addClass('next_block').addClass('link')
 						.attr('data-page', paging.endPage + 1)
-						.attr('onclick', function(){
-							re_page = $(this).attr('data-page');
-						})
 						.text('▶')
 						.appendTo(paging_box);
-					}
-					
+					} 
+			
+					fn_paging();
+
 					
 				},	// success
-				error: function(){
-					alert('답글 펼치기 오류');
-				}	// error
-			})
-		
-			
-			
-			
+			}) 
 
-		}
+		} 
 		
 		
 		// 대댓글 출력함수
@@ -236,7 +255,8 @@
 				.append( $('<div class="child_content_box">').append( $('<span>').text(reply.rcontent) )  )
 				.append( $('<div class="child_date_box">').append( $('<span>').text(reply.rpostDate) )  )
 				.appendTo( $(box).parent().children('.re_reply') );
-			});	// each 
+				
+			});	// each
 		}
 		
 		// 대댓글 삽입 함수
@@ -275,19 +295,21 @@
 		function fn_makeReply(list, paging){
 
 			$.each(list, function(i, reply){
-				
+				parent[i] = reply.ridx;
+				console.log(parent[i]);
 				$('<div class="reply_box">')
 				.append( $('<div class="writer_box">').append( $('<span>').text(reply.mid) )  )
 				.append( $('<div class="content_box">').append( $('<span>').text(reply.rcontent) )  )
 				.append( $('<div class="date_box">').append( $('<span>').text(reply.rpostDate) )  )
-				.append( $('<input type="button" value="답글" onclick="fn_child_reply(this,' + reply.ridx + ')">'))
-				.append( $('<div class="hide re_reply" id=re_reply' + reply.ridx + '>')
+				.append( $('<input type="button" value="답글" class="btn" onclick="fn_child_reply(this,' + parent[i] + ')">'))
+				.append( $('<div class="hide re_reply" id=re_reply' + parent[i] + '>')
 						.append( $('<div class="re_re_box">')
 								.append( $('<i class="fab fa-replyd fa-2x"></i>') )	
-								.append( $('<input type="text" class="re_re_content" id="re_re' + reply.ridx + '">') )		
-								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + reply.ridx +')">') )
+								.append( $('<input type="text" class="re_re_content" id="re_re' + parent[i] + '">') )		
+								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + parent[i] +')">') )
 						)
 						.append( $('<div class="re_reply_paging">') )
+						.append( $('<input type="hidden" id="re_reply_paging_no' + i + '" value="' + i + '">') )
 				)
 				.appendTo( $('#reply_list') );
 			});	// each 
@@ -311,6 +333,7 @@
 			});	// onfocus
 		}
 		
+		//
 		function fn_update(){
 			$('#update_btn').click(function(){
 				if(confirm('게시물 수정 페이지로 이동하시겠습니까?')){

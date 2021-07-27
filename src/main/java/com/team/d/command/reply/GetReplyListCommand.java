@@ -26,7 +26,9 @@ public class GetReplyListCommand  {
 		String p = (String) map.get("page");
 		
 		int re_page;
-		if(p == "") {
+		if(p.equals("")) {
+			re_page = 1;
+		} else if(p.equals("undefined")){
 			re_page = 1;
 		} else {
 			Optional<String> opt = Optional.ofNullable(p);
@@ -47,6 +49,7 @@ public class GetReplyListCommand  {
 		container.put("beginRecord", pageDTO.getBeginRecord());
 		container.put("endRecord", pageDTO.getEndRecord());
 		
+		
 
 		// 전체 게시물을 list에 담아주는 함수.
 		List<ReplyDTO> list = dao.getReplyListByBidx(container);
@@ -61,6 +64,7 @@ public class GetReplyListCommand  {
 		Map<String, Object> resultMap =  new HashMap<String, Object>();
 		resultMap.put("list", list);
 		resultMap.put("paging", paging);
+		resultMap.put("totalReply", totalReply);
 		return resultMap; 
 	} 
 

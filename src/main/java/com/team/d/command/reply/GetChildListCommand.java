@@ -25,25 +25,33 @@ public class GetChildListCommand {
 		long bIdx = Long.parseLong(request.getParameter("bIdx"));
 		
 		String p = request.getParameter("re_page");
-		
 		int re_re_page;
-		if(p == "") {
+		if(p.equals("")) {
+			re_re_page = 1;
+		} else if(p.equals("undefined")){
 			re_re_page = 1;
 		} else {
+			
 			Optional<String> opt = Optional.ofNullable(p);
 			// page로 null값이 입력된다면 시작페이지로 지정
 			re_re_page = Integer.parseInt(opt.orElse("1"));
 		}
 		
 		ReplyDAO dao = sqlSession.getMapper(ReplyDAO.class);
+
+		
 		
 		Map<String, Object> container = new HashMap<>();
 		container.put("PARENT", parent);
 		container.put("BIDX", bIdx);
-		
+
 		int totalReReply = dao.getTotalChildReplyByBIDX(container);
-		
+
 		PageDTO paging = PagingUtils.getPageByAjax(totalReReply, re_re_page);
+
+		container.put("beginRecord", paging.getBeginRecord());
+		container.put("endRecord", paging.getEndRecord());
+		
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		

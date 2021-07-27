@@ -27,6 +27,7 @@ import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
 import com.team.d.command.reservation.CancelRevCommand;
+import com.team.d.command.reservation.EmailRevCodeCommand;
 import com.team.d.command.reservation.MyReservationCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
@@ -182,6 +183,10 @@ public class TeamConfiguration {
 	@Bean
 	public CancelRevCommand cancelRevCommand() {
 		return new CancelRevCommand();
+	}
+	@Bean
+	public EmailRevCodeCommand emailRevCodeCommand() {
+		return new EmailRevCodeCommand();
 	}
 	/* Room 관련*/
 	@Bean

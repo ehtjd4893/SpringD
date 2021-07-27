@@ -14,7 +14,9 @@
 	<c:if test="${loginUser eq null}">
 		<a href="loginPage.do">로그인</a>
 	</c:if>
-
+	<c:if test="${loginUser != null}">
+		<a href="loginPage.do">마이페이지</a>
+	</c:if>
 
 	<a href="boardPage.do">게시판</a>	 	
 	
@@ -24,6 +26,6 @@
 	
 	<a href="reservationSelectDatePage.do">예약하기</a>	
 	
-	
+	<a href="nonMemberCodePage.do">비회원 예약 조회</a>
 </body>
 </html>

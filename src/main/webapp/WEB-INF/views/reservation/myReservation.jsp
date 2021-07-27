@@ -5,7 +5,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
+	<link rel="stylesheet" href="resources/css/pwCheck.css"> 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>예약 리스트</title>
@@ -60,14 +60,16 @@
                  
             </tbody>
         </table>
+      
+        <!-- 취소시 비밀번호 확인 (토글)-->
+        <div id="subData" class="subData disabled">
         
-        <!-- 취소시 비밀번호 확인 -->
-        <div id="subData">
 	        <form id="reNo_f">
-	        	비밀번호 확인<br>
-	        	<input type="text" id="reNo" name="reNo">
+	        	<div id="popup_title">비밀번호 확인</div>
+	        	<a id="close"><i class="fas fa-times fa-3x"></i></a>
+	        	<input type="text" id="reNo" name="reNo" hidden=""><br>
 	        	비밀번호 <input type="password" id="mPw" >
-	        	<input type="button" value="확인" id="pw_check">
+	        	<input type="button" value="확인" id="pw_check" >
 	        </form>
        </div>
        
@@ -82,13 +84,14 @@
  		fn_cancel();
  		fn_presentPwCheck();
  		fn_updatePw();
+ 		fn_showPw();
  	});
     
     
     // 취소할 예약번호 가져오기
     function fn_cancel(){
         $(".cancel_btn").click(function(){ 
-            
+        	
             var str = ""
             var cancel_btn = $(this);
             
@@ -96,18 +99,23 @@
             var td = tr.children();
             var reNo = td.eq(0).text();
             
-            $("#reNo").val(reNo);    
+            $("#reNo").val(reNo);  
+            //tr.append('<td>').append('규웃z');
         });
     }
  
     //취소시 비밀번호 확인창 - 토글
-    function fn_showLogin(){
+    function fn_showPw(){
 			$('.cancel_btn').on('click',function(){
-				$('#reNo_f').toggle();
-			});	 
+				$('#subData').toggle();
+			});
+			$('#close').on('click',function(){
+				$('#subData').toggle();
+			});
+			
 		}	 
     
-    
+   
  	// 현재 비밀번호 확인(presentPwCheck)
 	var presentPwPass = false;
 	function fn_presentPwCheck(){

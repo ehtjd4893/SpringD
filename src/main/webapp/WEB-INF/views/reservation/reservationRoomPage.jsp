@@ -7,17 +7,10 @@
 <meta  charset=UTF-8>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		
-	});
-	
-	
- 
-</script>
+
 </head>
 <body>
-다음페이지<br><br>
+
  	<c:if test="${empty room}">
  		예약가능한 방이 없습니다.
  		<input type="button" value="이전으로" id="pre">

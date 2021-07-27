@@ -26,7 +26,7 @@
 	<div>
 		<form id="f">
 			예약이 취소 되었습니다.
-			<input type="text" name="mNo" value="${loginUser.getMNo()}">
+			<input type="hidden" name="mNo" value="${loginUser.getMNo()}" >
 			<input type="button" value="회원님의 예약리스트 이동" id="myList_btn">
 		</form>
 	</div>

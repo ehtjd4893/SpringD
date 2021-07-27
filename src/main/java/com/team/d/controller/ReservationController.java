@@ -1,6 +1,7 @@
 package com.team.d.controller;
 
-import java.util.function.Predicate;
+
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.team.d.command.reservation.CancelRevCommand;
+import com.team.d.command.reservation.EmailRevCodeCommand;
 import com.team.d.command.reservation.MyReservationCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
-import com.team.d.command.reservation.ReservationCommand;
 import com.team.d.command.reservation.RevInfoCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
@@ -34,6 +35,7 @@ public class ReservationController {
 	private RevInfoCommand revInfoCommand;
 	private MyReservationCommand myReservationCommand;
 	private CancelRevCommand cancelRevCommand;
+	private EmailRevCodeCommand emailRevCodeCommand;
 	
 	 
 	 
@@ -98,5 +100,25 @@ public class ReservationController {
 		return "reservation/cancelPage";
 	}
 	
-	 
+	
+	
+	
+	//비회원 예약번호 검사 페이지 이동
+	@GetMapping(value="nonMemberCodePage.do")
+	public String nonMemberCodePage( ) {
+		return "reservation/nonMemberCodePage";
+	}
+	
+	//이메일 예약번호 확인
+	@GetMapping(value="emailRevCode.do",produces="application/json; charset=utf-8")
+	public Map<String, Object> emailRevCode(HttpServletRequest request,Model model) {
+		model.addAttribute("request",request);
+		return emailRevCodeCommand.execute(sqlSession, model);
+	}
+	
+	//비회원으로 예약된 정보 페이지 이동
+	@GetMapping(value="nonMemReservationPage.do")
+	public String nonMemReservationPage( ) {
+		return "reservation/nonMemReservationPage";
+	}
 }

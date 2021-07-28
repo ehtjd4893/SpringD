@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE MNO = #{mNo}
 	</update>
 
-	<!-- 회원정보 변경(updateMember):이름, 전화번호, 이메일 -->
+	<!-- 회원정보 변경(updateMember): 이름, 전화번호, 이메일 -->
 	<update id="updateMember">
 		UPDATE MEMBER
 		   SET MNAME = #{mName}
@@ -82,11 +82,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 회원탈퇴(leave) -->
-	<update id="leave">
-		UPDATE MEMBER
-		   SET STATUS = -1
+	<delete id="leave">
+		DELETE
+		  FROM MEMBER
 		 WHERE MNO = #{mNo}
-	</update>
+	</delete>
+	
+	<!-- 재가입(reJoin) : STATUS 0으로 변경 -->
+	<!-- 	
+		<update id="reJoin">
+			UPDATE MEMBER
+			   SET STATUS = 0
+			 WHERE MNO = #{mNo}
+		</update>
+	-->
 
 </mapper>
 

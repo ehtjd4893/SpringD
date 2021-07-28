@@ -39,7 +39,7 @@ public class JoinCommand {
 			if (result > 0) { // 회원가입 성공
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('회원가입이 완료되었습니다. 로그인하세요.');");
-				response.getWriter().append("location.href='index.do';");
+				response.getWriter().append("location.href='loginPage.do';");
 				response.getWriter().append("</script>");
 			} else{
 				response.getWriter().append("<script>");

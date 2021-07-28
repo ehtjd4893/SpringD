@@ -196,5 +196,5 @@ public class MemberController {
 		model.addAttribute("response", response);
 		leaveCommand.execute(sqlSession, model);
 	}
-	
+
 }

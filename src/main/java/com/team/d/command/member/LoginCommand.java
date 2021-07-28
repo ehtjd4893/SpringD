@@ -54,7 +54,7 @@ public class LoginCommand implements MemberCommand {
 			} else{
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('가입된 정보가 없습니다. 아이디와 비밀번호를 확인하세요!');");
-				response.getWriter().append("location.href='index.do'");
+				response.getWriter().append("location.href='loginPage.do'");
 				response.getWriter().append("</script>");
 			}
 		} catch(Exception e) {

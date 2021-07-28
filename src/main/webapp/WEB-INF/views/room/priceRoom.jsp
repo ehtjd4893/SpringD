@@ -38,7 +38,7 @@
 			}
 			document.getElementById('noEmail').onclick = function(){
 		    	window.open('noEmail.do', '', 'width=400, height=352, resizable=no');
-			}
+			} 
 			getDate();
 			
 			$('<input type="hidden" name="page" value="priceRoom.do">')

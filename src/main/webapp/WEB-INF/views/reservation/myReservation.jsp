@@ -63,7 +63,6 @@
       
         <!-- 취소시 비밀번호 확인 (토글)-->
         <div id="subData" class="subData disabled">
-        
 	        <form id="reNo_f">
 	        	<div id="popup_title">비밀번호 확인</div>
 	        	<a id="close"><i class="fas fa-times fa-3x"></i></a>
@@ -72,7 +71,8 @@
 	        	<input type="button" value="확인" id="pw_check" >
 	        </form>
        </div>
-       
+       <a href="index.do">메인으로</a>	 	
+	
     </div>
  
 
@@ -83,7 +83,7 @@
  	$(document).ready(function(){
  		fn_cancel();
  		fn_presentPwCheck();
- 		fn_updatePw();
+ 		fn_pwCheck();
  		fn_showPw();
  	});
     
@@ -139,8 +139,8 @@
 			});
 		});
 	}
-	// 비밀번호 변경(updatePw)
-	function fn_updatePw(){
+	// 비밀번호 확인
+	function fn_pwCheck(){
 		$('#pw_check').click(function(){
 			if(!presentPwPass){ // 기존 비밀번호와 일치하지 않을 경우
 				alert('현재 비밀번호가 일치하지 않습니다. 확인해주세요.');

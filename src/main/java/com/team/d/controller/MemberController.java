@@ -30,7 +30,7 @@ import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
-import com.team.d.command.reservation.CancelRevCommand;
+
 import com.team.d.command.reservation.RevInfoCommand;
 import com.team.d.dto.MemberDTO;
 
@@ -55,7 +55,6 @@ public class MemberController {
 	private AdminLoginCommand adminLoginCommand;
 	private ShowBoardCommand showBoardCommand;
 	private RevInfoCommand revInfoCommand;
-	private CancelRevCommand cancelRevCommand;
 	
 	// constructor
 	@Autowired
@@ -75,8 +74,8 @@ public class MemberController {
 							LeaveCommand leaveCommand,
 							AdminLoginCommand adminLoginCommand,
 							ShowBoardCommand showBoardCommand,
-							RevInfoCommand revInfoCommand,
-							 CancelRevCommand cancelRevCommand) {
+							RevInfoCommand revInfoCommand
+							 ) {
 		super();
 		this.sqlSession = sqlSession;
 		this.loginCommand = loginCommand;
@@ -94,7 +93,6 @@ public class MemberController {
 		this.leaveCommand = leaveCommand;
 		this.adminLoginCommand = adminLoginCommand;
 		this.revInfoCommand=revInfoCommand;
-		this.cancelRevCommand=cancelRevCommand;
 	}
 	
 	@GetMapping(value= {"/", "index.do"})
@@ -120,9 +118,6 @@ public class MemberController {
 			revInfoCommand.execute(sqlSession, model);
 			return "reservation/revInfoPage";
 		}
-			
-		
-		
 		
 		return page;
 	}

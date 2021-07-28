@@ -3,21 +3,18 @@ package com.team.d.command.reservation;
 import java.sql.Date;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
-import org.junit.runner.Request;
 import org.springframework.ui.Model;
 
 import com.team.d.dao.ReservationDAO;
 import com.team.d.dto.MemberDTO;
 import com.team.d.dto.ReservationDTO;
-import com.team.d.dto.RoomDTO;
 
 public class ReceiptCommand implements ReservationCommand {
-
+	//예약만 DB에 넣어주는 Command
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		
@@ -40,17 +37,18 @@ public class ReceiptCommand implements ReservationCommand {
 		long totalPay=Long.parseLong( request.getParameter("totalPay"));
 		//예약자명
 		String booker=request.getParameter("booker");
+		//예약 이메일
 		String reEmail=request.getParameter("reEmail");
+		//요청사항
 		String note=request.getParameter("note");
 		
-		
  
-		//세션에서 예약한 회원 명 뽑음
+		//세션에서 예약한 회원 명 뽑아서 reservation테이블에 넣을 mNo(회원번호) 추출
 		HttpSession session=request.getSession();
 		MemberDTO loginUser=(MemberDTO) session.getAttribute("loginUser");
 		long mNo=loginUser.getMNo();
 		
-		
+		//DB에 넣을 DTO 생성
 		ReservationDTO r=new ReservationDTO();
 		r.setMNo(mNo);
 		r.setPeople(people);
@@ -63,18 +61,14 @@ public class ReceiptCommand implements ReservationCommand {
 		r.setNote(note);
 		
 		
-		
-		
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
-		
 		//DB에 '예약정보 삽입' 하고 '리턴값으로 예약시퀀스값' 저장
 		int result=reservationDAO.insertReservation(rNo, mNo, people, checkIn, checkOut, food,totalPay,booker,reEmail,note);
 		System.out.println(result);
-		//System.out.println(rNo+","+ mNo+","+people+","+checkIn+","+checkOut+","+ food);
 		//DB에 삽입한 예약정보 model에 넘김
 		model.addAttribute("reno",reservationDAO.selectViewReservation());
 		model.addAttribute("selectRoom",reservationDAO.selectRoom(rNo));
-		model.addAttribute("reservationDTO",r);
+		//model.addAttribute("reservationDTO",r);
 		
 	}
 

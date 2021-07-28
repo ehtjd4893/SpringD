@@ -11,28 +11,24 @@
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		fn_ch();
-		fn_emailCheck();
-		fn_email_code();
-		fn_email_auth();
-		fn_doReservation();
-		fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
+		fn_check();	//체크박스 누름 => 회원과 같은 정보 뿌려줌
+		fn_emailCheck();	//이메일 형식검사
+		fn_email_code();	//이메일 확인 버튼 누름
+		fn_email_auth();	//이메일 코드 확인 검사
+		fn_doReservation();	//예약하기 버튼 누름
+		fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫히고 , 열림반복
 		fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 	});	
 	
 	
 	//체크박스('회원정보와 동일하다') 클릭시, 정보 뿌려줌
-	function fn_ch(){
+	function fn_check(){
 		$('#sameUser_box').click(function(){
 			if($("input:checkbox").is(":checked") == true) {
 				
-				//로그인 안되어있을시 , 컨펌 띄우고(확인누를시 로그인 페이지로 이동/아닐시 페이지 유지)
+				//로그인 안되어있을시 , 로그인 div보여주기
 				<c:if test="${empty loginUser}">
-					if(confirm('로그인 하시겠습니까 ?')){
-						//로그인 툴 보여주기
-						$('.form').toggleClass('hide');
-					} 
-					$('input').prop("checked", false);	//로그인 안할시, 체크박스 해제
+					$('.form').toggleClass('hide');
 				</c:if>
 
 				//로그인 되어있을시, 그냥 회원정보 띄워주기
@@ -82,7 +78,7 @@
 				success: function(resultMap){
 					alert('인증코드가 발송되었습니다. 메일을 확인하세요.');
 					fn_email_auth(resultMap.authCode);
-					alert(resultMap.authCode);
+					alert(resultMap.authCode);	//편의상 달아놓았습니다.. ^^!
 				},
 				error: function(xhr, textStatus, errorThrown) {
 					
@@ -105,37 +101,43 @@
 	}
 		
 	
-	//이메일 인증했는지 + (이름,휴대폰 적었는지) => 됐다면 (영수증)페이지 이동 / 아니라면 안내문자
+	//1.로그인 했는지 => 2.이메일 인증했는지 + (이름,휴대폰 적었는지) => 3. 됐다면 (영수증)페이지 이동 / 아니라면 안내문자
 	function fn_doReservation(){
 		$('#doReservation_btn').click(function(){
-			if($('#booker').val()==''){
-				alert('예약자명은 필수입니다.');
-				return false;
-			}else if($('#tel').val()==''){
-				alert('전화번호는 필수입니다.');
-				return false;
-			}else if( authPass==false){
-				alert('이메일 인증은 필수입니다.');
-				return false;
-			}else{
-				$('#f').attr('action','receiptPage.do');
-				$('#f').submit();
-			}
 			
+			<c:if test="${empty loginUser}">
+				$('.form').toggleClass('hide');
+			</c:if>
+			
+			<c:if test="${not empty loginUser}">
+				if($('#booker').val()==''){
+					alert('예약자명은 필수입니다.');
+					return false;
+				}else if($('#tel').val()==''){
+					alert('전화번호는 필수입니다.');
+					return false;
+				}else if( authPass==false){
+					alert('이메일 인증은 필수입니다.');
+					return false;
+				}else{
+					$('#f').attr('action','receiptPage.do');
+					$('#f').submit();
+				}
+			</c:if>
 		});
 	}
 	
 	
 	//로그인 관련 script
 	
-	
-	function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
-		$('#closeLogin').click(function(){
-			$('.form hide').toggleClass('hide');
-		})	// onclick#
-	}	// fn_closeLogin
-	
-	
+    function fn_closeLogin(){
+			$('.cancel_btn').on('click',function(){
+				$('.form').toggleClass('hide');
+			});
+			$('#closeLogin').on('click',function(){
+				$('.form').toggleClass('hide');
+			});
+		}	
 	
 	function fn_toggle_mode(){
 		$('#mem_to_admin').click(function(){
@@ -166,7 +168,7 @@
 
 	<h1>예약정보</h1>
 	<form id="f">
-	<!-- <input type="hidden" name="page" value="reservation/revInfoPage"> -->
+	<!-- 파라미터 값들(hidden) -->
 		<input type="hidden" id="rNo" name="rNo" value="${rNo}">
 	 	<input type="hidden" name="checkIn" value="${checkIn}">
 	 	<input type="hidden" name="checkOut" value="${checkOut}">

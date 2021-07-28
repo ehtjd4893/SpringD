@@ -9,7 +9,7 @@
 	<title>결제 완료</title>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			fn_indexPage();
+			fn_indexPage();	//메인 페이지 이동
 		});
 		
 		function fn_indexPage(){

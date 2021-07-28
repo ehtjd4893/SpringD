@@ -18,6 +18,7 @@ import com.team.d.dto.RoomDTO;
 
 public class ReceiptCommand2 implements ReservationCommand {
 
+	//영수증.jsp 로 보내줄 list 가져오는 command
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
 		

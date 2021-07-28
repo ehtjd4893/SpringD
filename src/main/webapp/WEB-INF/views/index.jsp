@@ -26,6 +26,6 @@
 	
 	<a href="reservationSelectDatePage.do">예약하기</a>	
 	
-	<a href="nonMemberCodePage.do">비회원 예약 조회</a>
+	<!--  <a href="nonMemberCodePage.do">비회원 예약 조회</a>   고려중 -->
 </body>
 </html>

@@ -14,7 +14,7 @@
 	
 	//확인 클릭
 	function fn_next(){
-		$('#code_check').click(function(){
+		$('#email_check').click(function(){
 			fn_revCheck();
 		});
 	}
@@ -22,9 +22,9 @@
 	//예약번호 확인
 	function fn_revCheck(){
 		$.ajax({
-			url: 'emailRevCode.do',
+			url: 'reservationEmail.do',
 			type: 'get',
-			data: 'reCode=' + $('#reCode').val(),
+			data: 'email=' + $('#email').val(),
 			dataType: 'json',
 			success: function(res){
 				if(res.result == 0){
@@ -33,7 +33,7 @@
 					$('#code_f').submit();
 				} else{
 					//없는 예약코드시 
-					alert('존재하지 않는 예약번호입니다.');
+					alert('존재하지 않는 예약 이메일입니다.');
 					return false;
 				}
 			},
@@ -65,10 +65,10 @@
 	<!-- 비회원 예약 코드 -->
         <div id="subData">
 	        <form id="code_f">
-	        	<div id="popup_title">이메일로 발송된 예약 코드 </div>
+	        	<div id="popup_title">예약한 이메일</div>
 	        	<a id="close"><i class="fas fa-times fa-3x"></i></a>
-	        	예약 코드 <input type="text" id="reCode" >
-	        	<input type="button" value="확인" id="code_check" >
+	        	<input type="text" id="email" placeholder="xxxxx@naver.com">
+	        	<input type="button" value="확인" id="email_check" >
 	        </form>
        </div>
 </body>

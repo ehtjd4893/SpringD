@@ -6,35 +6,22 @@
 
 	<!-- 예약할수 있는 방  -->
 	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
-	SELECT A.RNO,A.RNAME,A.RPRICE,A.RGRADE,A.RIMG,A.RACCEPT,A.RSIZE,A.checkin,A.STATE
-FROM (
-        SELECT  DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE,v.checkin,v.STATE
+		SELECT  DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE,v.checkin,v.STATE
 		FROM SPRING.ROOM r LEFT OUTER JOIN SPRING.RESERVATION v
 		ON r.RNO = v.RNO
 		WHERE (v.CHECKIN  IS NULL OR v.CHECKOUT IS NULL) 
-              OR
-              (v.CHECKIN  NOT BETWEEN TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
-			  AND v.CHECKOUT NOT BETWEEN  TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
-			  AND r.RACCEPT>=#{param3}) 
-        
-        ) A
-FULL OUTER JOIN
-        (
-        SELECT  DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE,v.checkin,v.STATE
+	          OR
+	          (v.CHECKIN  NOT BETWEEN TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
+				AND v.CHECKOUT NOT BETWEEN  TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
+				AND r.RACCEPT>=#{param3}) 
+	  	UNION
+	    SELECT  DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE,v.checkin,v.STATE
 		FROM SPRING.ROOM r LEFT OUTER JOIN SPRING.RESERVATION v
 		ON r.RNO = v.RNO
 		WHERE (v.CHECKIN  BETWEEN TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
-			  AND v.CHECKOUT BETWEEN  TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
-              AND v.STATE='취소'
-			  AND r.RACCEPT>=#{param3}) 
-             
-              ) B
-ON A.RNO=B.RNO
-WHERE A.RNO IS NOT NULL 
-ORDER BY A.RNO ASC
-	
-	
-	
+				AND v.CHECKOUT BETWEEN  TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
+	            AND v.STATE='취소'
+				AND r.RACCEPT>=#{param3}) 
 	</select>
 	
 	<!-- 예약한 방 정보 -->
@@ -72,11 +59,16 @@ ORDER BY A.RNO ASC
 		WHERE MNO = #{mNo}
 	</select>
 	
-	
+	<!-- 예약 취소  -->
 	<update id="cancelReservation">
 		UPDATE SPRING.RESERVATION
 		SET	STATE='취소'
 		WHERE RENO=#{param1}
 	</update>
 	
+	<select id="reservationListNonMember" resultType="com.team.d.dto.ReservationDTO">
+		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE
+		FROM SPRING.RESERVATION
+		WHERE REEMAIL = #{reEmail}
+	</select>
 </mapper>

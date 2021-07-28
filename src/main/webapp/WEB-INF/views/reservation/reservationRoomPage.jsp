@@ -10,11 +10,13 @@
 
 </head>
 <body>
-
+	<!-- 예약가능한 방이 없는 경우 -->
  	<c:if test="${empty room}">
  		예약가능한 방이 없습니다.
  		<input type="button" value="이전으로" id="pre">
  	</c:if>
+ 	
+ 	<!-- 예약 가능한 방 리스트 -->
  	<c:if test="${not empty room}">
  		<c:forEach var="r" items="${room}">
  			 

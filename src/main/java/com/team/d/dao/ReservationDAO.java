@@ -14,4 +14,5 @@ public interface ReservationDAO {
 	public ReservationDTO selectReservation(long reNo);
 	public List<ReservationDTO> reservationList(long mNo);
 	public int cancelReservation(long reNo);
+	public List<ReservationDTO> reservationListNonMember(String reEmail);
 }

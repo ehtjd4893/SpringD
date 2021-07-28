@@ -27,6 +27,7 @@ public class RevInfoCommand implements ReservationCommand {
 		long food=Long.parseLong( request.getParameter("food"));
 		long totalPay=Long.parseLong( request.getParameter("totalPay"));
 		
+		//파라미터로 넘어오고 넘어갈 값들
 		model.addAttribute("rNo",rNo);
 		model.addAttribute("checkIn",checkIn);
 		model.addAttribute("checkOut",checkOut);

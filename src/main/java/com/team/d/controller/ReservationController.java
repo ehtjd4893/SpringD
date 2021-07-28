@@ -69,15 +69,15 @@ public class ReservationController {
 		return "reservation/revInfoPage";
 	}
 	
-	//최종 예약결과 보여주기 페이지로 이동
+	//예약 삽입만 하는 코드 
 	@GetMapping(value="receiptPage.do")
 	public String receiptPage(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
 		receiptCommand.execute(sqlSession, model);
-		return "redirect:realreceiptPage.do";
+		return "redirect:realreceiptPage.do";	//redirect
 	}
 	
-	
+	//최종 예약 보여주는 페이지 이동
 	@GetMapping(value="realreceiptPage.do")
 	public String realreceiptPage(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -85,7 +85,7 @@ public class ReservationController {
 		return "reservation/receiptPage";
 	}
 	
-	
+	//회원의 예약 목록 보여줌
 	@GetMapping(value="myReservation.do")
 	public String myReservation(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -93,6 +93,7 @@ public class ReservationController {
 		return "reservation/myReservation";
 	}
 	
+	//예약 취소
 	@GetMapping(value="cancelPage.do")
 	public String cancelPage(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -103,6 +104,8 @@ public class ReservationController {
 	
 	
 	
+	/* 아래 코드들은 검토중 */
+	
 	//비회원 예약번호 검사 페이지 이동
 	@GetMapping(value="nonMemberCodePage.do")
 	public String nonMemberCodePage( ) {
@@ -110,8 +113,8 @@ public class ReservationController {
 	}
 	
 	//이메일 예약번호 확인
-	@GetMapping(value="emailRevCode.do",produces="application/json; charset=utf-8")
-	public Map<String, Object> emailRevCode(HttpServletRequest request,Model model) {
+	@GetMapping(value="reservationEmail.do",produces="application/json; charset=utf-8")
+	public Map<String, Object> reservationEmail(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
 		return emailRevCodeCommand.execute(sqlSession, model);
 	}

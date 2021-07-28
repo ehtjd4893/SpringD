@@ -22,7 +22,7 @@ sujin 계정이 안돼서 다시만듦
        0721-2 : -예약가능한 방만 뽑아오기 DB(->하려면 먼저 예약테이블에 모든 방을 올려놔야함   => STS에 SQL파일추가) 完
        
         0722 : -예약 가능한 방 만뽑아오기 오류 수정 完
-                - 회원 로그인시 (login.do) 에 '예약정보 확인(myReservation.jsp)' 링크 추가 完
+                - 회원 로그인시 (login.do) 에 '예약정보 확인(member/myPage.jsp)' 링크 추가 完
                 -예약 정보 확인 페이지 기능(member/myPage.jsp에 태그 ) 完
                 
         0723 :  -member/login.jsp에 예약하기 버튼 추가
@@ -32,3 +32,13 @@ sujin 계정이 안돼서 다시만듦
 
         0726 :  - 예약시 남은 방들 뽑는 DB 수정 (reservation.xml) 中
                 - 회원의 예약 리스트 보여주고, 예약 취소시 비밀번호 확인(myReservation.jsp) (toggle 때문에 미완성)
+                
+        0727 :  - 예약시 남은 방들 뽑는 DB 수정 (reservation.xml) 中
+                - 회원의 예약 리스트 보여주고, 예약 취소시 비밀번호 확인(myReservation.jsp)  完
+                - 비회원 예약조회 만들다가 db손볼게 많아서 잠시 검토중입니다.
+                
+        0728 : - 예약시 남은 방들 뽑는 DB 수정 (reservation.xml)  完
+               - 비회원 예약조회 만들다가 db손볼게 많아서 잠시 검토중입니다.
+               - 병합시 볼 주석 달았습니다
+              
+                

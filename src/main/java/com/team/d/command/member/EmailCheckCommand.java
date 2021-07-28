@@ -19,7 +19,7 @@ public class EmailCheckCommand {
 		
 		String mEmail = request.getParameter("mEmail");
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		
+		 
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("result", memberDAO.emailCheck(mEmail));
 		return resultMap;

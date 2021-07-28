@@ -17,9 +17,10 @@ public class SelectNoticeCommand {
 		
 		// 전체 게시물을 list에 담아주는 함수.
 		List<BoardDTO> list = dao.getNoticeList();
+		
+		// dto의 날짜형식 변경
 		for(BoardDTO dto : list) {
 			dto.setBPostDate(dto.getBPostDate().substring(2,11));
-			System.out.println(dto);
 		}
 
 		

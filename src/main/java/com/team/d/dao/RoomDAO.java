@@ -10,4 +10,8 @@ public interface RoomDAO {
 	public RoomDTO selectRoomByRNo(long rNo);
 	
 	
+	
+	
+	
+	
 }

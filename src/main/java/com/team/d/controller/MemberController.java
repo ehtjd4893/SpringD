@@ -30,6 +30,8 @@ import com.team.d.command.member.LogoutCommand;
 import com.team.d.command.member.PresentPwCheckCommand;
 import com.team.d.command.member.UpdateCommand;
 import com.team.d.command.member.UpdatePwCommand;
+import com.team.d.command.room.SelectRoomListCommand;
+import com.team.d.command.room.SelectRoomViewCommand;
 import com.team.d.dto.MemberDTO;
 
 import lombok.AllArgsConstructor;
@@ -55,6 +57,8 @@ public class MemberController {
 	private LeaveCommand leaveCommand;
 	private AdminLoginCommand adminLoginCommand;
 	private ShowBoardCommand showBoardCommand;
+	private SelectRoomListCommand selectRoomListCommand;
+	private SelectRoomViewCommand selectRoomViewCommand;
 	// constructor
 
 	
@@ -72,10 +76,17 @@ public class MemberController {
 	public String login(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		String page = loginCommand.execute(sqlSession, model);
+		
 		if(page.equals("selectBoard.do")) {
 			showBoardCommand.execute(sqlSession, model);
 			return "board/selectBoard";
-		} 
+		} else if(page.equals("infoRoom.do")) {
+			selectRoomListCommand.execute(sqlSession, model);
+			return "room/infoRoom";
+		} else if(page.equals("priceRoom.do")) {
+			selectRoomViewCommand.execute(sqlSession, model);
+			return "room/priceRoom";
+		}
 		return page;
 	}
 	// 마이페이지 myPage.jsp 단순이동

@@ -35,6 +35,7 @@ import com.team.d.command.reply.InsertReReplyCommand;
 import com.team.d.command.reply.InsertReplyCommand;
 import com.team.d.command.reservation.SelectRemainingRoom;
 import com.team.d.command.reservation.SelectRoomCommand;
+import com.team.d.command.room.DownloadRoomServiceMenuCommand;
 import com.team.d.command.room.SelectRoomListCommand;
 import com.team.d.command.room.SelectRoomViewCommand;
 import com.zaxxer.hikari.HikariConfig;
@@ -204,5 +205,10 @@ public class TeamConfiguration {
 	@Bean
 	public SelectRoomViewCommand selectRoomViewCommand() {
 		return new SelectRoomViewCommand();
+	}
+	
+	@Bean
+	public DownloadRoomServiceMenuCommand downloadRoomServiceMenuCommand() {
+		return new DownloadRoomServiceMenuCommand();
 	}
 }

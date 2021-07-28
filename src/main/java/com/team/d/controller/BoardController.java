@@ -37,7 +37,7 @@ public class BoardController {
 	private UpdateBoardCommand updateBoardCommand;
 	private DeleteBoardCommand deleteBoardCommand;
 	
-	@GetMapping(value="boardPage.do")
+	@GetMapping(value= {"boardPage.do", "inquire.do"})
 	public String BoardPage(HttpServletRequest request, Model model) {
 		String page = request.getParameter("page");
 		if(page != null) {

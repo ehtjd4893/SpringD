@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="header.jsp" %>
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
-	<title>DS - Homepage</title>	
+
 	<style>
 		.reply_box{
 			border-top: 1px solid black;
@@ -83,13 +78,26 @@
 			fn_update();	// 수정 버튼 클릭시
 			fn_reply_no_login();	// 로그인 없이 댓글 달기 시도할 때
 			fn_reply_btn();	// 로그인 후 댓글 달기 클릭시
-			fn_showLogin();	// 로그인 버튼 클릭시 로그인창이 펴지는 함수
 			getDate();		// 시간 보여주는 함수
 			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
 			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 			fn_getReplyList();	// 댓글 출력 함수
+			
+  	   	 	$('<input type="hidden" name="page" value="selectBoard.do">')
+			.appendTo( $('.form') )
+			
+			$('<input type="hidden" name="bIdx" value="${Board.BIdx}">')
+			.appendTo( $('.form') )
 		});	// onload
 
+		
+		// 로그인 없이 댓글 달려고 할 때,
+		function fn_reply_no_login(){
+			$('#reply_no_login').focus(function(){
+				$('.form').toggleClass('hide');		
+			});	// onfocus
+		}
+		
 		// 댓글 불러오기 함수
 		 function fn_getReplyList(){
 				$.ajax({
@@ -296,7 +304,7 @@
 
 			$.each(list, function(i, reply){
 				parent[i] = reply.ridx;
-				console.log(parent[i]);
+				
 				$('<div class="reply_box">')
 				.append( $('<div class="writer_box">').append( $('<span>').text(reply.mid) )  )
 				.append( $('<div class="content_box">').append( $('<span>').text(reply.rcontent) )  )
@@ -371,108 +379,11 @@
 			});	// onclick
 		}	// fn_reply
 		
-		// 멤버 로그인, 관리자 로그인을 변경해주는 함수
-		function fn_toggle_mode(){
-			$('#mem_to_admin').click(function(){
-				$('#mem_mode').toggleClass('disabled');
-				$('#admin_mode').toggleClass('disabled');
-			});
-			
-			$('#admin_to_mem ').click(function(){
-				$('#mem_mode').toggleClass('disabled');
-				$('#admin_mode').toggleClass('disabled');
-			});
-		}
-		
-		function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
-			$('#closeLogin').click(function(){
-				$('.form').toggleClass('hide');
-			})	// onclick
-		}	// fn_closeLogin
-		
-		function fn_showLogin(){
-			$('.showLogin').on('click',function(){
-				$('.form').toggleClass('hide');
-			});	// onclick
-		}	// fn_login_btn
-		
-
-	    function getDate() { 
-	        date = setInterval(function () { 
-	            var dateString = ""; 
-
-	            var newDate = new Date(); 
-
-	            dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
-	            dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
-	            //document.write(dateString); 문서에 바로 그릴 수 있다. 
-	            $("#date").text(dateString); 
-	        }, 1000);	// 1초 단위로  
-	    } 
-		
 	</script>
 </head>
 <body>
 	
-		<div class="btn_box">
-			<span>Seoul</span>
-			<span id="date"></span>
-			<c:if test="${loginUser eq null && loginAdmin eq null}">
-	 			<input type="button" class="showLogin" value="로그인">
-	 		</c:if>
-	 		<c:if test="${loginUser ne null || loginAdmin ne null}">
-	 			<input type="button" value="로그아웃" onclick="location.href='logout.do'">
-			</c:if>
-		</div>
-		<div id="mem_mode" class="myMenu">
-			<form action="login.do" method="post">
-  	   	 	<div class="form hide">
-  	   	 		<input type="hidden" name="page" value="selectBoard.do">
-  	   	 		<input type="hidden" name="bIdx" value="${Board.BIdx}">
-  	   	 		<h2 style="text-align:center">회원 로그인</h2>
-				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
-   				 <div class="form2">
-     				<div class="form3">
-     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
-      					<div class="clear"></div>
-      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
-     				</div>	<!-- form3 -->
-     				<input type="submit" id="login_btn" value="로그인">
-     				<div class="clear"></div>
-     				<div class="form4">
-      					<div class="clear"></div>
-     						<label><input type="button" value="회원가입"></label>
-     						<label><input type="button" value="아이디/비밀번호 찾기"></label>
-     						<label><input type="button" id="mem_to_admin" value="관리자로 로그인하기"></label>
-					</div>	<!-- form4 -->
-				</div>	<!-- form2 -->
-			</div>	<!-- form -->
-			</form>
-		</div>	<!-- myMenu -->
 		
-		<div id="admin_mode" class="myMenu disabled">
-			<form action="loginAdmin.do" method="post">
-  	   	 	<div class="form hide">
-  	   	 		<input type="hidden" name="page" value="selectBoard.do">
-  	   	 		<input type="hidden" name="bIdx" value="${Board.BIdx}">
-  	   	 		<h2 style="text-align:center">관리자 로그인</h2>
-				<a id="closeLogin"><i class="fas fa-times fa-3x"></i></a>
-   				 <div class="form2">
-     				<div class="form3">
-     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
-      					<div class="clear"></div>
-      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
-     				</div>	<!-- form3 -->
-     				<input type="submit" id="login_btn" value="로그인">
-     				<div class="clear"></div>
-     				<div class="form4">
-      					<div class="clear"></div>
-     						<label><input type="button" id="admin_to_mem" value="회원으로 로그인하기"></label>
-					</div>	<!-- form4 -->
-				</div>	<!-- form2 -->
-			</div>	<!-- form -->
-			</form>
-		</div>	<!-- myMenu -->
 	
 	
 	
@@ -552,5 +463,4 @@
 		</div>
 		<div id="reply_paging"></div>
 	</form>
-</body>
-</html>
+<%@ include file="footer.jsp" %>

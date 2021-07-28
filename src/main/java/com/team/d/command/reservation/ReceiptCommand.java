@@ -50,7 +50,7 @@ public class ReceiptCommand implements ReservationCommand {
 		loginUser=(MemberDTO) session.getAttribute("loginUser");
 		if(loginUser!=null) {
 			mNo=loginUser.getMNo();
-		}
+		} 
 		
 		
 		//DB에 넣을 DTO 생성

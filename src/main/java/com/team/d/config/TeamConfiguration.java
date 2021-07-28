@@ -29,6 +29,7 @@ import com.team.d.command.member.UpdatePwCommand;
 import com.team.d.command.reservation.CancelRevCommand;
 import com.team.d.command.reservation.EmailRevCodeCommand;
 import com.team.d.command.reservation.MyReservationCommand;
+import com.team.d.command.reservation.NonMemberRevListCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
 import com.team.d.command.reservation.RevInfoCommand;
@@ -188,6 +189,11 @@ public class TeamConfiguration {
 	public EmailRevCodeCommand emailRevCodeCommand() {
 		return new EmailRevCodeCommand();
 	}
+	@Bean
+	public NonMemberRevListCommand nonMemberRevListCommand() {
+		return new NonMemberRevListCommand();
+	}
+	
 	/* Room 관련*/
 	@Bean
 	public SelectRoomListCommand selectRoomListCommand() {

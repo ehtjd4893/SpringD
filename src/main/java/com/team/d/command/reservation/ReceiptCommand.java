@@ -41,12 +41,17 @@ public class ReceiptCommand implements ReservationCommand {
 		String reEmail=request.getParameter("reEmail");
 		//요청사항
 		String note=request.getParameter("note");
-		
+		//비회원시 mNo계정은 0
+		long mNo=0;
  
-		//세션에서 예약한 회원 명 뽑아서 reservation테이블에 넣을 mNo(회원번호) 추출
+		//(로그인시) 세션에서 예약한 회원 명 뽑아서 reservation테이블에 넣을 mNo(회원번호) 추출
 		HttpSession session=request.getSession();
-		MemberDTO loginUser=(MemberDTO) session.getAttribute("loginUser");
-		long mNo=loginUser.getMNo();
+		MemberDTO loginUser=null;
+		loginUser=(MemberDTO) session.getAttribute("loginUser");
+		if(loginUser!=null) {
+			mNo=loginUser.getMNo();
+		}
+		
 		
 		//DB에 넣을 DTO 생성
 		ReservationDTO r=new ReservationDTO();

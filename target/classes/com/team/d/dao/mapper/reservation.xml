@@ -66,9 +66,10 @@
 		WHERE RENO=#{param1}
 	</update>
 	
+	<!-- 비회원 예약 조회 -->
 	<select id="reservationListNonMember" resultType="com.team.d.dto.ReservationDTO">
-		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE
+		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE,STATE
 		FROM SPRING.RESERVATION
-		WHERE REEMAIL = #{reEmail}
+		WHERE REEMAIL = #{param1}
 	</select>
 </mapper>

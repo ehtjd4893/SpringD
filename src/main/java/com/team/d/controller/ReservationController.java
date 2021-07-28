@@ -1,6 +1,7 @@
 package com.team.d.controller;
 
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.d.command.reservation.CancelRevCommand;
 import com.team.d.command.reservation.EmailRevCodeCommand;
 import com.team.d.command.reservation.MyReservationCommand;
+import com.team.d.command.reservation.NonMemberRevListCommand;
 import com.team.d.command.reservation.ReceiptCommand;
 import com.team.d.command.reservation.ReceiptCommand2;
 import com.team.d.command.reservation.RevInfoCommand;
@@ -36,6 +39,7 @@ public class ReservationController {
 	private MyReservationCommand myReservationCommand;
 	private CancelRevCommand cancelRevCommand;
 	private EmailRevCodeCommand emailRevCodeCommand;
+	private NonMemberRevListCommand nonMemberRevListCommand;
 	
 	 
 	 
@@ -106,13 +110,14 @@ public class ReservationController {
 	
 	/* 아래 코드들은 검토중 */
 	
-	//비회원 예약번호 검사 페이지 이동
-	@GetMapping(value="nonMemberCodePage.do")
-	public String nonMemberCodePage( ) {
-		return "reservation/nonMemberCodePage";
+	//비회원 이메일 확인 페이지 이동
+	@GetMapping(value="nonMemberPage.do")
+	public String nonMemberPage( ) {
+		return "reservation/nonMemberPage";
 	}
 	
 	//이메일 예약번호 확인
+	@ResponseBody
 	@GetMapping(value="reservationEmail.do",produces="application/json; charset=utf-8")
 	public Map<String, Object> reservationEmail(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -121,7 +126,9 @@ public class ReservationController {
 	
 	//비회원으로 예약된 정보 페이지 이동
 	@GetMapping(value="nonMemReservationPage.do")
-	public String nonMemReservationPage( ) {
+	public String nonMemReservationPage(HttpServletRequest request,Model model) {
+		model.addAttribute("request",request);
+		nonMemberRevListCommand.execute(sqlSession, model);
 		return "reservation/nonMemReservationPage";
 	}
 }

@@ -33,6 +33,7 @@
                        <th>조식</th>
                         <th>요청사항</th>
                          <th>총가격</th>
+                         <th>예약 상태</th>
                 </tr>
             </thead>
             <tbody>  

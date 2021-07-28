@@ -19,20 +19,20 @@
 		});
 	}
 	
-	//예약번호 확인
+	//이메일 예약 확인
 	function fn_revCheck(){
 		$.ajax({
 			url: 'reservationEmail.do',
 			type: 'get',
-			data: 'email=' + $('#email').val(),
+			data: 'reEmail=' + $('#reEmail').val(),
 			dataType: 'json',
-			success: function(res){
-				if(res.result == 0){
-					//있는 예약이면 페이지 이동
+			success: function(resultMap){
+				if(resultMap.nonMemReservation){
+					//예약목록에 있는 이메일이면 페이지 이동
 					$('#code_f').attr('action','nonMemReservationPage.do');
 					$('#code_f').submit();
 				} else{
-					//없는 예약코드시 
+					//없는 이메일시
 					alert('존재하지 않는 예약 이메일입니다.');
 					return false;
 				}
@@ -67,7 +67,7 @@
 	        <form id="code_f">
 	        	<div id="popup_title">예약한 이메일</div>
 	        	<a id="close"><i class="fas fa-times fa-3x"></i></a>
-	        	<input type="text" id="email" placeholder="xxxxx@naver.com">
+	        	<input type="text" id="reEmail" name="reEmail" placeholder="xxxxx@naver.com">
 	        	<input type="button" value="확인" id="email_check" >
 	        </form>
        </div>

@@ -28,7 +28,12 @@
 				
 				//로그인 안되어있을시 , 로그인 div보여주기
 				<c:if test="${empty loginUser}">
-					$('.form').toggleClass('hide');
+					if(confirm('로그인 하시겠습니까 ?')){
+						//로그인 툴 보여주기
+						$('.form').toggleClass('hide');
+					} 
+					$('input').prop("checked", false);	//로그인 안할시, 체크박스 해제	
+					//$('.form').toggleClass('hide');	 회원제로만 운영할시 , if문~$('input') 삭제하고 이것만 넣어주면 댐
 				</c:if>
 
 				//로그인 되어있을시, 그냥 회원정보 띄워주기
@@ -101,15 +106,11 @@
 	}
 		
 	
-	//1.로그인 했는지 => 2.이메일 인증했는지 + (이름,휴대폰 적었는지) => 3. 됐다면 (영수증)페이지 이동 / 아니라면 안내문자
+	//(1.로그인 했는지) => 2.이메일 인증했는지 + (이름,휴대폰 적었는지) => 3. 됐다면 (영수증)페이지 이동 / 아니라면 안내문자
 	function fn_doReservation(){
 		$('#doReservation_btn').click(function(){
 			
-			<c:if test="${empty loginUser}">
-				$('.form').toggleClass('hide');
-			</c:if>
 			
-			<c:if test="${not empty loginUser}">
 				if($('#booker').val()==''){
 					alert('예약자명은 필수입니다.');
 					return false;
@@ -123,7 +124,12 @@
 					$('#f').attr('action','receiptPage.do');
 					$('#f').submit();
 				}
+				/*<c:if test="${empty loginUser}">
+				$('.form').toggleClass('hide');
 			</c:if>
+			
+			<c:if test="${not empty loginUser}">*/
+			/*</c:if>*/
 		});
 	}
 	

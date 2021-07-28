@@ -16,7 +16,7 @@
 		$('#code_check').click(function(){
 			$('#code_f').attr('action','nonMemReservationPage.do');
 			$('#code_f').submit();
-			alert('a');
+			 
 		});
 	}
 	
@@ -42,9 +42,48 @@
 <body>
 
 	<!-- 비회원 예약 내역 -->
-       <div>
+       
 	       <h1>예약내역</h1>
-	         
+	      
+	      
+	       
+	   <div class="row">
+        <table id="example-table-2" width="100%" class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th>예약번호 </th>
+                    <th>방번호</th>
+                    <th>예약 이메일</th>
+                    <th>예약자</th>
+                    <th>인원</th>
+                     <th>체크인</th>
+                      <th>체크아웃</th>
+                       <th>조식</th>
+                        <th>요청사항</th>
+                         <th>총가격</th>
+                         <th>예약 상태</th>
+                </tr>
+            </thead>
+            <tbody>  
+            <c:forEach var="my" items="${nonMemRevList}">              
+                <tr>
+                    <td>${my.reNo}</td>
+                    <td>${my.getRNo()}</td>
+                    <td> ${my.getReEmail()}</td>
+                    <td> ${my.booker}</td>
+                    <td> ${my.people }</td>
+                    <td>  [ ${my.checkIn } ]</td>
+                    <td>  [ ${my.checkOut } ]</td>
+                    <td> ${my.food }</td>
+                    <td>${my.note}</td>
+                    <td> ${my.totalPay }</td>
+                    <td> ${my.state }</td>
+                </tr>
+               </c:forEach>
+                 
+            </tbody>
+        </table>
+	       *비회원 취소시 고객센터 연락바랍니다.
        </div>
 </body>
 </html>

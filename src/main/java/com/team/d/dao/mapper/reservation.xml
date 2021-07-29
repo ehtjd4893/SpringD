@@ -7,7 +7,7 @@
 	<!-- 예약할수 있는 방  -->
 	<select id="remainingRoom" resultType="com.team.d.dto.RoomDTO">
 		SELECT  DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE,v.checkin,v.STATE
-		FROM SPRING.ROOM r LEFT OUTER JOIN SPRING.RESERVATION v
+		FROM ROOM r LEFT OUTER JOIN RESERVATION v
 		ON r.RNO = v.RNO
 		WHERE (v.CHECKIN  IS NULL OR v.CHECKOUT IS NULL) 
 	          OR
@@ -16,7 +16,7 @@
 				AND r.RACCEPT>=#{param3}) 
 	  	UNION
 	    SELECT  DISTINCT r.RNO,r.RNAME,r.RPRICE,r.RGRADE,r.RIMG,r.RACCEPT,r.RSIZE,v.checkin,v.STATE
-		FROM SPRING.ROOM r LEFT OUTER JOIN SPRING.RESERVATION v
+		FROM ROOM r LEFT OUTER JOIN RESERVATION v
 		ON r.RNO = v.RNO
 		WHERE (v.CHECKIN  BETWEEN TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
 				AND v.CHECKOUT BETWEEN  TO_DATE(#{param1},'YYYY-MM-DD') AND TO_DATE(#{param2},'YYYY-MM-DD')
@@ -27,41 +27,41 @@
 	<!-- 예약한 방 정보 -->
 	<select id="selectRoom" resultType="com.team.d.dto.RoomDTO">
 		SELECT RNO, RNAME, RPRICE, RGRADE, RIMG, RACCEPT, RSIZE
-		FROM SPRING.ROOM
+		FROM ROOM
 		WHERE RNO = #{rNo}
 	</select> 
 	
 	<!-- 예약정보 삽입 -->
 	<insert id="insertReservation" >
-		INSERT INTO SPRING.RESERVATION
-		VALUES (SPRING.RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},'예약중')
+		INSERT INTO RESERVATION
+		VALUES (RESERVATION_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10},'예약중')
 	</insert>
 	
 	<!-- 예약정보 뽑아오는 함수 -->
 	<select id="selectViewReservation" resultType="long">
 		SELECT RENO
-		FROM SPRING.RESERVATION 
-		WHERE RENO=(SELECT MAX(RENO) FROM SPRING.RESERVATION)
+		FROM RESERVATION 
+		WHERE RENO=(SELECT MAX(RENO) FROM RESERVATION)
 	</select>
 	
 	
 	<!-- 예약한 방 정보 -->
 	<select id="selectReservation" resultType="com.team.d.dto.ReservationDTO">
 		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE
-		FROM SPRING.RESERVATION
+		FROM RESERVATION
 		WHERE RENO = #{reNo}
 	</select>
 	
 	<!-- 회원의 예약 리스트 -->
 	<select id="reservationList" resultType="com.team.d.dto.ReservationDTO">
 		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE,STATE
-		FROM SPRING.RESERVATION
+		FROM RESERVATION
 		WHERE MNO = #{mNo}
 	</select>
 	
 	<!-- 예약 취소  -->
 	<update id="cancelReservation">
-		UPDATE SPRING.RESERVATION
+		UPDATE RESERVATION
 		SET	STATE='취소'
 		WHERE RENO=#{param1}
 	</update>
@@ -69,7 +69,7 @@
 	<!-- 비회원 예약 조회 -->
 	<select id="reservationListNonMember" resultType="com.team.d.dto.ReservationDTO">
 		SELECT RENO,RNO, MNO,PEOPLE,CHECKIN,CHECKOUT,FOOD,TOTALPAY,BOOKER,REEMAIL,NOTE,STATE
-		FROM SPRING.RESERVATION
+		FROM RESERVATION
 		WHERE REEMAIL = #{param1}
 	</select>
 </mapper>

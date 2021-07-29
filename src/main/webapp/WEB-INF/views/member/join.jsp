@@ -1,19 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
     
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>회원가입</title>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="회원가입" name="title" />
+</jsp:include>
+
+	<link rel="stylesheet" href="resources/css/layout.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오 API -->
 	
+	<!-- CSS -->
+	<style>
+		.container{
+			margin: 0 auto;
+			width: 1200px;
+			height: 1000px;
+			margin-top: 50px;
+		}
+		.join_form{
+			margin: 0 auto;
+			width: 400px;
+			text-align: center;
+		}
+		.naming{
+			float: left;
+			margin-left: 50px;
+			font-size: 13px;
+			font-weight: 600;
+		}
+		[class$='result']{ /* result로 끝나는 class */
+			margin-left: 20px;
+			font-size: 12px;
+			color: red;
+		}
+		#f input{
+			width: 300px;
+			height: 50px;
+			border: 1px solid black;
+		}
+		#f button{
+			width: 300px;
+			height: 50px;
+			background-color: #f1e3c4;
+			border: none;
+		}
+		#f button:hover {
+			cursor: pointer;
+		}
+	</style>
+	
 	<!-- script -->
 	<script type="text/javascript">
-		// 카카오 API 초기화
-		Kakao.init('464a8f29a97a043193116da7f11294e8');
-		
 		// 페이지 로드
 		$(document).ready(function(){
 			fn_nameCheck();
@@ -24,7 +63,7 @@
 			fn_emailCode();
 			fn_phoneCheck();
 			fn_join();
-			fn_getKakaoInfo();
+			// fn_getKakaoInfo();
 		});
 		
 		// 이름 유효성 검사(nameCheck)
@@ -229,6 +268,9 @@
 			});
 		}
 		
+		// 카카오 API 초기화
+		Kakao.init('464a8f29a97a043193116da7f11294e8');
+		
 		// 카카오 정보 가져오기(getKakaoInfo)
 		function fn_getKakaoInfo(){
 			Kakao.API.request({ // 카카오에서 가져 올 프로퍼티 요청
@@ -241,13 +283,11 @@
 			    	emailPass = true;
 			    },
 			    fail: function(error) {
-			        console.log(error);
+			        // console.log(error);
 			    }
 			});
 		}
 	</script>
-</head>
-<body>
 	
 	<!-- 회원가입 화면  -->
 	<div class="join_form">
@@ -285,6 +325,5 @@
 		</form>
 	</div>
 
-</body>
-</html>
+<%@ include file="../layout/footer.jsp" %> 
 

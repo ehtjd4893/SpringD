@@ -107,7 +107,7 @@
 				success: function(resultMap){
 					if(resultMap.result == 0){ // DB에 일치하는 이메일이 없는 경우 회원가입으로 이동
 						alert('회원가입 화면으로 이동합니다.');
-						location.href = 'http://localhost:9090/d/joinPage.do';
+						location.href = 'joinPage.do';
 					} else{ // DB에 일치하는 이메일이 있는 경우 해당 이메일로 로그인
 						alert('카카오 계정으로 로그인합니다.');
 						$('#kakaoLogin').val("Y");
@@ -166,8 +166,7 @@
 			<c:if test="${loginUser != null}">
 				<h3>${loginUser.MId} 님 환영합니다!</h3>
 				<a href="myPage.do">마이페이지</a>
-				<a href="logout.do">로그아웃</a>
-				<!-- <a href="javascript:fn_logout()">(카카오)로그아웃</a> -->
+				<a href="logout.do">로그아웃</a> 
 			</c:if>
 
 		</div>

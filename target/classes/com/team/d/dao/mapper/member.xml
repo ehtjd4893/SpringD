@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 로그인(login) -->
 	<select id="login" resultType="com.team.d.dto.MemberDTO">
-		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
+		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE, STATUS
 		  FROM MEMBER
 		 WHERE MID = #{mId}
 		   AND MPW = #{mPw}
@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 카카오 로그인(loginKakao) -->
 	<select id="kakaoLogin" resultType="com.team.d.dto.MemberDTO">
-		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE
+		SELECT MNO, MNAME, MID, MPW, MEMAIL, MPHONE, MGRADE, MREGDATE, STATUS
 		  FROM MEMBER
 		 WHERE MEMAIL = #{mEmail}
 	</select>

@@ -40,5 +40,12 @@ sujin 계정이 안돼서 다시만듦
         0728 : - 예약시 남은 방들 뽑는 DB 수정 (reservation.xml)  完
                - 비회원 예약조회 만들다가 db손볼게 많아서 잠시 검토중입니다.
                - 병합시 볼 주석 달았습니다
+               -revInfo.jsp에 fn_doReservation()함수 비회원 예약할 수 있도록 <c:if>문 주석처리함
+                        member 테이블에 에 비회원 계정 만들기 - INSERT INTO MEMBER VALUES(0, '비회원', 'none', '1111', '1', '2','3', SYSDATE);
+                        그럼 예약 ReceiptCommand에서 loginUser세션이 있으면 loginUser.mNo 넣고 없으면 mNo에비회원 계정 넣기 코드 추가
+        
+
+
+
               
                 

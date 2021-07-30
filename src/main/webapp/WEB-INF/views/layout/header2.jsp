@@ -19,18 +19,6 @@
 		// 페이지 로드
 	    onload = function(){
 			getDate();
-			
-			document.getElementById('privacy').onclick = function(){
-		    	window.open('privacy.do', '', 'width=640, height=480, resizable=no');
-			}
-			document.getElementById('term').onclick = function(){
-		    	window.open('term.do', '', 'width=640, height=480, resizable=no');
-			}
-			document.getElementById('noEmail').onclick = function(){
-		    	window.open('noEmail.do', '', 'width=400, height=352, resizable=no');
-			}
-			
-			fn_login();
 		}
 	    
 		// 현재 시간 나타내기
@@ -47,38 +35,6 @@
 	               $("#date2").text(dateString); 
 	           }, 1000);   // 1초 단위로  
 	    }   
-		
-		// 회원 로그인, 관리자 로그인을 변경해주는 함수
-		function fn_toggle_mode(){
-			$('#mem_to_admin').click(function(){
-				$('#mem_mode').toggleClass('hide');
-				$('#admin_mode').toggleClass('hide');
-			});
-			
-			$('#admin_to_mem ').click(function(){
-				$('#mem_mode').toggleClass('hide');
-				$('#admin_mode').toggleClass('hide');
-			});
-		}
-		
-		// 로그인 화면 보여주기
-		function fn_showLogin(){
-			$('.form').toggleClass('hide');
-		}	
-		
-		// 로그인(login)
-		function fn_login(){
-			$('#f_mem').submit(function(e){
-				if($('#kakaoLogin').val == "N"){ // 회원 로그인일 때만 유효성 검사
-					if($('#mId').val() == '' || $('#mPw').val() == ''){ // 아이디, 비밀번호 입력 값이 없을 경우
-						alert('아이디와 비밀번호는 필수입니다.');
-						e.preventDefault();
-						$('#mId').focus();
-						return false;
-					} 
-				}
-			});
-		}
 		
 		// 카카오 API 초기화
 		Kakao.init('464a8f29a97a043193116da7f11294e8');	// 발급 받은 javaScript 키
@@ -153,7 +109,7 @@
 				
 				<!-- 비로그인 화면 -->
 				<c:if test="${loginUser eq null && loginAdmin eq null}">
-					<a href="#" onclick='fn_showLogin();'>로그인</a>
+					<a href="#" onclick="location.href='index.do'">로그인</a>
 					<a href="joinPage.do">회원가입</a>
 					<a href="nonMemberPage.do">비회원 예약 확인</a>
 		 		</c:if>
@@ -181,7 +137,7 @@
 				
 				<!-- 비로그인 화면 -->
 				<c:if test="${loginUser eq null && loginAdmin eq null}">
-					<a href="#" onclick='fn_showLogin();'>로그인</a>
+					<a href="#" onclick="location.href='index.do'">로그인</a>
 					<a href="joinPage.do">회원가입</a>
 					<a href="nonMemberPage.do">비회원 예약 확인</a>
 		 		</c:if>
@@ -200,79 +156,6 @@
 			</div>
 		</div>
 	</header>
-		
-		<!-- 회원 화면 -->
-		<div id="mem_mode" class="myMenu">
-			<form id="f_mem" action="login.do" method="post">
-				<!-- 카카오 계정으로 로그인 시 값을 전달해주기 위함(일반 로그인: N, 카카오 로그인: Y)-->
-				<input type="hidden" name="kakaoLogin" id="kakaoLogin" value="N"> 
-				<input type="hidden" name="mEmail" id="mEmail">
-				
-	  	   	 	<div class="form hide">
-	  	   	 		<!-- 입력 화면 -->
-	  	   	 		<h2 style="text-align:center">회원 로그인</h2>
-					<a href="#" onclick="fn_showLogin()"><i class="fas fa-times fa-3x"></i></a>
-					
-					<!-- form2 -->
-	   				<div class="form2">
-	   				 	<!-- form3 : 아이디, 비밀번호-->
-	     				<div class="form3">
-	     					<label for="id">아이디</label><input type="text" name="mId" id="mId">
-	      					<div class="clear"></div>
-	      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw">
-	     				</div>
-	     				
-	     				<input type="submit" id="login_btn" value="로그인">
-	     				<div class="clear"></div>
-	     				
-	     				<!-- form4 : 회원가입, 아이디/비밀번호 찾기, 카카오계정 로그인-->
-	     				<!-- 회원 로그인 => 관리자로 로그인 전환 화면 -->
-	     				<div class="form4">
-	      					<div class="clear"></div>
-    						<label><input type="button" value="회원가입" onclick='location.href="joinPage.do"'></label>
-    						<label><input type="button" value="아이디/비밀번호 찾기" onclick='location.href="findIdAndPwPage.do"'></label>
-    						<label><input type="button" id="mem_to_admin" value="관리자로 로그인하기"></label>
-	    						
-			     			<!-- 카카오계정 로그인 -->
-							<a id="kakaoLogin_btn" href="javascript:kakaoLoginPopUp()">
-								<img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="222">
-							</a><br>
-						</div>
-					</div>
-				</div>	<!-- form hide -->
-			</form> <!-- f_mem -->
-		</div>	<!-- mem_mode -->
-		
-		<!-- 관리자 화면 -->
-		<div id="admin_mode" class="myMenu disabled">
-			<form id="f_admin" action="loginAdmin.do" method="post">
-			
-	  	   	 	<div class="form hide">
-	  	   	 		<!-- 입력 화면 -->
-	  	   	 		<h2 style="text-align:center">관리자 로그인</h2>
-					<a href="" onclick=""><i class="fas fa-times fa-3x"></i></a>
-					
-					<!-- form2 -->
-	   				<div class="form2">
-	   					<!-- form3 : 아이디, 비밀번호-->
-	     				<div class="form3">
-	     					<label for="id">아이디</label><input type="text" name="mId" id="mId2">
-	      					<div class="clear"></div>
-	      					<label for="password">비밀번호</label><input type="password" name="mPw" id="mPw2">
-	     				</div>
-	     				
-	     				<input type="submit" id="login_btn2" value="로그인">
-	     				<div class="clear"></div>
-	     				
-	     				<!-- form4 : 관리자 로그인 => 회원으로 로그인 전환 화면 -->
-	     				<div class="form4">
-	      					<div class="clear"></div>
-	     					<label><input type="button" id="admin_to_mem" value="회원으로 로그인하기"></label>
-						</div>
-					</div>	<!-- form2 -->
-				</div>	<!-- form hide -->
-			</form> <!-- f_admin -->
-		</div>	<!-- admin_mode -->
 		
 	<section id="section">
 	

@@ -39,7 +39,7 @@ public class ChangePwCommand implements MemberCommand {
 			if (result > 0) { // 새 비밀번호 등록 성공 후 다시 로그인
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('비밀번호가 변경되었습니다. 변경된 비밀번호로 로그인하세요.');");
-				response.getWriter().append("location.href='loginPage.do';");
+				response.getWriter().append("location.href='index.do';");
 				response.getWriter().append("</script>");
 			} else {
 				response.getWriter().append("<script>");

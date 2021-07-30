@@ -3,16 +3,12 @@
 .disabled{
 	display: none;
 }
-
-
 .showLogin:hover{
 	cursor: pointer;	
 }
-	
 .hide{
 	display:none;
 }
-	
 .form {
 	background-color: #4e3637;
 	width: 498px;
@@ -22,7 +18,6 @@
 	margin: 30px auto;
 	color: white;
 }
-
 #closeLogin{
 	position: absolute;
 	top: 60px;
@@ -30,7 +25,6 @@
 	color: white;
 	cursor: pointer;
 }
-	
 .form2 {
 	width: 380px;
 	min-width: 320px;
@@ -38,33 +32,25 @@
 	margin: 60px auto;
 	margin-left:20px;
 }
-	
 .form3 {
 	float: left;
-	/*   background:#f00;  */
-}
-	
+}	
 .form3 label {
 	width: 100px;
 	height: 20px;
-	/*  display: block; */
 	float: left;
 }
-	
 .form4 {
 	padding: 0px 0px 0px 70px;
 }
-	
 #wrap {
 	width: 600px;
 	height: 500px;
 	margin: 0 auto;
 }
-	
 .clear {
 	clear: both;
 }
-	
 input[type="submit"] {
 	float: left;
 	/*  display:block; */

@@ -80,18 +80,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 회원탈퇴(leave) -->
-	<delete id="leave">
+<!-- 	<delete id="leave">
 		DELETE
 		  FROM MEMBER
 		 WHERE MNO = #{mNo}
-	</delete>
-	<!-- 
+	</delete> -->
 	<update id="leave">
 		UPDATE MEMBER
 		   SET STATUS = -1
 		 WHERE MNO = #{mNo}
 	</update>
-	-->
+
 	
 <!-- 재가입(reJoin) : STATUS 0으로 변경 
 	<update id="reJoin">

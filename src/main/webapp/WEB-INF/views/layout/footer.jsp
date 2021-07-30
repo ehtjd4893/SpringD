@@ -24,7 +24,7 @@
 				<a href="mailto:hotel@mooyahotel.co.kr">hotel@mooyahotel.co.kr</a>
 			</span>
 			<br>
-			<span>대표자:유재석  </span>
+			<span>대표자 : 유재석  </span>
 			<span>등록번호 111 22 33333</span>
 		</address>
 		<p>

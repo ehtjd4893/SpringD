@@ -37,7 +37,7 @@ var idPass = false;
 function fn_idCheck(){
 	$('#mId').keyup(function(){
 		// 아이디 정규식
-		var regId = /^[a-z]{3,6}$/;
+		var regId = /^[0-9a-zA-Z@]{4,19}$/;
 		if(!regId.test($('#mId').val())){ // 아이디 정규식 조건을 통과하지 못 했을 경우
 			$('.id_result').text('아이디는 영어 소문자 3~6자리만 입력 가능합니다.');
 			$('.id_result').css('color', 'red');
@@ -109,6 +109,7 @@ function fn_pwCheck2(){
 
 // 이메일 중복 체크(emailCheck)
 var emailPass = false;
+//var fromKakao = false;
 function fn_emailCheck(){
 	$('#mEmail').keyup(function(){
 		// 이메일 정규식
@@ -204,9 +205,11 @@ function fn_phoneCheck(){
 function fn_join() {
 	$('#join_btn').click(function(){
 		if(!namePass || $('#mName').val() == ''){
+		//if((!namePass || $('#mName').val() == '') && !fromKakao){
 			alert('이름을 확인하세요.');
 			return false;
-		} else if(!idPass || $('#mId').val() == ''){
+		} else if(!idPass || $('#mId').val() == ''){			
+		//} else if((!idPass || $('#mId').val() == '') && !fromKakao){
 			alert('아이디를 확인하세요.');
 			return false;
 		} else if(!pwPass || $('#mPw').val() == ''){
@@ -225,6 +228,7 @@ function fn_join() {
 			alert('전화번호를 올바르게 입력하세요.');
 		    return false;
 		} else {
+			
 			$('#f').attr('action', 'join.do');
 			$('#f').submit();
 		}
@@ -239,11 +243,17 @@ function fn_getKakaoInfo(){
 	Kakao.API.request({ // 카카오에서 가져 올 프로퍼티 요청
 	    url: '/v2/user/me',
 	    data: { // 이메일 가져오기
-	        property_keys: ["kakao_account.email"]
+	        property_keys: ["properties.nickname","kakao_account.email"]
 	    },
 	    success: function(response) {
+	    	//$("#mId").val(response.id+"@K");
+	    	//$("#mName").val(response.properties.nickname);
 	    	$("#mEmail").val(response.kakao_account.email);
+	    	
+	    	// $("#mId,#mEmail").attr("readonly","readonly");
+	    	
 	    	emailPass = true;
+	    	//fromKakao = true;
 	    },
 	    fail: function(error) {
 	    	

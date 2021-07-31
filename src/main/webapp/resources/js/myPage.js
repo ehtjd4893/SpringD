@@ -11,6 +11,7 @@ $(document).ready(function(){
 	fn_emailCheck();
 	fn_emailCode();
 	fn_leave();
+	// fn_fromKakao();
 });
 
 // 현재 비밀번호 확인(presentPwCheck)
@@ -221,3 +222,14 @@ function fn_leave(){
 		}
 	});
 }
+
+// 카카오 로그인일경우 이메일 변경불가
+/*function fn_fromKakao(){
+
+	if($("#mId").val().indexOf("@K") > -1){
+		
+		$("#mEmail").attr("readonly","readonly");
+		
+	}
+
+}*/

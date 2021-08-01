@@ -35,27 +35,28 @@
 	    
 		// 현재 시간 나타내기
 	    function getDate() { 
-	           date = setInterval(function () { 
-	               var dateString = ""; 
+           date = setInterval(function () { 
+               var dateString = ""; 
 
-	               var newDate = new Date(); 
+               var newDate = new Date(); 
 
-	               dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
-	               dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
-	               //document.write(dateString); 문서에 바로 그릴 수 있다. 
-	               $("#date1").text(dateString); 
-	               $("#date2").text(dateString); 
-	           }, 1000);   // 1초 단위로  
+               dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+               dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
+               //document.write(dateString); 문서에 바로 그릴 수 있다. 
+               $("#date1").text(dateString); 
+               $("#date2").text(dateString); 
+           }, 1000);   // 1초 단위로  
 	    }   
 		
 		// 회원 로그인, 관리자 로그인을 변경해주는 함수
 		function fn_toggle_mode(){
+			// 관리자 모드로 전환
 			$('#mem_to_admin').click(function(){
 				$('#mem_mode').toggleClass('hide');
 				$('#admin_mode').toggleClass('hide');
 			});
-			
-			$('#admin_to_mem ').click(function(){
+			// 회원 모드로 전환
+			$('#admin_to_mem').click(function(){
 				$('#mem_mode').toggleClass('hide');
 				$('#admin_mode').toggleClass('hide');
 			});
@@ -68,15 +69,17 @@
 		
 		// 로그인(login)
 		function fn_login(){
-			$('#f_mem').submit(function(e){
-				if($('#kakaoLogin').val == "N"){ // 회원 로그인일 때만 유효성 검사
+			$('#login_btn').click(function(e){
+				 if($('#kakaoLogin').val != "Y"){ // 회원 로그인일 때만 유효성 검사
 					if($('#mId').val() == '' || $('#mPw').val() == ''){ // 아이디, 비밀번호 입력 값이 없을 경우
 						alert('아이디와 비밀번호는 필수입니다.');
 						e.preventDefault();
 						$('#mId').focus();
 						return false;
-					} 
-				}
+					} else if($('#kakaoLogin').val == "Y"){ // 카카오 로그인
+						$('#f_mem').submit();
+					}
+				 }
 			});
 		}
 		
@@ -145,6 +148,32 @@
 			<h1 class="logo">
 				<a href="index.do">MOOYA HOTEL</a>
 			</h1>
+			
+			<!-- 1900px 이하 화면일 때 -->
+			<div class="small_header_right">
+				<span>Seoul</span>
+				<span id="date1"></span>
+				
+				<!-- 비로그인 화면 -->
+				<c:if test="${loginUser eq null && loginAdmin eq null}">
+					<a href="#" onclick='fn_showLogin();'>로그인</a>
+					<a href="joinPage.do">회원가입</a>
+					<a href="nonMemberPage.do">비회원 예약 확인</a>
+		 		</c:if>
+		 		
+		 		<!-- 로그인 성공 화면 -->
+		 		<c:if test="${loginUser ne null || loginAdmin ne null}">
+		 			<a href="#" onclick="location.href='logout.do'">로그아웃</a>
+		 			<a href="myPage.do">마이페이지</a>
+		 			<a href="myReservation.do?mNo=${loginUser.MNo}">예약내역</a>
+				</c:if>
+				
+				<a href="reservationSelectDatePage.do">예약하기</a>
+				<a href="boardPage.do">게시판</a>
+				<a href="">이벤트</a>
+				<a href="infoRoom.do">객실</a>
+			</div>
+			
 			<!-- 1900px 이상 화면일 때 -->
 			<!-- right -->
 			<div class="header_right"> 
@@ -174,30 +203,6 @@
 				<a href="infoRoom.do">객실</a>
 			</div>
 			
-			<!-- 1900px 이하 화면일 때 -->
-			<div class="small_header_right">
-				<span>Seoul</span>
-				<span id="date1"></span>
-				
-				<!-- 비로그인 화면 -->
-				<c:if test="${loginUser eq null && loginAdmin eq null}">
-					<a href="#" onclick='fn_showLogin();'>로그인</a>
-					<a href="joinPage.do">회원가입</a>
-					<a href="nonMemberPage.do">비회원 예약 확인</a>
-		 		</c:if>
-		 		
-		 		<!-- 로그인 성공 화면 -->
-		 		<c:if test="${loginUser ne null || loginAdmin ne null}">
-		 			<a href="#" onclick="location.href='logout.do'">로그아웃</a>
-		 			<a href="myPage.do">마이페이지</a>
-		 			<a href="myReservation.do?mNo=${loginUser.MNo}">예약내역</a>
-				</c:if>
-				
-				<a href="reservationSelectDatePage.do">예약하기</a>
-				<a href="boardPage.do">게시판</a>
-				<a href="">이벤트</a>
-				<a href="infoRoom.do">객실</a>
-			</div>
 		</div>
 	</header>
 		
@@ -205,13 +210,13 @@
 		<div id="mem_mode" class="myMenu">
 			<form id="f_mem" action="login.do" method="post">
 				<!-- 카카오 계정으로 로그인 시 값을 전달해주기 위함(일반 로그인: N, 카카오 로그인: Y)-->
-				<input type="hidden" name="kakaoLogin" id="kakaoLogin" value="N"> 
+				<input type="hidden" name="kakaoLogin" id="kakaoLogin" value="N">
 				<input type="hidden" name="mEmail" id="mEmail">
 				
 	  	   	 	<div class="form hide">
 	  	   	 		<!-- 입력 화면 -->
 	  	   	 		<h2 style="text-align:center">회원 로그인</h2>
-					<a href="#" onclick="fn_showLogin()"><i class="fas fa-times fa-3x"></i></a>
+					<a href="#" onclick='fn_showLogin();'><i class="fas fa-times fa-3x"></i></a>
 					
 					<!-- form2 -->
 	   				<div class="form2">
@@ -229,28 +234,27 @@
 	     				<!-- 회원 로그인 => 관리자로 로그인 전환 화면 -->
 	     				<div class="form4">
 	      					<div class="clear"></div>
-    						<label><input type="button" value="회원가입" onclick='location.href="joinPage.do"'></label>
-    						<label><input type="button" value="아이디/비밀번호 찾기" onclick='location.href="findIdAndPwPage.do"'></label>
+    						<label><input type="button" value="회원가입" onclick="location.href='joinPage.do'"></label>
+    						<label><input type="button" value="아이디/비밀번호 찾기" onclick="location.href='findIdAndPwPage.do'"></label>
     						<label><input type="button" id="mem_to_admin" value="관리자로 로그인하기"></label>
 	    						
 			     			<!-- 카카오계정 로그인 -->
 							<a id="kakaoLogin_btn" href="javascript:kakaoLoginPopUp()">
 								<img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="222">
 							</a><br>
-						</div>
-					</div>
-				</div>	<!-- form hide -->
-			</form> <!-- f_mem -->
-		</div>	<!-- mem_mode -->
+						</div> <!-- form4 -->
+					</div> <!-- form2 -->
+				</div>	<!-- form -->
+			</form> 
+		</div>	<!-- myMenu  -->
 		
 		<!-- 관리자 화면 -->
 		<div id="admin_mode" class="myMenu disabled">
 			<form id="f_admin" action="loginAdmin.do" method="post">
-			
 	  	   	 	<div class="form hide">
 	  	   	 		<!-- 입력 화면 -->
 	  	   	 		<h2 style="text-align:center">관리자 로그인</h2>
-					<a href="" onclick=""><i class="fas fa-times fa-3x"></i></a>
+					<a href="" onclick='fn_showLogin();'><i class="fas fa-times fa-3x"></i></a>
 					
 					<!-- form2 -->
 	   				<div class="form2">
@@ -268,11 +272,11 @@
 	     				<div class="form4">
 	      					<div class="clear"></div>
 	     					<label><input type="button" id="admin_to_mem" value="회원으로 로그인하기"></label>
-						</div>
+						</div> <!-- form4 -->
 					</div>	<!-- form2 -->
-				</div>	<!-- form hide -->
-			</form> <!-- f_admin -->
-		</div>	<!-- admin_mode -->
+				</div>	<!-- form-->
+			</form>
+		</div>	<!-- myMenu -->
 		
 	<section id="section">
 	

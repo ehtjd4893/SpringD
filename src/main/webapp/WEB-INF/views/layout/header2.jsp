@@ -9,7 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MOOYA HOTEL</title>
 	
-	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 	<link rel="stylesheet" href="resources/css/layout.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -101,6 +100,32 @@
 			<h1 class="logo">
 				<a href="index.do">MOOYA HOTEL</a>
 			</h1>
+			
+			<!-- 1900px 이하 화면일 때 -->
+			<div class="small_header_right">
+				<span>Seoul</span>
+				<span id="date1"></span>
+				
+				<!-- 비로그인 화면 -->
+				<c:if test="${loginUser eq null && loginAdmin eq null}">
+					<a href="#" onclick="location.href='index.do'">로그인</a>
+					<a href="joinPage.do">회원가입</a>
+					<a href="nonMemberPage.do">비회원 예약 확인</a>
+		 		</c:if>
+		 		
+		 		<!-- 로그인 성공 화면 -->
+		 		<c:if test="${loginUser ne null || loginAdmin ne null}">
+		 			<a href="#" onclick="location.href='logout.do'">로그아웃</a>
+		 			<a href="myPage.do">마이페이지</a>
+		 			<a href="myReservation.do?mNo=${loginUser.MNo}">예약내역</a>
+				</c:if>
+				
+				<a href="reservationSelectDatePage.do">예약하기</a>
+				<a href="boardPage.do">게시판</a>
+				<a href="">이벤트</a>
+				<a href="infoRoom.do">객실</a>
+			</div>
+			
 			<!-- 1900px 이상 화면일 때 -->
 			<!-- right -->
 			<div class="header_right"> 
@@ -130,32 +155,8 @@
 				<a href="infoRoom.do">객실</a>
 			</div>
 			
-			<!-- 1900px 이하 화면일 때 -->
-			<div class="small_header_right">
-				<span>Seoul</span>
-				<span id="date1"></span>
-				
-				<!-- 비로그인 화면 -->
-				<c:if test="${loginUser eq null && loginAdmin eq null}">
-					<a href="#" onclick="location.href='index.do'">로그인</a>
-					<a href="joinPage.do">회원가입</a>
-					<a href="nonMemberPage.do">비회원 예약 확인</a>
-		 		</c:if>
-		 		
-		 		<!-- 로그인 성공 화면 -->
-		 		<c:if test="${loginUser ne null || loginAdmin ne null}">
-		 			<a href="#" onclick="location.href='logout.do'">로그아웃</a>
-		 			<a href="myPage.do">마이페이지</a>
-		 			<a href="myReservation.do?mNo=${loginUser.MNo}">예약내역</a>
-				</c:if>
-				
-				<a href="reservationSelectDatePage.do">예약하기</a>
-				<a href="boardPage.do">게시판</a>
-				<a href="">이벤트</a>
-				<a href="infoRoom.do">객실</a>
-			</div>
 		</div>
 	</header>
-		
+	
 	<section id="section">
 	

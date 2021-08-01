@@ -9,13 +9,10 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>예약 리스트</title>
-	
 </head>
 <body>
 
-
 <!-- 가져옴 -->
-
     
     <br><br>
  
@@ -28,38 +25,37 @@
                     <th>회원번호</th>
                     <th>예약자</th>
                     <th>인원</th>
-                     <th>체크인</th>
-                      <th>체크아웃</th>
-                       <th>조식</th>
-                        <th>요청사항</th>
-                         <th>총가격</th>
-                         <th>예약 상태</th>
+                    <th>체크인</th>
+                    <th>체크아웃</th>
+                    <th>조식</th>
+                    <th>요청사항</th>
+                    <th>총가격</th>
+                    <th>예약 상태</th>
                 </tr>
             </thead>
             <tbody>  
-            <c:forEach var="my" items="${myReservationList}">              
-                <tr>
-                    <td>${my.reNo}</td>
-                    <td>${my.getRNo()}</td>
-                    <td> ${my.getMNo()}</td>
-                    <td> ${my.booker}</td>
-                    <td> ${my.people }</td>
-                    <td>  [ ${my.checkIn } ]</td>
-                    <td>  [ ${my.checkOut } ]</td>
-                    <td> ${my.food }</td>
-                    <td>${my.note}</td>
-                    <td> ${my.totalPay }</td>
-                    
-                    <c:if test="${ my.state  == '예약중'}">
-                     <td><input type="button" class="cancel_btn" value="예약취소" /></td>
-                    </c:if>
-                   <c:if test="${ my.state  == '취소'}">
-                     <td> ${my.state }</td>
-                    </c:if>
-                </tr>
-               </c:forEach>
-                 
-            </tbody>
+	            <c:forEach var="my" items="${myReservationList}">              
+	                <tr>
+	                    <td>${my.reNo}</td>
+	                    <td>${my.getRNo()}</td>
+	                    <td>${my.getMNo()}</td>
+	                    <td>${my.booker}</td>
+	                    <td>${my.people}</td>
+	                    <td>[ ${my.checkIn} ]</td>
+	                    <td>[ ${my.checkOut} ]</td>
+	                    <td>${my.food}</td>
+	                    <td>${my.note}</td>
+	                    <td>${my.totalPay}</td>
+	                    
+	                    <c:if test="${ my.state  == '예약중'}">
+	                     	<td><input type="button" class="cancel_btn" value="예약취소" /></td>
+	                    </c:if>
+	                   	<c:if test="${ my.state  == '취소'}">
+	                     	<td> ${my.state}</td>
+	                    </c:if>
+	                </tr>
+	             </c:forEach>
+             </tbody>
         </table>
       
         <!-- 취소시 비밀번호 확인 (토글)-->
@@ -71,23 +67,20 @@
 	        	비밀번호 <input type="password" id="mPw" >
 	        	<input type="button" value="확인" id="pw_check" >
 	        </form>
-       </div>
-       <a href="index.do">메인으로</a>	 	
+       	</div>
+       	<a href="index.do">메인으로</a>	 	
 	
     </div>
  
 
-         
- 
-
 <script>
+	// 페이지 로드
  	$(document).ready(function(){
  		fn_cancel();
  		fn_presentPwCheck();
  		fn_pwCheck();
  		fn_showPw();
  	});
-    
     
     // 취소할 예약번호 가져오기
     function fn_cancel(){
@@ -107,16 +100,15 @@
  
     //취소시 비밀번호 확인창 - 토글
     function fn_showPw(){
-			$('.cancel_btn').on('click',function(){
-				$('#subData').toggle('disabled');
-			});
-			$('#close').on('click',function(){
-				$('#subData').toggle('disabled');
-			});
+		$('.cancel_btn').on('click',function(){
+			$('#subData').toggle('disabled');
+		});
+		$('#close').on('click',function(){
+			$('#subData').toggle('disabled');
+		});
 			
-		}	 
+	}	 
     
-   
  	// 현재 비밀번호 확인(presentPwCheck)
 	var presentPwPass = false;
 	function fn_presentPwCheck(){
@@ -140,6 +132,7 @@
 			});
 		});
 	}
+	
 	// 비밀번호 확인
 	function fn_pwCheck(){
 		$('#pw_check').click(function(){
@@ -153,16 +146,7 @@
 			}
 		});
 	}
-	
-	
-	
-	
-	
-	
 </script>
-
-
-
 
 </body>
 </html>

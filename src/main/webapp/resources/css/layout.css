@@ -229,7 +229,7 @@ h3 {
 #footer b {
 	font-weight: bold;
 }
-/* 1900px 이상 */
+/* 1900px 이상 화면 */
 @media screen and (min-width: 1900px) {
 	.header {
 		display: block;
@@ -334,12 +334,12 @@ h3 {
 	}
 	/* 메인 화면 슬라이드 이미지(imageSlide) */
 	#imageSlide{
-		height: 1000px;
+		height: 800px;
 	}
 	.imgs{
 		position: relative;
 		width: 100%;
-		height: 1000px;
+		height: 800px;
 		overflow: hidden;
 	}
 	.imgs > ul > li > img{
@@ -362,7 +362,7 @@ h3 {
 		font-size: 80px;
 	}
 }
-/* 1900px 이하 */
+/* 1900px 이하 화면 */
 @media screen and (max-width: 1900px) {
 	.header {
 		display: block;
@@ -426,12 +426,12 @@ h3 {
 	/* 메인 화면 슬라이드 이미지(imageSlide) */
 	#imageSlide{
 		margin-top: 100px;
-		height: 1000px;
+		height: 800px;
 	}
 	.imgs{
 		position: relative;
 		width: 100%;
-		height: 1000px;
+		height: 800px;
 		overflow: hidden;
 	}
 	.imgs > img{

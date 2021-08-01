@@ -29,8 +29,6 @@ public class AdminLoginCommand  {
 		System.out.println(memberDTO);
 		MemberDTO loginAdmin = memberDAO.adminLogin(memberDTO);
 		
-		System.out.println(loginAdmin);
-		
 		HttpSession session = request.getSession();
 		
 		String page = request.getParameter("page");

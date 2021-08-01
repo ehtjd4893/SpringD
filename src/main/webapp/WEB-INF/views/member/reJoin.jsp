@@ -7,7 +7,7 @@
 </jsp:include>
 
 	<link rel="stylesheet" href="resources/css/layout.css">
-	<link rel="stylesheet" href="resources/css/join.css">
+	<link rel="stylesheet" href="resources/css/rejoin.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script> <!-- 카카오 API -->
@@ -277,9 +277,9 @@
 		}
 	</script>
 	
-	<!-- 회원가입 화면  -->
-	<div class="join_form">
-		<form id="f" method="post">
+	<!-- 재가입 화면  -->
+	<div class="reJoin_form">
+		<form id="f" action="reJoin.do" method="post">
 			<span class="naming">이름</span><br>
 			<input type="text" name="mName" id="mName" placeholder="ex) 홍길동 or hong"><br>
 			<span class="name_result"></span><br><br>

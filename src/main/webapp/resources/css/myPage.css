@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-.container{
-	margin: 0 auto;
-	width: 1200px;
-	height: 1000px;
-	margin-top: 50px;
-}
 /* 1900px 이상 */
 @media screen and (min-width: 1900px) {
 	.myPage_form{
@@ -31,9 +25,10 @@
 	font-size: 13px;
 	font-weight: 600;
 }
-.condition{
+.condition, .kakao_email{
 	font-size:12px;
 	font-weight: 300;
+	color: #804040;
 }
 [class$="result"]{ /* result로 끝나는 class */
 	margin-left: 20px;

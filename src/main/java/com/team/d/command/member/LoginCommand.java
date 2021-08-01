@@ -32,8 +32,8 @@ public class LoginCommand {
 		// 카카오 로그인일 경우 mEmail이 memberDTO에 mEmail과 일치하는지 확인 
 		if("Y".equals(request.getParameter("kakaoLogin"))){
 			
-			memberDTO.setMEmail(request.getParameter("mEmail"));
 			// 일치하면 memberDAO의 카카오 로그인 kakaoLogin메소드 호출
+			memberDTO.setMEmail(request.getParameter("mEmail"));
 			loginUser = memberDAO.kakaoLogin(memberDTO);
 			
 		} else { // 일반 로그인일 경우 memberDTO에 mId, mPw와 일치하는지 확인

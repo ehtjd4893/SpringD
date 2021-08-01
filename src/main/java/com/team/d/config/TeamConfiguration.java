@@ -189,7 +189,6 @@ public class TeamConfiguration {
 	public AdminLoginCommand adminLoginCommand() { // 관리자 로그인
 		return new AdminLoginCommand();
 	}
-
 	
 	/* reservation 관련 */ 
 	@Bean

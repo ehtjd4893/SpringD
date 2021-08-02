@@ -17,7 +17,7 @@
     <br><br>
  
     <div class="row">
-        <table id="example-table-2" width="100%" class="table table-bordered table-hover text-center">
+        <table id="example-table-2" width="100%" class="table table-bordered table-hover text-center" border="1">
             <thead>
                 <tr>
                     <th>예약번호 </th>
@@ -33,7 +33,7 @@
                     <th>예약 상태</th>
                 </tr>
             </thead>
-            <tbody>  
+            <tbody style="text-align: center">  
 	            <c:forEach var="my" items="${myReservationList}">              
 	                <tr>
 	                    <td>${my.reNo}</td>

@@ -26,7 +26,6 @@ public class UpdateBoardCommand implements BoardCommand {
 	
 	@Override
 	public void execute(SqlSession sqlSession, Model model) {
-		System.out.println("here");
 		map = model.asMap();
 		multipartRequest = (MultipartHttpServletRequest) map.get("multipartRequest");
 		

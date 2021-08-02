@@ -29,7 +29,7 @@
 			document.getElementById('noEmail').onclick = function(){
 		    	window.open('noEmail.do', '', 'width=400, height=352, resizable=no');
 			}
-			
+			fn_toggle_mode();
 			fn_login();
 		}
 	    
@@ -249,7 +249,7 @@
 		</div>	<!-- myMenu  -->
 		
 		<!-- 관리자 화면 -->
-		<div id="admin_mode" class="myMenu disabled">
+		<div id="admin_mode" class="myMenu hide">
 			<form id="f_admin" action="loginAdmin.do" method="post">
 	  	   	 	<div class="form hide">
 	  	   	 		<!-- 입력 화면 -->

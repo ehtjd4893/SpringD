@@ -81,7 +81,7 @@
 			fn_reply_no_login();	// 로그인 없이 댓글 달기 시도할 때
 			fn_reply_btn();	// 로그인 후 댓글 달기 클릭시
 			getDate();		// 시간 보여주는 함수
-			fn_closeLogin();	// 로그인창에서 x 클릭시 로그인창 닫힘
+
 			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
 			fn_getReplyList();	// 댓글 출력 함수
 			

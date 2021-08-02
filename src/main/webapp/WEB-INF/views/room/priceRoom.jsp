@@ -30,7 +30,7 @@
 		    	location.href= "inquire.do";
 			}
 			document.getElementById('reservation').onclick = function(){
-		    	location.href= "reservation.do";
+		    	location.href= "reservationSelectDatePage.do";
 			}
 			document.getElementById('privacy').onclick = function(){
 		    	window.open('privacy.do', '', 'width=640, height=480, resizable=no');

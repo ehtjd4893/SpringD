@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
+import com.team.d.utils.SecurityUtils;
 
+// 회원가입
 public class JoinCommand {
 
 	public void execute(SqlSession sqlSession, Model model) {
@@ -20,20 +22,13 @@ public class JoinCommand {
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		HttpServletResponse response = (HttpServletResponse)map.get("response");
 		
-		// request에 입력된 mName, mId, mPw, mEmail, mPhone 확인
-		String mName = request.getParameter("mName");
-		String mId = request.getParameter("mId");
-		String mPw = request.getParameter("mPw");
-		String mEmail = request.getParameter("mEmail");
-		String mPhone = request.getParameter("mPhone");
-		
 		// memberDTO에 위 값이 일치하는지 확인
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMName(mName); // memberDTO.setMName(SecurityUtils.xxs(mName)); // 이름 xss 처리
-		memberDTO.setMId(mId);
-		memberDTO.setMPw(mPw); // memberDTO.setMPw(SecurityUtils.encodeBase64(mPw)); // 비밀번호 암호화 처리
-		memberDTO.setMEmail(mEmail);
-		memberDTO.setMPhone(mPhone);
+		memberDTO.setMName(SecurityUtils.xxs(request.getParameter("mName"))); // 이름 XXS 처리
+		memberDTO.setMEmail(SecurityUtils.xxs(request.getParameter("mEmail"))); // 이메일 XXS 처리
+		memberDTO.setMPw(SecurityUtils.encodeBase64(request.getParameter("mPw"))); // 비밀번호 암호화 처리
+		memberDTO.setMId(request.getParameter("mId"));
+		memberDTO.setMPhone(request.getParameter("mPhone"));
 		
 		// memberDAO의 join() 호출
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);

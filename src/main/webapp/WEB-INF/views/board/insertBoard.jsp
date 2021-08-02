@@ -7,8 +7,13 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="resources/css/insertBoard.css"> 
+	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 	<title>Homepage</title>
 	<script>
+	
+		$(function(){
+			getDate();		// 시간 보여주는 함수
+		});	// onload
 	
 		function loadFile(input, span_file, div_img) {
 		
@@ -32,19 +37,47 @@
 				//이미지를 showImgs div에 추가
 			}
 		  	//새로운 이미지 div 추가
+		}		
 
-		};
+	    function getDate() { 
+	        date = setInterval(function () { 
+	            var dateString = ""; 
+
+	            var newDate = new Date(); 
+
+	            dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
+	            dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
+	            //document.write(dateString); 문서에 바로 그릴 수 있다. 
+	            $("#date").text(dateString); 
+	        }, 1000);	// 1초 단위로  
+	    } 
+		
 	</script>
 
 <body>
 	<h1> 글 입력</h1>
+	
+		<div class="btn_box">
+			<span>Seoul</span>
+			<span id="date"></span>
+			<c:if test="${loginUser eq null && loginAdmin eq null}">
+	 			<input type="button" class="showLogin" value="로그인">
+	 		</c:if>
+	 		<c:if test="${loginUser ne null || loginAdmin ne null}">
+	 			<input type="button" value="로그아웃" onclick="location.href='logout.do'">
+			</c:if>
+		</div>
+
+	
 	<form id="f" action="insertBoard.do" method="POST" enctype="multipart/form-data">
 		<c:if test="${loginUser eq null && loginAdmin ne null}">
-			<input type="hidden" name="m_id" value="${loginUser.MId}"><br>
-		</c:if>
-		<c:if test="${loginUser ne null && loginAdmin eq null}">
 			<input type="hidden" name="m_id" value="${loginAdmin.MId}"><br>
 		</c:if>
+		<c:if test="${loginUser ne null && loginAdmin eq null}">
+			<input type="hidden" name="m_id" value="${loginUser.MId}"><br>
+		</c:if>
+		
+		
 		<h3>제목</h3>
 		<input type="text" name="bTitle" placeholder="제목을 입력하세요"><br>
 		<h3>내용</h3>
@@ -80,5 +113,6 @@
 		<button>작성 완료</button>
 	</form>
 	
-</body>
-</html>
+<jsp:include page="../layout/footer.jsp">
+	<jsp:param value="로그인" name="title" />
+</jsp:include>

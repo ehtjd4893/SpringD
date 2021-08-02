@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- 동적 페이지 포함(파라미터 title을 전달할 수 있다) --%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +14,23 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>예약 리스트</title>
+	<style type="text/css">
+		 
+		#box_middle{
+			margin:  auto 20%;
+	    	padding: 5% 10%;
+	    	border: 1px solid pink;
+		}
+		#f{
+			padding: 5% 7%;
+		}
+		table,tr,td,th{
+		margin:auto;
+		 border: 1px solid pink;
+		 text-align: center;
+		}
 	
+	</style>
 </head>
 <body>
 
@@ -17,8 +38,9 @@
 <!-- 가져옴 -->
 
     
-    <br><br>
- 
+    
+ <div id="box_middle">
+	<h1>예약 내역</h1>
     <div class="row">
         <table id="example-table-2" width="100%" class="table table-bordered table-hover text-center">
             <thead>
@@ -68,14 +90,15 @@
 	        	<div id="popup_title">비밀번호 확인</div>
 	        	<a id="close"><i class="fas fa-times fa-3x"></i></a>
 	        	<input type="text" id="reNo" name="reNo" hidden=""><br>
-	        	비밀번호 <input type="password" id="mPw" >
+	        	비밀번호 <input type="password" id="mPw" name="mPw">
 	        	<input type="button" value="확인" id="pw_check" >
 	        </form>
        </div>
        <a href="index.do">메인으로</a>	 	
 	
     </div>
- 
+    
+ </div>
 
          
  
@@ -84,40 +107,47 @@
  	$(document).ready(function(){
  		fn_cancel();
  		fn_presentPwCheck();
- 		fn_pwCheck();
  		fn_showPw();
+ 		fn_pwCheck();
  	});
     
     
     // 취소할 예약번호 가져오기
     function fn_cancel(){
         $(".cancel_btn").click(function(){ 
-        	
             var str = ""
             var cancel_btn = $(this);
-            
             var tr = cancel_btn.parent().parent();
             var td = tr.children();
             var reNo = td.eq(0).text();
-            
             $("#reNo").val(reNo);  
-            //tr.append('<td>').append('규웃z');
+            alert(reNo);
+             
         });
     }
  
     //취소시 비밀번호 확인창 - 토글
     function fn_showPw(){
 			$('.cancel_btn').on('click',function(){
-				$('#subData').toggle();
+				$('#subData').toggle('disabled');
 			});
 			$('#close').on('click',function(){
-				$('#subData').toggle();
+				$('#subData').toggle('disabled');
 			});
 			
-		}	 
+		}	
     
+    
+    
+    
+    
+    
+    
+
+	
+	
    
- 	// 현재 비밀번호 확인(presentPwCheck)
+ // 현재 비밀번호 확인(presentPwCheck)
 	var presentPwPass = false;
 	function fn_presentPwCheck(){
 		$('#mPw').keyup(function(){
@@ -166,3 +196,5 @@
 
 </body>
 </html>
+<%-- 정적 페이지 포함(파라미터 전달이 불가능하다) --%>
+<%@ include file="../layout/footer.jsp" %> 

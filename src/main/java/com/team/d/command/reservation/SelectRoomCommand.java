@@ -41,17 +41,17 @@ public class SelectRoomCommand implements ReservationCommand {
 		
 		
 		//숙박일 계산
-        String strFormat = "yyyyMMdd";    //strStartDate 와 strEndDate 의 format
+        String strFormat = "yyyyMMdd";    //strStartDate 와 strEndDate의 format
         //숙박일 계산을 위해 받아온 데이터안 문자'-'삭제
       	String strCheckInYMD=checkIn.replace("-","");
       	String strCheckOutYMD=checkOut.replace("-","");
-        //SimpleDateFormat 을 이용하여 startDate와 endDate의 Date 객체를 생성한다.
+        //SimpleDateFormat 을 이용하여 startDate와 endDate의 Date 객체를 생성
         SimpleDateFormat sdf = new SimpleDateFormat(strFormat);
         try{
             Date checkInYMD = sdf.parse(strCheckInYMD);
             Date CheckOutYMD = sdf.parse(strCheckOutYMD);
  
-            //두날짜 사이의 시간 차이(ms)를 하루 동안의 ms(24시*60분*60초*1000밀리초) 로 나눈다.
+            //두날짜 사이의 시간 차이(ms)를 하루 동안의 ms(24시*60분*60초*1000밀리초) 로 나눔
             long diffDay = ( CheckOutYMD.getTime() - checkInYMD.getTime()) / (24*60*60*1000);
             //System.out.println(diffDay+"일");
             model.addAttribute("sleepDate",diffDay);

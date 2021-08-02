@@ -23,7 +23,6 @@ public class SelectRoomViewCommand implements RoomCommand {
 		RoomDAO roomDAO = sqlSession.getMapper(RoomDAO.class);
 		RoomDTO roomDTO = roomDAO.selectRoomByRNo(rNo);
 		model.addAttribute("roomDTO", roomDTO);
-		
 
 	}
 

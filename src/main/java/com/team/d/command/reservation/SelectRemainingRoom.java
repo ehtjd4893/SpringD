@@ -25,10 +25,7 @@ public class SelectRemainingRoom implements ReservationCommand {
 		// 숙박 인원
 		long people = Long.parseLong(request.getParameter("people"));
 		
-		//System.out.println("조회하신 정보는 " + checkIn + ", " + checkOut + ", " + people + "명입니다");
-		
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
-		
 		// 예약가능한 방 불러오는 함수
 		model.addAttribute("room",reservationDAO.remainingRoom(checkIn,checkOut,people));
 		

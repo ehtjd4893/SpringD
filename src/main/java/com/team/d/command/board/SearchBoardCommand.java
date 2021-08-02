@@ -1,7 +1,5 @@
 package com.team.d.command.board;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +13,7 @@ import org.springframework.ui.Model;
 import com.team.d.dao.BoardDAO;
 import com.team.d.dto.BoardDTO;
 import com.team.d.dto.PageDTO;
-import com.team.d.utils.PagingUtil;
-
-import oracle.sql.DATE;
+import com.team.d.utils.PagingUtils;
 
 public class SearchBoardCommand {
 
@@ -50,11 +46,11 @@ public class SearchBoardCommand {
 		// 검색 결과의 개수를 받아오는 함수
 		int searchedRecord = dao.getSearchedlRecord(container);
 		
-		PageDTO pageDTO = PagingUtil.getPage(searchedRecord, page);
+		PageDTO pageDTO = PagingUtils.getPage(searchedRecord, page);
 		
 		// 검색할 당시 사용했던 column과 query를 paging처리할 목록에도 더해준다.
 		String path = "searchList.do?column=" + column + "&query=" + query;
-		String paging = PagingUtil.getPaging(path, page);
+		String paging = PagingUtils.getPaging(path, page);
 		
 		
 		container.put("endRecord", "" + pageDTO.getEndRecord());

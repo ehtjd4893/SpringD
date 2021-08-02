@@ -1,26 +1,33 @@
 package com.team.d.dao;
 
-import java.util.List;
-
 import com.team.d.dto.MemberDTO;
 
 public interface MemberDAO {
 
-	public MemberDTO login(MemberDTO memberDTO);
-	//public List<MemberDTO> login(MemberDTO memberDTO);
+	public MemberDTO login(MemberDTO memberDTO); // 로그인
 	
-	public int idCheck(String mId); // 아이디 체크
-	public int emailCheck(String mEmail); // 이메일 중복체크
+	public MemberDTO kakaoLogin(MemberDTO memberDTO); // 카카오 로그인
+	
 	public int join(MemberDTO memberDTO); // 회원가입
-	public int updatePw(MemberDTO memberDTO); // 비밀번호 변경
-	public int update(MemberDTO memberDTO); // 회원정보 변경
-	public MemberDTO findId(String mEmail); // 아이디 찾기
-	public int idAndEmailCheck(String mId, String mEmail); // 아이디&이메일 일치 확인(비밀번호 찾을 때 필요) : 보류
-	public int changePw(MemberDTO memberDTO); // 비밀번호 찾기&비밀번호 변경
-	public int leave(long mNo); // 회원탈퇴 
 	
-	public MemberDTO adminLogin(MemberDTO memberDTO);
-
+	public int idCheck(String mId); // 아이디 중복체크
+	
+	public int emailCheck(String mEmail); // 이메일 중복체크
+	
+	public int updatePw(MemberDTO memberDTO); // 비밀번호 변경
+	
+	public int updateMember(MemberDTO memberDTO); // 회원정보 변경
+	
+	public MemberDTO findId(MemberDTO memberDTO); // 아이디 찾기
+	
+	public MemberDTO findPw(MemberDTO memberDTO); // 비밀번호 찾기
+	
+	public int changePw(MemberDTO memberDTO); // 비밀번호 찾기&변경
+	
+	public int leave(long mNo); // 회원탈퇴
+	
+	public void reJoin(long mNo); // 재가입
+	
+	public MemberDTO adminLogin(MemberDTO memberDTO); // 관리자 로그인
 	
 }
-

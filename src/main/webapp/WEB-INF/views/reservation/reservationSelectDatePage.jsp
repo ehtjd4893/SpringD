@@ -1,21 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- 동적 페이지 포함(파라미터 title을 전달할 수 있다) --%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <title>예약 페이지</title>
 <style type="text/css">
+	body{
+		margin: 0;
+    	padding: 0;
+	}
     table,tr,td{
-    	border: 1px solid pink;
+    	border: 1px solid  #c2ad99;
     	text-align: center;
+    	margin: 150px auto;
     }
     input[type="text"]{
-    	width: 30px;
+    	width: 70px;
     	text-align: center;
     }
-    
+    #box_middle{
+    	margin: auto;
+    	padding: auto;
+    	border: 1px solid pink;
+    }
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -43,7 +57,7 @@
 <body>
 
 
-
+	<div id="box_middle">
 	<form id="f">
 		<table>
 			<tr>
@@ -64,11 +78,11 @@
 			</tr>
 		</table>
 	</form>
-
-
-
-
+</div>
 
  
 </body>
 </html>
+	
+<%-- 정적 페이지 포함(파라미터 전달이 불가능하다) --%>
+<%@ include file="../layout/footer.jsp" %> 

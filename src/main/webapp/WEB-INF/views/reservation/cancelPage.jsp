@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%-- 동적 페이지 포함(파라미터 title을 전달할 수 있다) --%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,3 +39,5 @@
 
 </body>
 </html>
+<%-- 정적 페이지 포함(파라미터 전달이 불가능하다) --%>
+<%@ include file="../layout/footer.jsp" %> 

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- 동적 페이지 포함(파라미터 title을 전달할 수 있다) --%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html >
 <html>
 <head>
@@ -24,6 +29,11 @@
  
 </script>
 <style type="text/css">
+	#box_middle{
+			margin:  auto 20%;
+	    	padding: 5% 10%;
+	    	border: 1px solid pink;
+	}
 	body{
 		padding: auto;
 		margin: auto;
@@ -37,13 +47,20 @@
 		text-align: center;
 		line-height: 50px;
 	}
+	table,tr,td,th{
+		margin:auto;
+		 border: 1px solid pink;
+		 text-align: center;
+		}
 </style>
 </head>
 <body>
 
+
+<div id="box_middle">
 	<!-- 비회원 예약 내역 -->
        
-	       <h1>예약내역</h1>
+	       <h1>비회원 예약내역</h1>
 	      
 	      
 	       
@@ -85,5 +102,8 @@
         </table>
 	       *비회원 취소시 고객센터 연락바랍니다.
        </div>
+</div>
 </body>
 </html>
+<%-- 정적 페이지 포함(파라미터 전달이 불가능하다) --%>
+<%@ include file="../layout/footer.jsp" %> 

@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 import com.team.d.dao.MemberDAO;
 import com.team.d.dto.MemberDTO;
 
+// 관리자 로그인
 public class AdminLoginCommand  {
 
 	public String execute(SqlSession sqlSession, Model model) {
+		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest)map.get("request");
 		String mId = request.getParameter("mId");

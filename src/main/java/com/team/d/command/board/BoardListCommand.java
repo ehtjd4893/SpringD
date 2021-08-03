@@ -18,7 +18,6 @@ import com.team.d.utils.PagingUtils;
 
 public class BoardListCommand{
 
-
 	public Map<String, Object> execute(SqlSession sqlSession, Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -44,7 +43,6 @@ public class BoardListCommand{
 		for(BoardDTO dto : list) {
 			dto.setBPostDate(dto.getBPostDate().substring(2,11));
 		}
-
 		
 		// json 형태로 반환해줄 Map 그릇
 		Map<String, Object> resultMap =  new HashMap<String, Object>();

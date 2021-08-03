@@ -26,7 +26,6 @@ public class ShowBoardCommand implements BoardCommand {
 		
 		// model을 통해 BoardDTO 전달
 		model.addAttribute("Board", dao.selectBoardByIdx(bIdx));
-		
 	}
 
 }

@@ -22,7 +22,6 @@ public class MyReservationCommand implements ReservationCommand {
 		
 		// 회원의 예약리스트
 		model.addAttribute("myReservationList",reservationDAO.reservationList(mNo));
-		
 
 	}
 

@@ -24,7 +24,6 @@ public class RoomController {
 	private SelectRoomViewCommand selectRoomViewCommand;
 	private DownloadRoomServiceMenuCommand downloadRoomServiceMenuCommand;
 	
-	
 	@GetMapping(value="amenity.do")
 	public String amenity() {
 		return "room/amenity";

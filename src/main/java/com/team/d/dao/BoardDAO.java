@@ -32,6 +32,5 @@ public interface BoardDAO {
 	public void updateBoard(Map<String, Object> container);
 
 	public void deleteBoard(long BIDX);
-
 	
 }

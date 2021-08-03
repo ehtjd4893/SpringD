@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BoardDTO {
+	
+	// field
 	private long bIdx;
 	private String mId;
 	private String bTitle;

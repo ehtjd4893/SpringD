@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ReplyDTO {
-
+	
+	// field
 	private long rIdx;
 	private String rContent;
 	private String mId;

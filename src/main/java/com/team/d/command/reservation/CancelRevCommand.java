@@ -17,10 +17,10 @@ public class CancelRevCommand implements ReservationCommand {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
-		//예약번호
+		// 예약번호
 		long reNo = Long.parseLong(request.getParameter("reNo"));
 		
-		//db에서 예약 취소 
+		// db에서 예약 취소 
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		reservationDAO.cancelReservation(reNo);
 		

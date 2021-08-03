@@ -27,6 +27,7 @@ import lombok.AllArgsConstructor;
 @Controller
 public class BoardController {
 
+	// field
 	private SqlSession sqlSession;
 	private InsertBoardCommand insertBoardCommand;
 	private BoardListCommand boardListCommand;

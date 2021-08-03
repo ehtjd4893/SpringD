@@ -22,7 +22,6 @@ public class SelectNoticeCommand {
 		for(BoardDTO dto : list) {
 			dto.setBPostDate(dto.getBPostDate().substring(2,11));
 		}
-
 		
 		// json 형태로 반환해줄 Map 그릇
 		Map<String, Object> resultMap =  new HashMap<String, Object>();

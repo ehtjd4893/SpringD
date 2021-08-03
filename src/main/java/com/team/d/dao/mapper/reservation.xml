@@ -72,4 +72,5 @@
 		FROM RESERVATION
 		WHERE REEMAIL = #{param1}
 	</select>
+	
 </mapper>

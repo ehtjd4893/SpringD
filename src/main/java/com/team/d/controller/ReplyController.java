@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 @Controller
 public class ReplyController {
 
+	// field
 	private SqlSession sqlSession;
 	private ShowBoardCommand showBoardCommand;
 	private InsertReplyCommand insertReplyCommand;
@@ -60,4 +61,5 @@ public class ReplyController {
 		model.addAttribute("request", request);
 		insertReReplyCommand.execute(sqlSession, model);
 	}
+	
 }

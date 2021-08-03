@@ -5,23 +5,19 @@
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="로그인" name="title" />
 </jsp:include>
+
 	<link rel="stylesheet" href="resources/css/infoRoom.css">
 	<script>
 		$(function(){			
 	 	 	$('<input type="hidden" name="page" value="infoRoom.do">')
 			.appendTo( $('.form') )
 		});
-	
 	</script>
 	<style>
 		.room-description > p {
 			color: white;
 		}
 	</style>
-
-	<br><br><br><br>
-	
-	<h1>룸 정보 페이지</h1>
 	
     <div class="container">
         <div class="room-list">

@@ -6,7 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public class FileUtils {
-
 	
 	public static String fileUpload(MultipartHttpServletRequest multipartRequest, MultipartFile file, int seq) {
 		if (file != null && !file.isEmpty()) {

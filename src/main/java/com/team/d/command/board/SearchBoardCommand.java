@@ -52,17 +52,14 @@ public class SearchBoardCommand {
 		String path = "searchList.do?column=" + column + "&query=" + query;
 		String paging = PagingUtils.getPaging(path, page);
 		
-		
 		container.put("endRecord", "" + pageDTO.getEndRecord());
 		container.put("beginRecord", "" + pageDTO.getBeginRecord());
-		
 		
 		// 검색결과를 list에 담아주는 함수
 		List<BoardDTO> list = dao.searchList(container);		
 		for(BoardDTO dto : list) {
 			dto.setBPostDate(dto.getBPostDate().substring(2,11));
 		}
-		
 		
 		// 결과를 json형태로 전달해줄 Map 그릇
 		Map<String, Object> resultMap =  new HashMap<String, Object>();

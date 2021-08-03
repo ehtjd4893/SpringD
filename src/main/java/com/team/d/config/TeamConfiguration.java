@@ -245,4 +245,5 @@ public class TeamConfiguration {
 	public DownloadRoomServiceMenuCommand downloadRoomServiceMenuCommand() {
 		return new DownloadRoomServiceMenuCommand();
 	}
+	
 }

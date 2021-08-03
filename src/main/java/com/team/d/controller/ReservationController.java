@@ -22,13 +22,11 @@ import com.team.d.command.reservation.SelectRoomCommand;
 
 import lombok.AllArgsConstructor;
 
-
-
-
 @AllArgsConstructor
 @Controller
 public class ReservationController {
 
+	// field
 	private SqlSession sqlSession;
 	private SelectRemainingRoom selectRemainingRoom;
 	private SelectRoomCommand selectRoomCommand;
@@ -39,8 +37,6 @@ public class ReservationController {
 	private CancelRevCommand cancelRevCommand;
 	private EmailRevCodeCommand emailRevCodeCommand;
 	private NonMemberRevListCommand nonMemberRevListCommand;
-	
-	 
 	 
 	// 조회 페이지로 이동
 	@GetMapping(value="reservationSelectDatePage.do")
@@ -72,7 +68,7 @@ public class ReservationController {
 		return "reservation/revInfoPage";
 	}
 	
-	//예약 삽입만 하는 코드 
+	// 예약 삽입만 하는 코드 
 	@GetMapping(value="receiptPage.do")
 	public String receiptPage(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -80,7 +76,7 @@ public class ReservationController {
 		return "redirect:realreceiptPage.do";	//redirect
 	}
 	
-	//최종 예약 보여주는 페이지 이동
+	// 최종 예약 보여주는 페이지 이동
 	@GetMapping(value="realreceiptPage.do")
 	public String realreceiptPage(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -88,7 +84,7 @@ public class ReservationController {
 		return "reservation/receiptPage";
 	}
 	
-	//회원의 예약 목록 보여줌
+	// 회원의 예약 목록 보여줌
 	@GetMapping(value="myReservation.do")
 	public String myReservation(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
@@ -96,15 +92,13 @@ public class ReservationController {
 		return "reservation/myReservation";
 	}
 	
-	//예약 취소
+	// 예약 취소
 	@GetMapping(value="cancelPage.do")
 	public String cancelPage(HttpServletRequest request,Model model) {
 		model.addAttribute("request",request);
 		cancelRevCommand.execute(sqlSession, model);
 		return "reservation/cancelPage";
 	}
-	
-	
 	
 	
 	/* 아래 코드들은 검토중 */
@@ -130,4 +124,5 @@ public class ReservationController {
 		nonMemberRevListCommand.execute(sqlSession, model);
 		return "reservation/nonMemReservationPage";
 	}
+	
 }

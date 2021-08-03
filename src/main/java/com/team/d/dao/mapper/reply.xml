@@ -47,4 +47,5 @@
 		 WHERE BIDX = #{BIDX}
 		   AND PARENT = 0
 	</select>
+	
 </mapper>

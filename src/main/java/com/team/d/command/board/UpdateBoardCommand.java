@@ -37,7 +37,6 @@ public class UpdateBoardCommand implements BoardCommand {
 		String originalFile2 = multipartRequest.getParameter("originalFile2");
 		String originalFile3 = multipartRequest.getParameter("originalFile3");
 		
-		
 		MultipartFile file1 = multipartRequest.getFile("chooseFile1");
 		if (file1 != null && !file1.isEmpty()) {	
 			// file1에 파일이 들어왔을 때 원래의 file1을 지우고 새로운 파일 저장
@@ -70,7 +69,6 @@ public class UpdateBoardCommand implements BoardCommand {
 			// do nothing
 			BFILENAME3 = originalFile3;
 		}
-		
 		
 		BoardDAO boardDAO = sqlSession.getMapper(BoardDAO.class);
 		

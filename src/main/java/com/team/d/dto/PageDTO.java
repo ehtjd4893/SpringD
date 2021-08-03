@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class PageDTO {
+	
+	// field
 	private int page;
 	private int totalRecord;
 	private int recordPerPage;
@@ -17,4 +19,5 @@ public class PageDTO {
 	private int pagePerBlock;
 	private int beginPage;
 	private int endPage;
+	
 }

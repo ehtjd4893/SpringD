@@ -38,8 +38,6 @@ public class GetChildListCommand {
 		}
 		
 		ReplyDAO dao = sqlSession.getMapper(ReplyDAO.class);
-
-		
 		
 		Map<String, Object> container = new HashMap<>();
 		container.put("PARENT", parent);
@@ -51,7 +49,6 @@ public class GetChildListCommand {
 
 		container.put("beginRecord", paging.getBeginRecord());
 		container.put("endRecord", paging.getEndRecord());
-		
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		

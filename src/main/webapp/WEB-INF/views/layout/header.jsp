@@ -170,7 +170,7 @@
 				
 				<a href="reservationSelectDatePage.do">예약하기</a>
 				<a href="boardPage.do">게시판</a>
-				<a href="">이벤트</a>
+				<a href="eventPage.do">이벤트</a>
 				<a href="infoRoom.do">객실</a>
 			</div>
 			
@@ -199,7 +199,7 @@
 			<!-- left -->
 			<div class="header_left"> 
 				<a href="boardPage.do">게시판</a>
-				<a href="">이벤트</a>
+				<a href="eventPage.do">이벤트</a>
 				<a href="infoRoom.do">객실</a>
 			</div>
 			

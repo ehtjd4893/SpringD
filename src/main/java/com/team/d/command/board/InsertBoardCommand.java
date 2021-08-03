@@ -31,8 +31,6 @@ public class InsertBoardCommand implements BoardCommand {
 		bTitle = multipartRequest.getParameter("bTitle");
 		bContent = multipartRequest.getParameter("bContent");
 		
-		
-
 		MultipartFile file1 = multipartRequest.getFile("chooseFile1");
 		MultipartFile file2 = multipartRequest.getFile("chooseFile2");
 		MultipartFile file3 = multipartRequest.getFile("chooseFile3");
@@ -55,7 +53,5 @@ public class InsertBoardCommand implements BoardCommand {
 		boardDAO.insertBoard(container);
 		
 	}
-	
-	
 	
 }

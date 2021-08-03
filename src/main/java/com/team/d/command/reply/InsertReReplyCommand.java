@@ -32,4 +32,5 @@ public class InsertReReplyCommand implements ReplyCommand{
 		ReplyDAO dao = sqlSession.getMapper(ReplyDAO.class);
 		dao.insertReReply(container);		
 	}
+	
 }

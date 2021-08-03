@@ -48,18 +48,14 @@ public class GetReplyListCommand  {
 		container.put("BIDX", bIdx);
 		container.put("beginRecord", pageDTO.getBeginRecord());
 		container.put("endRecord", pageDTO.getEndRecord());
-		
-		
 
 		// 전체 게시물을 list에 담아주는 함수.
 		List<ReplyDTO> list = dao.getReplyListByBidx(container);
-		
 
 		for(ReplyDTO dto : list) {
 			dto.setRPostDate(dto.getRPostDate().substring(2,11));
 		}
 
-		
 		// json 형태로 반환해줄 Map 그릇
 		Map<String, Object> resultMap =  new HashMap<String, Object>();
 		resultMap.put("list", list);

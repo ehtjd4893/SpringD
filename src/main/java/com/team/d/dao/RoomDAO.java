@@ -9,5 +9,4 @@ public interface RoomDAO {
 	public List<RoomDTO> selectRoomList();
 	public RoomDTO selectRoomByRNo(long rNo);
 	
-	
 }

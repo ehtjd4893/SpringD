@@ -22,19 +22,21 @@
 .disabled{
    display: none;
 }
+
  #reNo_f{
   margin: 50px auto;
   padding:auto;
   line-height: 100%;
  }
  
- /* div - 팝업창 이름 스타일 */
+/* div - 팝업창 이름 스타일 */
 #popup_title{
    width: 150px;
    font-size: 20px;
    text-align: center;
    margin: 0 auto;
 } 
+
 .btn_box{
    width:100%;
    text-align: right;
@@ -44,7 +46,6 @@
    top: 0%;
    right: 0%; 
 }
- 
 
 #close{
    position: absolute;
@@ -52,5 +53,4 @@
    right: 10px;
    color: white;
    cursor: pointer;
-
 }

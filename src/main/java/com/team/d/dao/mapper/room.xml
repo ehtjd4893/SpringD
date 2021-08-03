@@ -16,9 +16,4 @@
 		 WHERE RNO = #{param1}
 	</select>
 	
-	
-	
-	
-	
-	
 </mapper>

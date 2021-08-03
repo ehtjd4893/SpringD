@@ -23,8 +23,6 @@ public class DeleteBoardCommand implements BoardCommand {
 		String bFileName2 = multipartRequest.getParameter("bFileName1");
 		String bFileName3 = multipartRequest.getParameter("bFileName1");
 		
-		
-		
 		// 파일이 존재한다면 삭제
 		if(bFileName1 != "null")
 			FileUtils.deleteFile(multipartRequest, bFileName1, "board");
@@ -35,4 +33,5 @@ public class DeleteBoardCommand implements BoardCommand {
 		
 		boardDAO.deleteBoard(bIdx);
 	}
+	
 }

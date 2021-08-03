@@ -64,8 +64,7 @@ public class ReceiptCommand implements ReservationCommand {
 		
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		// DB에 '예약정보 삽입' 하고 '리턴값으로 예약시퀀스값' 저장
-		int result=reservationDAO.insertReservation(rNo, mNo, people, checkIn, checkOut, food,totalPay,booker,reEmail,note);
-		System.out.println(result);
+		// int result=reservationDAO.insertReservation(rNo, mNo, people, checkIn, checkOut, food,totalPay,booker,reEmail,note);
 		// DB에 삽입한 예약정보 model에 넘김
 		model.addAttribute("reno",reservationDAO.selectViewReservation());
 		model.addAttribute("selectRoom",reservationDAO.selectRoom(rNo));

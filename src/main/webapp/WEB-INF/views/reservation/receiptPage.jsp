@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/receiptPage.css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>결제 완료</title>
@@ -18,14 +23,10 @@
 			});
 		}
 	</script>
-	<style type="text/css">
-		table,tr,td{
-			border: 1px solid pink;
-		}
-	</style>
 </head>
 <body>
-	
+<div id="box_middle">	
+<br>
 	<h1>결제완료</h1>
 	<p>예약이 완료되었습니다.</p>
 	<table>
@@ -71,5 +72,7 @@
 	
 	<h2>감사합니다</h2>
 	<button id="indexPage_btn">메인페이지</button>
+</div>
 </body>
 </html>
+<%@ include file="../layout/footer.jsp" %> 

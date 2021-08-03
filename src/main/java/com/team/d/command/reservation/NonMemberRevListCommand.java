@@ -22,7 +22,6 @@ public class NonMemberRevListCommand implements ReservationCommand {
 		
 		// 비회원 예약정보 list
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
-		System.out.println(reservationDAO.reservationListNonMember(reEmail));
 		model.addAttribute("nonMemRevList",reservationDAO.reservationListNonMember(reEmail));
 
 	}

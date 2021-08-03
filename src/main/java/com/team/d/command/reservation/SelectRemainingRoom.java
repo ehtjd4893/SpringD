@@ -30,7 +30,6 @@ public class SelectRemainingRoom implements ReservationCommand {
 		// 예약가능한 방 불러오는 함수
 		model.addAttribute("room",reservationDAO.remainingRoom(checkIn,checkOut,people));
 		
-		System.out.println(reservationDAO.remainingRoom(checkIn,checkOut,people));
 		model.addAttribute("checkIn",checkIn);
 		model.addAttribute("checkOut",checkOut);
 		model.addAttribute("people",people);

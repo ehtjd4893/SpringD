@@ -45,6 +45,30 @@ public class LoginCommand {
 		}
 		
 		String page = request.getParameter("page");
+		//수진수정 시작
+		long rNo;
+		String checkIn;
+		String checkOut;
+		long people;
+		String food;
+		long totalPay;
+		if(page=="revInfoPage.do") {
+			rNo=Long.parseLong(request.getParameter("rNo"));
+			checkIn=request.getParameter("checkIn");
+			checkOut=request.getParameter("checkOut");
+			people=Long.parseLong(request.getParameter("people"));
+			food=request.getParameter("food");
+			totalPay=Long.parseLong(request.getParameter("totalPay"));
+			
+			model.addAttribute("rNo",rNo);
+			model.addAttribute("checkIn",checkIn);
+			model.addAttribute("checkOut",checkOut);
+			model.addAttribute("people",people);
+			model.addAttribute("food",food);
+			model.addAttribute("totalPay",totalPay);
+		
+		}
+		//수정끝
 		if(page == null)
 			page = "index";
 		

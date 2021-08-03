@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html >
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
+<!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/nonMemberPage.css">
 <meta  charset=UTF-8>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -44,32 +49,20 @@
 	}
  
 </script>
-<style type="text/css">
-	body{
-		padding: auto;
-		margin: auto;
-	}
-	#subData{
-		padding: auto;
-		margin: auto;
-		border: 1px solid black;
-		width: 500px;
-		height:100px;
-		text-align: center;
-		line-height: 50px;
-	}
-</style>
+ 
 </head>
 <body>
-
+<div id="box_middle">
 	<!-- 비회원 예약 코드 -->
+	<h1>비회원 조회</h1>
         <div id="subData">
 	        <form id="code_f">
-	        	<div id="popup_title">예약한 이메일</div>
-	        	<a id="close"><i class="fas fa-times fa-3x"></i></a>
+	        	<div id="input_title">예약한 이메일</div>
 	        	<input type="text" id="reEmail" name="reEmail" placeholder="xxxxx@naver.com">
 	        	<input type="button" value="확인" id="email_check" >
 	        </form>
        </div>
+</div>
 </body>
 </html>
+<%@ include file="../layout/footer.jsp" %> 

@@ -21,7 +21,6 @@ public class EmailRevCodeCommand{
 		
 		// 비회원 예약한 이메일 
 		String reEmail = request.getParameter("reEmail");
-		System.out.println(reEmail);
 		ReservationDAO reservationDAO = sqlSession.getMapper(ReservationDAO.class);
 		
 		// 비회원 예약정보 list

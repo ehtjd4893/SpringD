@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html >
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/optionPage.css">
 <meta  charset=UTF-8>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -48,25 +53,12 @@
 	}
 	
 	</script>
-	<style type="text/css">
-		#food{
-			width: 20px;
-			text-align: center;
-		}
-		table,td,tr{
-			border: 1px solid pink;
-		}
-		#totalPay{
-			border:0 solid black;
-			outline:none;
-			font-size: 30px;
-			width: 150px;
-			text-align: right;
-		}
-	</style>
+	 
 <title>Insert title here</title>
 </head>
 <body>
+<div id="box_middle">
+ 	
  	<h1>옵션</h1>
  	
  	<form id="f">
@@ -115,13 +107,10 @@
  			</tr>
  		</tfoot>
  	</table>
- 	
- 	
- 	
- 	
  	<input type="button" value="다음" id="next_btn">
  	</form>
-				 		 
+</div>			 		 
  	
 </body>
 </html>
+<%@ include file="../layout/footer.jsp" %> 

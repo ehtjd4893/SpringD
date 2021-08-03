@@ -1,20 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="로그인" name="title" />
 </jsp:include>
+
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
-	<style>
-		table{
-			text-align: center;
-		}
-		
-		#notice{
-			background-color: orange;	
-		}
-	</style>
-	
+	<link rel="stylesheet" href="resources/css/viewBoardList.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script>
 		$(function(){
 			getDate();		// 시간 보여주는 함수
@@ -37,7 +31,7 @@
 				// 전체 목록이 아니라 search결과만을 띄워준다.
 				fn_search();	// 검색버튼 클릭시 리스트 불러오는 함수
 			}
-		})	// onload 함수의 끝
+		});	// onload 함수의 끝
 		
 		// 관리자의 글을 공지사항으로 가져오기
 		function fn_get_notice(){
@@ -76,7 +70,7 @@
 		}
 		
 		// 검색 목록 불러오는 ajax
-		 function fn_search(){
+		function fn_search(){
 				$('#list').empty();
 				fn_get_notice();
 				$.ajax({
@@ -126,15 +120,13 @@
 					alert('로그인이 필요합니다.');
 					$('.form').toggleClass('hide');
 				}	// else
-					
-				
 			});	// onclick
 		}	// fn_insertBoard
 		
 		function fn_closeLogin(){	// 로그인창에서 x 클릭시 로그인창 닫힘
 			$('#closeLogin').click(function(){
 				$('.form').toggleClass('hide');
-			})	// onclick#
+			});	// onclick#
 		}	// fn_closeLogin
 		
 		function fn_showList(){
@@ -154,7 +146,7 @@
 				error: function(){
 					alert('목록 불러오기 오류');
 				}
-			})
+			});
 		}	// fn_showList
 		
 		// list 출력함수
@@ -181,9 +173,7 @@
 					.appendTo( $('#list') ); 
 				} 
 			});	// each 
-			
 		}
-			
 		
 		// 공지사항 출력 함수
 		function fn_makeNotice(list){
@@ -209,66 +199,65 @@
 					.appendTo( $('#list') ); 
 				} 
 			});	// each 
-			
 		}	// fn_makeNotice
-		
 	</script>
-	
-<body>
- 
-	 
-	<h1>게시판</h1>
-		
-	<!-- 검색한 결과를 띄워줄 때는, 그 전에 사용했던 column이 선택되어있도록 해준다. -->
-	<select id="column">
-		<c:if test="${column eq 'BTITLE'}">
-			<option value="BTITLE" selected>제목</option>
-		</c:if>
-		<c:if test="${column ne 'BTITLE'}">
-			<option value="BTITLE">제목</option>
-		</c:if>
-		<c:if test="${column eq 'MID'}">
-			<option value="MID" selected>작성자</option>
-		</c:if>
-		<c:if test="${column ne 'MID'}">
-			<option value="MID">작성자</option>
-		</c:if>
-		<c:if test="${column eq 'BCONTENT'}">
-			<option value="BCONTENT" selected>내용</option>
-		</c:if>
-		<c:if test="${column ne 'BCONTENT'}">
-			<option value="BCONTENT">내용</option>
-		</c:if>
 
-	</select>
-	
-	<!-- 검색했을 때 입력한 값 그대로 query를 유지해준다. -->
-	<input type="text" id="query" value="${query}">
-	
-	<input type="button" id="search_btn" value="검색">
-	<input type="button" id="init_btn" value="전체 목록 보기">
-	
-	<table border="1">
-		<thead>
-			<tr>
-				<td> 글번호 </td>
-				<td> 작성자 </td>
-				<td> 제목 </td>
-				<td> 작성일 </td>
-				<td> 조회수 </td>
-				<td> 첨부파일</td>
-			</tr>
-		</thead>
-	
-		<tbody id="list">
+	<div class="container">
+		<p class="title">게시판</p>
 			
-		</tbody>
+		<!-- 검색한 결과를 띄워줄 때는, 그 전에 사용했던 column이 선택되어있도록 해준다. -->
+		<div class="search">
+			<select id="column">
+				<c:if test="${column eq 'BTITLE'}">
+					<option value="BTITLE" selected>제목</option>
+				</c:if>
+				<c:if test="${column ne 'BTITLE'}">
+					<option value="BTITLE">제목</option>
+				</c:if>
+				<c:if test="${column eq 'MID'}">
+					<option value="MID" selected>작성자</option>
+				</c:if>
+				<c:if test="${column ne 'MID'}">
+					<option value="MID">작성자</option>
+				</c:if>
+				<c:if test="${column eq 'BCONTENT'}">
+					<option value="BCONTENT" selected>내용</option>
+				</c:if>
+				<c:if test="${column ne 'BCONTENT'}">
+					<option value="BCONTENT">내용</option>
+				</c:if>
+			</select>
 		
-		<tfoot id="paging">
+			<!-- 검색했을 때 입력한 값 그대로 query를 유지해준다. -->
+			<input type="text" id="query" value="${query}" class="input_box">
+			
+			<input type="button" id="search_btn" value="검색" class="btn">
+			<input type="button" id="init_btn" value="전체 목록 보기" class="btn">
+		</div>
 		
-		</tfoot>
-	</table>
-	<input type="button" id="insert_board_btn" value="새 글 작성">
+		<table class="table">
+			<thead>
+				<tr>
+					<td class="naming"> 글번호 </td>
+					<td class="naming"> 작성자 </td>
+					<td class="naming"> 제목 </td>
+					<td class="naming"> 작성일 </td>
+					<td class="naming"> 조회수 </td>
+					<td class="naming"> 첨부파일</td>
+				</tr>
+			</thead>
+		
+			<tbody id="list">
+				
+			</tbody>
+			
+			<tfoot id="paging">
+			
+			</tfoot>
+		</table>
+		<input type="button" id="insert_board_btn" value="새 글 작성" class="btn">
+	</div>
+	
 <jsp:include page="../layout/footer.jsp">
 	<jsp:param value="로그인" name="title" />
 </jsp:include>

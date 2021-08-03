@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header2.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html >
 <html>
 <head>
@@ -9,6 +13,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
+	<link rel="stylesheet" href="resources/css/optionPage.css">
+ 
 	<script type="text/javascript">
 	$(document).ready(function(){
 		fn_check();	//체크박스 누름 => 회원과 같은 정보 뿌려줌
@@ -21,7 +27,7 @@
 	});	
 	
 	
-	//체크박스('회원정보와 동일하다') 클릭시, 정보 뿌려줌
+	// 체크박스('회원정보와 동일하다') 클릭시, 정보 뿌려줌
 	function fn_check(){
 		$('#sameUser_box').click(function(){
 			if($("input:checkbox").is(":checked") == true) {
@@ -58,10 +64,6 @@
 		});
 	}
 	
-	 
-	
-	
-	
 	//이메일 형식 검사	
 	function fn_emailCheck(){
 		$('#reEmail').blur(function(){
@@ -76,7 +78,6 @@
 		});
 	}
 		
-	
 	// 이메일 인증코드 받기(emailCode)
 	// 이메일 인증코드 받기(root-context에서 이메일 bean 생성)
 	function fn_email_code(){
@@ -102,6 +103,7 @@
 			});
 		});
 	}
+	
 	// 이메일 인증(emailAuth)
 	var authPass = false;
 	function fn_email_auth(authCode){
@@ -115,7 +117,6 @@
 			}
 		});
 	}
-		
 	
 	//(1.로그인 했는지) => 2.이메일 인증했는지 + (이름,휴대폰 적었는지) => 3. 됐다면 (영수증)페이지 이동 / 아니라면 안내문자
 	function fn_doReservation(){
@@ -135,18 +136,11 @@
 					$('#f').attr('action','receiptPage.do');
 					$('#f').submit();
 				}
-				/*<c:if test="${empty loginUser}">
-				$('.form').toggleClass('hide');
-			</c:if>
-			
-			<c:if test="${not empty loginUser}">*/
-			/*</c:if>*/
+				
 		});
 	}
 	
-	
 	//로그인 관련 script
-	
     function fn_closeLogin(){
 			$('.cancel_btn').on('click',function(){
 				$('.form').toggleClass('hide');
@@ -168,21 +162,11 @@
 		});
 		
 	}
-	
-	
-	
-	
-	
 	</script>
-	<style type="text/css">
-		table,tr,td{
-		 border: 1px solid pink;
-		 text-align: center;
-		}
-	</style>
+	 
 </head>
 <body>
-
+<div id="box_middle">
 	<h1>예약정보</h1>
 	<form id="f">
 	<!-- 파라미터 값들(hidden) -->
@@ -221,7 +205,6 @@
 						<input type="text" id="user_key">
 						<input type="button" id="email_auth_btn" value="인증확인"> <br>
 						<span class="emailAuth_result"></span> 
-						
 					</td>
 				</tr>
 				<tr>
@@ -240,16 +223,7 @@
 			</tfoot>
 		</table>
 	</form>
-
-
-
-
-
-
-
-
-
-
+</div>
 
 	<div id="mem_mode" class="myMenu">
 		<form action="login.do" method="post">
@@ -307,3 +281,4 @@
 		</div>	<!-- myMenu -->
 </body>
 </html>
+<%@ include file="../layout/footer.jsp" %> 

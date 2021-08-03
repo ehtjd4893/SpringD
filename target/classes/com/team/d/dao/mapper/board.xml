@@ -87,7 +87,7 @@
 	</update>
 	
 	<delete id="deleteBoard">
-		DELETE FROM BOARD WHERE BIDX=#{BIDX}
+		DELETE FROM BOARD WHERE BIDX = #{BIDX}
 	</delete>
 	
 </mapper>

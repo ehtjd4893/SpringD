@@ -26,7 +26,6 @@ public class AdminLoginCommand  {
 		memberDTO.setMId(mId);
 		memberDTO.setMPw(mPw);
 		
-		System.out.println(memberDTO);
 		MemberDTO loginAdmin = memberDAO.adminLogin(memberDTO);
 		
 		HttpSession session = request.getSession();

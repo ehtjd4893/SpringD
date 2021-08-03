@@ -1,79 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="로그인" name="title" />
 </jsp:include>
-	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
 
-	<style>
-		.reply_box{
-			border-top: 1px solid black;
-			border-bottom: 1px solid black;
-			width: 700px;
-			font-size: 13px;
-			background-color: #f0efed;
-		}
-		.writer_box{
-			font: bold;
-			font-weight: 900;
-			font-size: 16px;
-		}
-		.content_box{
-			color: blue;
-		}
-		.date_box{
-			font-size: 12px;
-			color: #999999;
-		}
-		.hide{
-			display:none;
-		}
-		.re_re_box{
-			padding: 0;
-			height: 45px;
-			width: 750px;
-			justify-content: space-between;
-		}
-		.re_re_content{
-			border: 1px solid black;
-			margin: 0 15px;
-			height: 30px;
-			width: 600px;
-		}
-		.re_writer_box{
-			background-color: black;
-			color: white;
-			border-radius: 5px;
-		}
-		.child_writer_box{
-			margin-left: 30px;
-			font-weight: 900;
-			font-size: 16px;
-		}
-		.child_content_box, .child_date_box{
-			margin-left: 60px;
-		}
-		.child{
-			margin: 5px 0 5px 30px;
-			padding: 3px 3px 3px 0;
-			border: 1px solid black;
-			border-radius: 5px;
-			background-color: #f0efed;
-		}
-		.disable {
-			color: silver;
-		}
-		.link {
-			cursor: pointer;
-		}
-		.now_page {
-			color: limegreen;
-		}
-		.re_reply_paging{
-			display: flex;
-		}
-	</style>
+	<link rel="stylesheet" href="resources/css/loginWindow.css"> 
+	<link rel="stylesheet" href="resources/css/selectBoard.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	
 	<script>
 		$(function(){
 			fn_delete();	// 삭제 버튼 클릭시
@@ -101,7 +37,7 @@
 		}
 		
 		// 댓글 불러오기 함수
-		 function fn_getReplyList(){
+		function fn_getReplyList(){
 				$.ajax({
 					url: 'getReplyList.do',
 					type: 'get',
@@ -126,37 +62,35 @@
 				})	// ajax
 		} 
 		
-		
- 			function fn_paging() {
+		function fn_paging() {
+			
+			for(let k = 0; k < totalReply; k++){
+			
+				// 각 댓글마다 대댓글 페이징 링크 걸기
+					$('.re_reply_paging:eq(' + k + ')').on('click', '.previous_block', function(){
+					page_arr[k] = $(this).attr('data-page');
+					var box = $(this).parent().parent().parent().children('.btn');	
+					$(box).parent().children('.re_reply').toggleClass('hide');
+					fn_child_reply(box, parent[k]);
+				}); 
+				
+				$('.re_reply_paging:eq(' + k + ')').on('click', '.go_page', function(){
+					page_arr[k] = $(this).attr('data-page');
+					var box = $(this).parent().parent().parent().children('.btn');
+							
+					$(box).parent().children('.re_reply').toggleClass('hide');
+					fn_child_reply(box, parent[k]);
+				});
+				
+					$('.re_reply_paging:eq(' + k + ')').on('click', '.next_block', function(){
+					page_arr[k] = $(this).attr('data-page');
+					var box = $(this).parent().parent().parent().children('.btn');
+					$(box).parent().children('.re_reply').toggleClass('hide');
+					fn_child_reply(box, parent[k]);
+				}); 
+			}
+		}
  				
- 				for(let k = 0; k < totalReply; k++){
-					
- 					// 각 댓글마다 대댓글 페이징 링크 걸기
-  					$('.re_reply_paging:eq(' + k + ')').on('click', '.previous_block', function(){
- 						page_arr[k] = $(this).attr('data-page');
- 						var box = $(this).parent().parent().parent().children('.btn');	
- 						$(box).parent().children('.re_reply').toggleClass('hide');
- 						fn_child_reply(box, parent[k]);
- 					}); 
- 					
- 					$('.re_reply_paging:eq(' + k + ')').on('click', '.go_page', function(){
- 						page_arr[k] = $(this).attr('data-page');
- 						var box = $(this).parent().parent().parent().children('.btn');
- 								
- 						$(box).parent().children('.re_reply').toggleClass('hide');
- 						fn_child_reply(box, parent[k]);
- 					});
- 					
-  					$('.re_reply_paging:eq(' + k + ')').on('click', '.next_block', function(){
- 						page_arr[k] = $(this).attr('data-page');
- 						var box = $(this).parent().parent().parent().children('.btn');
- 						$(box).parent().children('.re_reply').toggleClass('hide');
- 						fn_child_reply(box, parent[k]);
- 					}); 
- 				}
- 			}
- 				
-		
 		// 각 댓글의 대댓글 페이징을 위한 변수
 		let page_arr = [];
 		let parent = [];
@@ -171,8 +105,6 @@
 			
 			var paging = null;
 			var index = $('.btn').index(box);
-			
-			
 			
 			$.ajax({
 				url: 'getChildList.do',
@@ -311,12 +243,12 @@
 				.append( $('<div class="writer_box">').append( $('<span>').text(reply.mid) )  )
 				.append( $('<div class="content_box">').append( $('<span>').text(reply.rcontent) )  )
 				.append( $('<div class="date_box">').append( $('<span>').text(reply.rpostDate) )  )
-				.append( $('<input type="button" value="답글" class="btn" onclick="fn_child_reply(this,' + parent[i] + ')">'))
+				.append( $('<input type="button" value=">> 답글" class="btn" onclick="fn_child_reply(this,' + parent[i] + ')">'))
 				.append( $('<div class="hide re_reply" id=re_reply' + parent[i] + '>')
-						.append( $('<div class="re_re_box">')
-								.append( $('<i class="fab fa-replyd fa-2x"></i>') )	
-								.append( $('<input type="text" class="re_re_content" id="re_re' + parent[i] + '">') )		
-								.append( $('<input type="button" value="작성" onclick="fn_insert_re_re(' + parent[i] +')">') )
+				.append( $('<div class="re_re_box">')
+					.append( $('<i class="fab fa-replyd fa-2x"></i>') )	
+					.append( $('<input type="text" class="re_re_content" id="re_re' + parent[i] + '">') )		
+					.append( $('<input type="button" value="작성" class="re_btn" onclick="fn_insert_re_re(' + parent[i] +')">') )
 						)
 						.append( $('<div class="re_reply_paging">') )
 						.append( $('<input type="hidden" id="re_reply_paging_no' + i + '" value="' + i + '">') )
@@ -382,89 +314,87 @@
 		}	// fn_reply
 		
 	</script>
-</head>
-<body>
-	
-		
-	
-	
-	
-	<form id="f" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="page" value="${page}">
-		<input type="hidden" name="bIdx" value="${Board.BIdx}">
-		작성자 <input type="text" name="mId" value="${Board.MId}" disabled><br><br>
-		<input type="hidden" name="bHit" value="${Board.BHit}" disabled><br><br>
-		
-		제목 <input type="text" name="bTitle" value="${Board.BTitle}" disabled>
-		작성일 <input type="text" name="bPostdate" value="${Board.BPostDate}" disabled>
-		<br><br>
-		내용<br>
-		<textarea name="bContent" cols="50" rows="10" disabled>${Board.BContent}</textarea><br><br>
-		<c:if test="${Board.BFileName1 ne 'null'}">
-			첨부 이미지<br>
-			<img name="image1" alt="${Board.BFileName1}" src="resources/archive/board/${Board.BFileName1}" style="width: 300px">
-			<input type="hidden" name="bFileName1" value="${Board.BFileName1}">
-		</c:if>
-		<c:if test="${Board.BFileName2 ne 'null'}">
-			<br>첨부 이미지<br>
-			<img name="image2" alt="${Board.BFileName2}" src="resources/archive/board/${Board.BFileName2}" style="width: 300px">
-			<input type="hidden" name="bFileName2" value="${Board.BFileName2}">
-		</c:if>
-		<c:if test="${Board.BFileName3 ne 'null'}">
-			<br>첨부 이미지<br>
-			<img name="image3" alt="${Board.BFileName3}" src="resources/archive/board/${Board.BFileName3}" style="width: 300px">
-			<input type="hidden" name="bFileName3" value="${Board.BFileName3}">
-		</c:if>
-		<br><br>
-		
-		<c:if test="${mode eq 'member'}">
-			<c:if test="${loginUser.MId == Board.MId}">
-				<input id="update_btn" type="button" value="수정하기">
-				<input id="delete_btn" type="button" value="삭제하기" >
-			</c:if>
-		</c:if>
-		
-		<c:if test="${mode eq 'admin'}">
-			<c:if test="${loginAdmin.MId == Board.MId}">
-				<input id="update_btn" type="button" value="수정하기">
-				<input id="delete_btn" type="button" value="삭제하기" >
-			</c:if>
-		</c:if>
-		
-		<input type="button" value="목록으로 돌아가기" onclick='location.href="boardPage.do"'><br><br>
-		</form>
-		
-		<c:if test="${loginUser eq null && loginAdmin eq null}">
-			<textarea rows="2" cols="30" id="reply_no_login" name="reply" placeholder="댓글을 입력하시려면 로그인하세요."></textarea>
-		</c:if>
-		
-	<form id="f_reply" method="post"> 
-		<input type="hidden" name="bIdx" value="${Board.BIdx}">
-		<input type="hidden" name="mode" value="${mode}">
 
-		
-		
-		<c:if test="${mode eq 'member'}">
-			<c:if test="${loginUser ne null}">
-				<input type="hidden" name="mId" value="${loginUser.MId}">
-				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-				<input type="hidden" name="parent" value="0">
-				<input type="button" id="reply_btn" value="댓글 달기">
+	<div class="container">
+		<!-- 게시글 상세 화면 -->
+		<form id="f" method="post" enctype="multipart/form-data" class="viewBoard">
+			<input type="hidden" name="page" value="${page}">
+			<input type="hidden" name="bIdx" value="${Board.BIdx}">
+			<span class="naming">작성자</span><input type="text" name="mId" value="${Board.MId}" disabled><br><br>
+			<input type="hidden" name="bHit" value="${Board.BHit}" disabled>
+			<span class="naming">제목&nbsp;&nbsp;</span><input type="text" class="margin" name="bTitle" value="${Board.BTitle}" disabled><br><br>
+			<span class="naming">작성일</span><input type="text" name="bPostdate" value="${Board.BPostDate}" disabled><br><br>
+			<span class="naming">내용</span><br>
+			<textarea name="bContent" cols="50" rows="10"  style="width: 400px" disabled>${Board.BContent}</textarea><br><br>
+			
+			<c:if test="${Board.BFileName1 ne 'null'}">
+				<span class="naming">첨부 이미지</span><br>
+				<img name="image1" alt="${Board.BFileName1}" src="resources/archive/board/${Board.BFileName1}" style="width: 400px" class="img">
+				<input type="hidden" name="bFileName1" value="${Board.BFileName1}">
 			</c:if>
-		</c:if>
-		
-		<c:if test="${mode ne 'admin'}">
-			<c:if test="${loginAdmin ne null}">
-				<input type="hidden" name="mId" value="${loginAdmin.MId}">
-				<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요"></textarea>
-				<input type="hidden" name="parent" value="0">
-				<input type="button" id="reply_btn" value="댓글 달기">
+			<c:if test="${Board.BFileName2 ne 'null'}">
+				<span class="naming">첨부 이미지</span><br>
+				<img name="image2" alt="${Board.BFileName2}" src="resources/archive/board/${Board.BFileName2}" style="width: 400px" class="img">
+				<input type="hidden" name="bFileName2" value="${Board.BFileName2}">
 			</c:if>
+			<c:if test="${Board.BFileName3 ne 'null'}">
+				<span class="naming">첨부 이미지</span><br>
+				<img name="image3" alt="${Board.BFileName3}" src="resources/archive/board/${Board.BFileName3}" style="width: 400px" class="img">
+				<input type="hidden" name="bFileName3" value="${Board.BFileName3}">
+			</c:if>
+			<br><br>
+			
+			<c:if test="${mode eq 'member'}">
+				<c:if test="${loginUser.MId == Board.MId}">
+					<input id="update_btn" type="button" value="수정하기">
+					<input id="delete_btn" type="button" value="삭제하기" >
+				</c:if>
+			</c:if>
+			
+			<c:if test="${mode eq 'admin'}">
+				<c:if test="${loginAdmin.MId == Board.MId}">
+					<input id="update_btn" type="button" value="수정하기">
+					<input id="delete_btn" type="button" value="삭제하기" >
+				</c:if>
+			</c:if>
+			
+			<input type="button" value="목록으로 돌아가기" onclick='location.href="boardPage.do"'><br><br>
+			
+		</form>
+			
+		<c:if test="${loginUser eq null && loginAdmin eq null}">
+			<textarea rows="2" cols="30" id="reply_no_login" name="reply" placeholder="댓글을 입력하시려면 로그인하세요." style="width: 600px"></textarea>
 		</c:if>
-		<div id="reply_list">
-		</div>
-		<div id="reply_paging"></div>
-	</form>
+			
+		<!-- 댓글 화면 -->
+		<form id="f_reply" method="post"> 
+			<input type="hidden" name="bIdx" value="${Board.BIdx}">
+			<input type="hidden" name="mode" value="${mode}">
+			
+			<c:if test="${mode eq 'member'}">
+				<c:if test="${loginUser ne null}">
+					<input type="hidden" name="mId" value="${loginUser.MId}">
+					<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요" style="width: 600px"></textarea>
+					<input type="hidden" name="parent" value="0">
+					<input type="button" id="reply_btn" value="댓글 달기" class="reply_btn">
+				</c:if>
+			</c:if>
+			
+			<c:if test="${mode ne 'admin'}">
+				<c:if test="${loginAdmin ne null}">
+					<input type="hidden" name="mId" value="${loginAdmin.MId}">
+					<textarea rows="2" cols="30" id="reply" name="reply" placeholder="댓글을 입력하세요" style="width: 600px"></textarea>
+					<input type="hidden" name="parent" value="0">
+					<input type="button" id="reply_btn" value="댓글 달기" class="reply_btn">
+			</c:if>
+			</c:if>
+			
+			<div id="reply_list"></div>
+			
+			<div id="reply_paging"></div>
+		</form>
+	</div>
+	
 <jsp:include page="../layout/footer.jsp">
 	<jsp:param value="로그인" name="title" />
 </jsp:include>

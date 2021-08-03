@@ -80,8 +80,7 @@ public class UpdateBoardCommand implements BoardCommand {
 		container.put("BFILENAME1", BFILENAME1);
 		container.put("BFILENAME2", BFILENAME2);
 		container.put("BFILENAME3", BFILENAME3);
-		
-		System.out.println(container);
+
 		boardDAO.updateBoard(container);
 		
 	}

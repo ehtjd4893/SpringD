@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% request.setCharacterEncoding("utf-8"); %>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="홈페이지제목" name="title" />
+</jsp:include>
 <!DOCTYPE html >
 <html>
 <head>
+<link rel="stylesheet" href="resources/css/nonMemReservationPage.css">
 <meta  charset=UTF-8>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -43,10 +48,11 @@
 
 	<!-- 비회원 예약 내역 -->
        
-	       <h1>예약내역</h1>
-	      
-	      
 	       
+	      
+	      
+<div id="box_middle">  
+<h1>예약내역</h1>
 	   <div class="row">
         <table id="example-table-2" width="100%" class="table table-bordered table-hover text-center">
             <thead>
@@ -83,7 +89,10 @@
                  
             </tbody>
         </table>
+        <br>
 	       *비회원 취소시 고객센터 연락바랍니다.
+       </div>
        </div>
 </body>
 </html>
+<%@ include file="../layout/footer.jsp" %> 

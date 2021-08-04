@@ -16,6 +16,7 @@
 </head>
 <body>
 <div id="box_middle">
+	 
 	<!-- 예약가능한 방이 없는 경우 -->
  	<c:if test="${empty room}">
  		예약가능한 방이 없습니다.
@@ -41,9 +42,11 @@
  			 	</div>
  			 
  			<hr>
+ 			
  		</c:forEach>
  	</c:if>
  </div>
+ <br><br><br><br><br><br><br><br><br><br><br><br>
 
 </body>
 </html>

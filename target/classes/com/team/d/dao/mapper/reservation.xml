@@ -63,7 +63,7 @@
 	<update id="cancelReservation">
 		UPDATE RESERVATION
 		SET	STATE='취소'
-		WHERE RENO=#{param1}
+		WHERE RENO = #{param1}
 	</update>
 	
 	<!-- 비회원 예약 조회 -->

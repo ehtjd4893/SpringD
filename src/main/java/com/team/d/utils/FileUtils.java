@@ -12,7 +12,6 @@ public class FileUtils {
 
 			// 올릴 때 파일명
 			String originalFilename = file.getOriginalFilename();
-			System.out.println("첨부파일명: " + originalFilename);
 			
 			// 서버에 저장할 파일명
 			// 파일명의 중복 방지 대책이 필요

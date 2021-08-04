@@ -34,7 +34,6 @@ public class RevInfoCommand implements ReservationCommand {
 		model.addAttribute("people",people);
 		model.addAttribute("food",food);
 		model.addAttribute("totalPay",totalPay);
-		System.out.println(rNo+","+checkIn);
 		
 	}
 

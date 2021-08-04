@@ -41,7 +41,6 @@
 				async: false,
 				dataType: 'json',
 				success: function(resultMap){
-					console.log('공지');
 					fn_makeNotice(resultMap.list);
 				},	// success
 				error: function(){

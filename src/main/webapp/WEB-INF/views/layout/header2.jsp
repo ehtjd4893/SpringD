@@ -64,7 +64,7 @@
 			    	emailCheck(response.kakao_account.email);
 			    },
 			    fail: function(error) {
-			        console.log(error);
+			    	
 			    }
 			});
 		}

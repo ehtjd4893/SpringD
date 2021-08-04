@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% request.setCharacterEncoding("utf-8"); %>
-<jsp:include page="../layout/header.jsp">
+<jsp:include page="../layout/header2.jsp">
 	<jsp:param value="홈페이지제목" name="title" />
 </jsp:include>
 <!DOCTYPE html>

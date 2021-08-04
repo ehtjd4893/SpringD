@@ -16,9 +16,8 @@
 			fn_update();	// 수정 버튼 클릭시
 			fn_reply_no_login();	// 로그인 없이 댓글 달기 시도할 때
 			fn_reply_btn();	// 로그인 후 댓글 달기 클릭시
-			getDate();		// 시간 보여주는 함수
 
-			fn_toggle_mode(); 	// 관리자 로그인 모드 / 회원 로그인 모드로 변경하는 버튼
+
 			fn_getReplyList();	// 댓글 출력 함수
 			
   	   	 	$('<input type="hidden" name="page" value="selectBoard.do">')
@@ -28,13 +27,7 @@
 			.appendTo( $('.form') )
 		});	// onload
 
-		
-		// 로그인 없이 댓글 달려고 할 때,
-		function fn_reply_no_login(){
-			$('#reply_no_login').focus(function(){
-				$('.form').toggleClass('hide');		
-			});	// onfocus
-		}
+
 		
 		// 댓글 불러오기 함수
 		function fn_getReplyList(){

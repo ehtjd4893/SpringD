@@ -13,7 +13,6 @@
 	<script>
 	
 		$(function(){
-			getDate();		// 시간 보여주는 함수
 		});	// onload
 	
 		function loadFile(input, span_file, div_img) {
@@ -39,19 +38,6 @@
 			}
 		  	//새로운 이미지 div 추가
 		}		
-
-	    function getDate() { 
-	        date = setInterval(function () { 
-	            var dateString = ""; 
-
-	            var newDate = new Date(); 
-
-	            dateString += ("0" + newDate.getHours()).slice(-2) + ":"; 
-	            dateString += ("0" + newDate.getMinutes()).slice(-2) ; 
-	            //document.write(dateString); 문서에 바로 그릴 수 있다. 
-	            $("#date").text(dateString); 
-	        }, 1000);	// 1초 단위로  
-	    } 
 		
 	</script>
 

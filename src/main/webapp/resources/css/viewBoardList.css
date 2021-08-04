@@ -77,3 +77,6 @@ table.table td {
 .btn:hover {
 	cursor: pointer;
 }
+#notice{
+	background: #f4ec99;
+}
